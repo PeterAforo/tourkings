@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vault Dashboard | TourKings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary": "#731c00",
+                        "primary": "#003b7a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#001b3e",
+                        "on-tertiary-fixed-variant": "#862200",
+                        "on-secondary-container": "#694000",
+                        "on-tertiary-fixed": "#3a0a00",
+                        "inverse-surface": "#342f2c",
+                        "tertiary-fixed-dim": "#ffb59f",
+                        "secondary": "#865300",
+                        "secondary-container": "#ffa522",
+                        "on-background": "#1f1b18",
+                        "on-primary-container": "#abc7ff",
+                        "tertiary-container": "#9b2900",
+                        "surface-bright": "#fff8f5",
+                        "inverse-primary": "#aac7ff",
+                        "surface-container-highest": "#eae1db",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#aac7ff",
+                        "on-surface": "#1f1b18",
+                        "primary-fixed": "#d6e3ff",
+                        "tertiary-fixed": "#ffdbd1",
+                        "outline": "#737782",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f8efea",
+                        "secondary-fixed": "#ffddb9",
+                        "primary-container": "#1d5299",
+                        "on-secondary-fixed-variant": "#663e00",
+                        "background": "#fff8f5",
+                        "on-primary-fixed-variant": "#05458c",
+                        "surface": "#fff8f5",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#ffb59f",
+                        "surface-variant": "#eae1db",
+                        "secondary-fixed-dim": "#ffb963",
+                        "outline-variant": "#c3c6d2",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#fbf2ec",
+                        "surface-dim": "#e1d8d3",
+                        "on-surface-variant": "#424751",
+                        "surface-container-high": "#f0e6e1",
+                        "surface-container": "#f6ece7",
+                        "surface-tint": "#2d5ea5",
+                        "on-secondary-fixed": "#2b1700",
+                        "error": "#ba1a1a"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift { transition: background-color 0.3s ease; }
+        .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fff8f5]/80 glass-nav shadow-[0_20px_40px_rgba(31,27,24,0.06)] font-headline antialiased">
+<div class="flex justify-between items-center h-20 px-12 max-w-[1920px] mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-primary">TourKings</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-on-background hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-on-background hover:text-primary transition-colors" href="#">Heritage Path</a>
+<a class="text-primary font-bold border-b-2 border-secondary pb-1" href="#">Vault</a>
+<a class="text-on-background hover:text-primary transition-colors" href="#">CMS Tools</a>
+<a class="text-on-background hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface cursor-pointer hover:bg-surface-container-highest p-2 rounded-full transition-all">notifications</span>
+<span class="material-symbols-outlined text-on-surface cursor-pointer hover:bg-surface-container-highest p-2 rounded-full transition-all">settings</span>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-lg font-bold shadow-lg hover:scale-95 transition-transform">
+                    Create Tour
+                </button>
+<img alt="Administrator Profile" class="w-10 h-10 rounded-full object-cover border-2 border-surface-container-highest" data-alt="Close-up portrait of a professional African man in a tailored suit, warm lighting, blurred executive office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAM3sb7y1qENCyZWElaXw6RvW6H1YMGnMh2_fNMzH5r53ZtIb7-GhYOwgR2NBRu3-nXLtHKTgfu15czm2eCYAsPrUH25YQE6zEZnIXfARmlPi_b6rE7HcGsPcVdjVCgoUUy4gXZkCsciglgq_Fvy-dvyIzU1SVO87enZUWAwdGODTygtbaPCdbzIsWknp0P0p2iWOaxwXdZaAk3X6HUS0fhAyvHq_nJeucNdRkk4EcmmH6Z_TluSp_Sq3FrOqr21-x4MzwxCOF4Ng"/>
+</div>
+</div>
+</header>
+<div class="flex pt-20 min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-[calc(100vh-5rem)] w-72 fixed left-0 top-20 bg-surface-container-low font-label font-medium pt-8 pb-10">
+<div class="px-8 mb-8">
+<h2 class="text-secondary text-xs tracking-widest uppercase font-bold">The Royal Navigator</h2>
+<p class="text-on-surface-variant text-[10px]">Administrative Suite</p>
+</div>
+<div class="flex flex-col h-full overflow-y-auto">
+<a class="flex items-center gap-4 px-6 py-4 mx-4 my-1 text-on-background hover:bg-surface-container-highest rounded-lg transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">dashboard</span> Overview
+                </a>
+<a class="flex items-center gap-4 px-6 py-4 mx-4 my-1 bg-surface-container-lowest text-primary rounded-lg shadow-sm font-bold transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span> Vault Manager
+                </a>
+<a class="flex items-center gap-4 px-6 py-4 mx-4 my-1 text-on-background hover:bg-surface-container-highest rounded-lg transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">map</span> Tour Inventory
+                </a>
+<a class="flex items-center gap-4 px-6 py-4 mx-4 my-1 text-on-background hover:bg-surface-container-highest rounded-lg transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">group</span> User Access
+                </a>
+<a class="flex items-center gap-4 px-6 py-4 mx-4 my-1 text-on-background hover:bg-surface-container-highest rounded-lg transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">account_tree</span> Heritage Logic
+                </a>
+<div class="mt-auto pt-8">
+<div class="mx-8 p-4 rounded-xl bg-primary-container/10 border-l-4 border-primary mb-8">
+<p class="text-xs text-primary font-bold">System Health: Optimal</p>
+</div>
+<a class="flex items-center gap-4 px-6 py-3 mx-4 my-1 text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">help_center</span> Help Center
+                    </a>
+<a class="flex items-center gap-4 px-6 py-3 mx-4 my-1 text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span> Log Out
+                    </a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 lg:ml-72 p-8 md:p-12 max-w-[1400px] mx-auto">
+<!-- Vault Hero / Balance -->
+<section class="mb-12 relative overflow-hidden rounded-2xl bg-primary-container text-on-primary-container p-8 md:p-12 shadow-xl">
+<div class="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none">
+<svg class="w-full h-full fill-white" viewbox="0 0 100 100">
+<path d="M50 0L61.2 38.8H100L68.8 61.2L80 100L50 77.6L20 100L31.2 61.2L0 38.8H38.8L50 0Z"></path>
+</svg>
+</div>
+<div class="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+<div>
+<span class="text-secondary font-bold tracking-widest uppercase text-xs">Sovereign Vault Balance</span>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold text-white mt-2 mb-4">₵245,850.00</h1>
+<p class="text-primary-fixed/80 max-w-md">Your heritage investment continues to grow. You have earned ₵1,240.50 in royalty dividends this month.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 justify-end">
+<button class="flex items-center justify-center gap-3 bg-white text-primary px-8 py-4 rounded-xl font-bold shadow-lg hover:scale-105 transition-all">
+<span class="material-symbols-outlined">add_circle</span> Top-Up Vault
+                        </button>
+<button class="flex items-center justify-center gap-3 bg-primary/40 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-primary/60 transition-all">
+<span class="material-symbols-outlined">receipt_long</span> Statement
+                        </button>
+</div>
+</div>
+</section>
+<div class="grid lg:grid-cols-3 gap-8">
+<!-- Transaction History -->
+<div class="lg:col-span-2 space-y-8">
+<div class="bg-surface-container-low rounded-2xl p-8 shadow-sm">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+<h3 class="font-headline text-2xl font-bold">Transaction History</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container-highest text-sm font-medium hover:bg-surface-container transition-colors">Date</button>
+<button class="px-4 py-2 rounded-lg bg-surface-container-highest text-sm font-medium hover:bg-surface-container transition-colors">Type</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium">All Status</button>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Transaction Item -->
+<div class="group flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-highest transition-all">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">tour</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Luxury Safari Payout</p>
+<p class="text-xs text-on-surface-variant">Mole National Park • 12 Oct 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-green-600">+₵12,400.00</p>
+<span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold uppercase">Completed</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-highest transition-all border-t border-outline-variant/10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Vault Top-Up</p>
+<p class="text-xs text-on-surface-variant">Mobile Money • 10 Oct 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-on-surface">+₵5,000.00</p>
+<span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold uppercase">Completed</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-highest transition-all border-t border-outline-variant/10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-tertiary-container/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">history_edu</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Heritage Site Fee</p>
+<p class="text-xs text-on-surface-variant">Elmina Castle • 08 Oct 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-tertiary">-₵1,200.00</p>
+<span class="text-[10px] bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full font-bold uppercase">Processing</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-highest transition-all border-t border-outline-variant/10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">stars</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Loyalty Bonus</p>
+<p class="text-xs text-on-surface-variant">System Reward • 05 Oct 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-green-600">+₵450.00</p>
+<span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold uppercase">Completed</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-4 text-primary font-bold text-sm border-2 border-primary/10 rounded-xl hover:bg-primary/5 transition-all">
+                            View Full Transaction Archive
+                        </button>
+</div>
+</div>
+<!-- Side Panels: Savings Insights & Top Up Flow -->
+<div class="space-y-8">
+<!-- Quick Top-Up Card -->
+<div class="bg-surface-container-highest rounded-2xl p-8 border border-white/50">
+<h4 class="font-headline text-xl font-bold mb-2">Instant Top-Up</h4>
+<p class="text-sm text-on-surface-variant mb-6">Choose an amount to add to your vault balance instantly.</p>
+<div class="grid grid-cols-2 gap-3 mb-6">
+<button class="py-3 px-4 rounded-lg bg-surface-container-lowest font-bold border-2 border-transparent hover:border-primary transition-all">₵1,000</button>
+<button class="py-3 px-4 rounded-lg bg-surface-container-lowest font-bold border-2 border-transparent hover:border-primary transition-all">₵5,000</button>
+<button class="py-3 px-4 rounded-lg bg-surface-container-lowest font-bold border-2 border-transparent hover:border-primary transition-all">₵10,000</button>
+<button class="py-3 px-4 rounded-lg bg-surface-container-lowest font-bold border-2 border-primary text-primary transition-all">Custom</button>
+</div>
+<div class="space-y-3">
+<label class="text-[10px] font-bold uppercase text-secondary tracking-widest">Payment Method</label>
+<div class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-lg border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary">smartphone</span>
+<span class="text-sm font-medium">MTN Mobile Money (...4501)</span>
+</div>
+</div>
+<button class="w-full mt-6 py-4 bg-primary text-white rounded-xl font-bold shadow-md hover:bg-primary-container transition-all">
+                            Confirm Deposit
+                        </button>
+</div>
+<!-- Savings Insights -->
+<div class="bg-white rounded-2xl p-8 shadow-sm relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/5 rounded-full"></div>
+<h4 class="font-headline text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+                            Vault Insights
+                        </h4>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="shrink-0 w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+</div>
+<div>
+<h5 class="text-sm font-bold">Reach your target 20% faster</h5>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">By increasing your monthly tour commissions by 5%, you'll reach the "Royal Platinum" tier by December.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="shrink-0 w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+</div>
+<div>
+<h5 class="text-sm font-bold">Optimize Payout Dates</h5>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">Tours booked for Tuesday departures have 12% higher profit margins due to lower heritage site fees.</p>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 rounded-xl bg-surface-container-low">
+<p class="text-[10px] font-bold text-secondary uppercase mb-2">Next Milestone</p>
+<div class="flex justify-between text-xs font-bold mb-2">
+<span>Royal Ambassador</span>
+<span>75%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-gradient-to-r from-secondary to-secondary-container h-full w-[75%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full mt-auto py-12 bg-[#1f1b18] text-white font-label font-medium">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 gap-8 max-w-[1920px] mx-auto">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="text-secondary font-bold text-xl">TourKings</span>
+<p class="text-stone-500 text-[10px] tracking-widest uppercase">© 2024 TourKings. Sovereign Voyager Heritage System.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 text-xs tracking-widest uppercase">
+<a class="text-stone-500 hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="text-stone-500 hover:text-white transition-colors" href="#">Terms of Service</a>
+<a class="text-stone-500 hover:text-white transition-colors" href="#">Security Audit</a>
+<a class="text-stone-500 hover:text-white transition-colors" href="#">API Documentation</a>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full border border-stone-800 flex items-center justify-center hover:bg-stone-800 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-sm">shield</span>
+</div>
+<div class="w-10 h-10 rounded-full border border-stone-800 flex items-center justify-center hover:bg-stone-800 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

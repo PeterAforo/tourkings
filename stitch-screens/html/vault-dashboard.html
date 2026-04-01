@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Vault | TourKings</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-container": "#ffa522",
+              "primary": "#003b7a",
+              "on-secondary-fixed-variant": "#663e00",
+              "on-primary-fixed-variant": "#05458c",
+              "outline-variant": "#c3c6d2",
+              "on-surface-variant": "#424751",
+              "on-tertiary-fixed-variant": "#862200",
+              "on-tertiary-container": "#ffb59f",
+              "on-primary-fixed": "#001b3e",
+              "surface-bright": "#fff8f5",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface": "#fff8f5",
+              "primary-fixed": "#d6e3ff",
+              "on-secondary": "#ffffff",
+              "inverse-primary": "#aac7ff",
+              "surface-container": "#f6ece7",
+              "on-surface": "#1f1b18",
+              "primary-fixed-dim": "#aac7ff",
+              "tertiary-container": "#9b2900",
+              "primary-container": "#1d5299",
+              "error-container": "#ffdad6",
+              "on-primary": "#ffffff",
+              "tertiary-fixed": "#ffdbd1",
+              "surface-container-highest": "#eae1db",
+              "inverse-surface": "#342f2c",
+              "on-secondary-fixed": "#2b1700",
+              "secondary": "#865300",
+              "on-error-container": "#93000a",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#ffddb9",
+              "on-tertiary": "#ffffff",
+              "surface-dim": "#e1d8d3",
+              "on-tertiary-fixed": "#3a0a00",
+              "on-background": "#1f1b18",
+              "surface-container-low": "#fbf2ec",
+              "error": "#ba1a1a",
+              "on-secondary-container": "#694000",
+              "tertiary": "#731c00",
+              "surface-container-high": "#f0e6e1",
+              "inverse-on-surface": "#f8efea",
+              "on-primary-container": "#abc7ff",
+              "secondary-fixed-dim": "#ffb963",
+              "surface-variant": "#eae1db",
+              "surface-tint": "#2d5ea5",
+              "outline": "#737782",
+              "background": "#fff8f5"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .adinkra-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20l5-5-5-5-5 5 5 5zm0 0l-5 5 5 5 5-5-5-5z' fill='%23865300' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#fff8f5]/80 backdrop-blur-xl shadow-sm h-20 flex justify-between items-center px-8 font-['Plus_Jakarta_Sans']">
+<div class="flex items-center gap-4">
+<img alt="TourKings Logo" class="h-10 w-auto" data-alt="TourKings professional travel logo featuring elegant serif typography and a minimalist royal crown icon in deep blue and gold" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNG7VhSFy5QuLOAwaTijarKo1bwO8tZNyh8yN2SkVeJ77e9QTxb-lxNdyEFybEdqSBRvRgXK9zb8amC5bUXL1wvya0ETAawr3viutII9ARRtRKtajWFL41C80QDhWUY63FpJa1ZJkHFtw3Ux1B86cyTAeV0VOP9-ojbB8Hj6nkN8ydTeor3scEO7y7hD1nu_yb1YNEIeBwXQkz6oo7zQZ60DXsQ5A0L69m3nCS3hV_gRgp6Di7Oqq2R7Y79PT2zOQa6pn0LX7DuQ"/>
+<span class="text-2xl font-bold tracking-tighter bg-gradient-to-br from-[#003b7a] to-[#1d5299] bg-clip-text text-transparent">TourKings</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#003b7a] font-bold border-b-2 border-[#865300] pb-1" href="#">The Vault</a>
+<a class="text-[#1f1b18] font-medium hover:text-[#003b7a] transition-colors" href="#">Destinations</a>
+<a class="text-[#1f1b18] font-medium hover:text-[#003b7a] transition-colors" href="#">Itineraries</a>
+<a class="text-[#1f1b18] font-medium hover:text-[#003b7a] transition-colors" href="#">Heritage</a>
+<a class="text-[#1f1b18] font-medium hover:text-[#003b7a] transition-colors" href="#">Support</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-[#1f1b18] hover:bg-[#eae1db]/50 p-2 rounded-full transition-all active:scale-95">notifications</button>
+<button class="material-symbols-outlined text-[#1f1b18] hover:bg-[#eae1db]/50 p-2 rounded-full transition-all active:scale-95">settings</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border-2 border-primary/10">
+<img alt="User profile avatar" data-alt="close-up portrait of a smiling Ghanaian man in business casual attire with a blurred office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF-Ddwu9VwtDC86Tm_M9VeaJcIAHkE-b6ygZq1f8e7k4JeWtyALPSrCKjC9wMRYftZXXkCZrPA3cpj07SenJPkZpUjGx65Cw1lsWWqwyfWRgQ6Am6faXB8O7XTL4xLERoW2xi5ciAscpguJE0XMlf60-izkvqpYQi_3-OOFv1hfqUuxpLwBLZs2aZ4DWjcr08fpPu4gUDL2-qb7NwuDxJT0bqn18ZHBFNXRvqOk-7DO_m7pB6G7fdsW_nrfR_y0nRqL__7By5srA"/>
+</div>
+</div>
+</nav>
+<div class="flex min-h-screen pt-20">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 pt-24 pb-8 px-6 space-y-4 h-screen w-72 flex flex-col bg-[#fbf2ec] font-['Manrope'] tracking-tight">
+<div class="mb-8 px-2">
+<p class="text-[#865300] text-xs font-bold uppercase tracking-widest mb-1">Status</p>
+<h3 class="text-primary font-bold text-lg">Royal Navigator</h3>
+<p class="text-on-surface-variant text-sm">TourKings Gold Member</p>
+</div>
+<div class="space-y-1">
+<a class="bg-gradient-to-r from-[#003b7a] to-[#1d5299] text-white rounded-lg shadow-lg shadow-[#003b7a]/20 flex items-center gap-3 px-4 py-3 cursor-pointer transition-transform duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-semibold">Overview</span>
+</a>
+<a class="text-[#1f1b18] hover:bg-[#eae1db] rounded-lg flex items-center gap-3 px-4 py-3 cursor-pointer hover:translate-x-1 transition-transform duration-200">
+<span class="material-symbols-outlined">savings</span>
+<span class="font-medium">Savings Goal</span>
+</a>
+<a class="text-[#1f1b18] hover:bg-[#eae1db] rounded-lg flex items-center gap-3 px-4 py-3 cursor-pointer hover:translate-x-1 transition-transform duration-200">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-medium">Heritage Path</span>
+</a>
+<a class="text-[#1f1b18] hover:bg-[#eae1db] rounded-lg flex items-center gap-3 px-4 py-3 cursor-pointer hover:translate-x-1 transition-transform duration-200">
+<span class="material-symbols-outlined">description</span>
+<span class="font-medium">Documents</span>
+</a>
+<a class="text-[#1f1b18] hover:bg-[#eae1db] rounded-lg flex items-center gap-3 px-4 py-3 cursor-pointer hover:translate-x-1 transition-transform duration-200">
+<span class="material-symbols-outlined">shield</span>
+<span class="font-medium">Security</span>
+</a>
+</div>
+<div class="mt-8">
+<button class="w-full py-4 bg-primary text-white rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all">
+                    Make Contribution
+                </button>
+</div>
+<div class="mt-auto space-y-1 border-t border-outline-variant/20 pt-4">
+<a class="text-[#1f1b18] hover:bg-[#eae1db] rounded-lg flex items-center gap-3 px-4 py-2 cursor-pointer transition-all">
+<span class="material-symbols-outlined">help</span>
+<span class="text-sm">Help Center</span>
+</a>
+<a class="text-[#1f1b18] hover:bg-[#eae1db] rounded-lg flex items-center gap-3 px-4 py-2 cursor-pointer transition-all">
+<span class="material-symbols-outlined text-error">logout</span>
+<span class="text-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 flex-1 p-10 bg-surface">
+<!-- Header Section -->
+<header class="mb-12 flex justify-between items-end">
+<div>
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">The Vault</h1>
+<p class="text-secondary font-bold uppercase tracking-widest text-xs">Akwaaba! Welcome back, Royal Navigator.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-highest text-primary px-6 py-3 rounded-lg font-bold hover:bg-surface-container-high transition-colors">
+                        Download Report
+                    </button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-3 rounded-lg font-bold shadow-lg shadow-primary/10 hover:opacity-95 transition-all">
+                        Top Up Vault
+                    </button>
+</div>
+</header>
+<div class="grid grid-cols-12 gap-8">
+<!-- Total Balance Overview (Level 2 Card) -->
+<section class="col-span-12 lg:col-span-4 bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden adinkra-pattern flex flex-col justify-between min-h-[260px] border border-outline-variant/15">
+<div>
+<div class="flex justify-between items-start mb-6">
+<span class="bg-secondary-fixed text-on-secondary-fixed p-3 rounded-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</span>
+<span class="text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full uppercase tracking-tighter">Total Balance</span>
+</div>
+<h3 class="text-5xl font-extrabold text-primary mb-1">$14,850<span class="text-2xl text-primary/60">.00</span></h3>
+<p class="text-on-surface-variant text-sm font-medium">Accumulated Heritage Savings</p>
+</div>
+<div class="mt-6 flex items-center gap-2 text-green-700 font-bold text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+12.5% this month</span>
+</div>
+</section>
+<!-- Next Goal Progress (Asymmetric Bento) -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-low p-8 rounded-xl border border-outline-variant/15 flex gap-8">
+<div class="w-1/3 h-full rounded-lg overflow-hidden shadow-sm relative group">
+<img alt="Akwaaba Heritage Tour Destination" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="stunning aerial view of Elmina Castle on the coast of Ghana at sunset with turquoise ocean waves and warm orange sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOTZc1BmXr-D2-CLF8w1zTpNgUjj5T-EC_8wreBm_sBIQ8tkZ0bckHeW5-6HuzFDywZUgqDDqpAIeBEGel4cPVP59VXvJwcRmT1GPyVawvXDL_jUt2VeA8iM-oe7ZIUnaX1D3TYnNv6bM1k8TW_7b8i14Kbi1JZhxcjJ2eQLtR1LX_H36ZeIzmO-Mfwm1wjmIATHneMb0pwSKACWxUF96__Yq9g0ZOOajtQY1TUszkKdr57GDM6hoWzcA4cT9y8oXtN10UEzemfw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<p class="text-[10px] uppercase font-bold tracking-widest text-secondary-fixed">Target Tour</p>
+<p class="font-bold">Akwaaba Heritage Tour</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<div class="flex justify-between items-end mb-4">
+<div>
+<h3 class="text-2xl font-bold text-on-surface">Saving Goal</h3>
+<p class="text-on-surface-variant text-sm">Road to the Royal Heritage Experience</p>
+</div>
+<div class="text-right">
+<p class="text-3xl font-extrabold text-primary">75%</p>
+<p class="text-xs font-bold text-secondary uppercase tracking-widest">Completed</p>
+</div>
+</div>
+<div class="w-full h-4 bg-surface-container-highest rounded-full overflow-hidden mb-6">
+<div class="h-full bg-gradient-to-r from-secondary to-secondary-container w-3/4 rounded-full"></div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-4 rounded-lg">
+<p class="text-xs text-on-surface-variant font-bold uppercase mb-1">Saved So Far</p>
+<p class="text-xl font-bold text-on-surface">$11,250</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg">
+<p class="text-xs text-on-surface-variant font-bold uppercase mb-1">Remaining</p>
+<p class="text-xl font-bold text-on-surface">$3,750</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Contributions (Clean List) -->
+<section class="col-span-12 lg:col-span-7 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/15">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-xl font-bold text-on-surface">Recent Contributions</h3>
+<a class="text-primary font-bold text-sm hover:underline" href="#">View All</a>
+</div>
+<div class="space-y-6">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Monthly Recurring Savings</p>
+<p class="text-xs text-on-surface-variant font-medium">October 01, 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">+$1,500.00</p>
+<p class="text-[10px] text-secondary font-bold uppercase tracking-widest">Auto-Vault</p>
+</div>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-secondary-fixed rounded-lg flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Manual Vault Top-up</p>
+<p class="text-xs text-on-surface-variant font-medium">September 15, 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">+$500.00</p>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Instant Pay</p>
+</div>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Monthly Recurring Savings</p>
+<p class="text-xs text-on-surface-variant font-medium">September 01, 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">+$1,500.00</p>
+<p class="text-[10px] text-secondary font-bold uppercase tracking-widest">Auto-Vault</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Heritage Milestones (Gamified Section) -->
+<section class="col-span-12 lg:col-span-5 bg-primary p-8 rounded-xl text-white relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]">military_tech</span>
+</div>
+<h3 class="text-xl font-bold mb-6">Heritage Milestones</h3>
+<div class="space-y-6 relative z-10">
+<div class="flex gap-4 items-start">
+<div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<p class="font-bold">Coastal Guardian Status</p>
+<p class="text-xs text-primary-fixed opacity-80">Saved first $5,000 for Ghanaian tours</p>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<p class="font-bold">Consistent Voyager</p>
+<p class="text-xs text-primary-fixed opacity-80">12 consecutive months of contributions</p>
+</div>
+</div>
+<div class="flex gap-4 items-start opacity-50">
+<div class="w-10 h-10 rounded-full border-2 border-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-secondary text-sm">lock</span>
+</div>
+<div>
+<p class="font-bold">Royal Navigator</p>
+<p class="text-xs text-primary-fixed opacity-80">Reach $20,000 in your Vault</p>
+</div>
+</div>
+</div>
+<button class="mt-8 w-full py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold hover:opacity-90 transition-all">
+                        View All Achievements
+                    </button>
+</section>
+<!-- Quick Actions -->
+<section class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+<button class="bg-surface-container-high p-6 rounded-xl text-left flex items-center gap-4 hover:bg-surface-container-highest transition-all group">
+<span class="material-symbols-outlined bg-white p-3 rounded-lg text-primary shadow-sm group-hover:scale-110 transition-transform">payments</span>
+<div>
+<p class="font-bold text-on-surface">Top Up My Vault</p>
+<p class="text-xs text-on-surface-variant">Instant one-time deposit</p>
+</div>
+</button>
+<button class="bg-surface-container-high p-6 rounded-xl text-left flex items-center gap-4 hover:bg-surface-container-highest transition-all group">
+<span class="material-symbols-outlined bg-white p-3 rounded-lg text-primary shadow-sm group-hover:scale-110 transition-transform">flag</span>
+<div>
+<p class="font-bold text-on-surface">Set New Goal</p>
+<p class="text-xs text-on-surface-variant">Start saving for your next tour</p>
+</div>
+</button>
+<button class="bg-surface-container-high p-6 rounded-xl text-left flex items-center gap-4 hover:bg-surface-container-highest transition-all group">
+<span class="material-symbols-outlined bg-white p-3 rounded-lg text-primary shadow-sm group-hover:scale-110 transition-transform">schedule_send</span>
+<div>
+<p class="font-bold text-on-surface">Schedule Savings</p>
+<p class="text-xs text-on-surface-variant">Automate your royal journey</p>
+</div>
+</button>
+</section>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-12 mt-auto bg-[#1f1b18] flex flex-col md:flex-row justify-between items-center px-12 gap-8">
+<div class="flex flex-col gap-2">
+<span class="text-[#fff8f5] font-['Plus_Jakarta_Sans'] font-bold text-lg">TourKings Travel</span>
+<p class="text-[#eae1db]/60 text-sm uppercase tracking-widest font-['Manrope']">© 2024 TourKings Travel. Ghanaian Heritage, Global Luxury.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-[#eae1db]/60 hover:text-[#fff8f5] font-['Manrope'] text-sm uppercase tracking-widest transition-opacity" href="#">Privacy Policy</a>
+<a class="text-[#eae1db]/60 hover:text-[#fff8f5] font-['Manrope'] text-sm uppercase tracking-widest transition-opacity" href="#">Terms of Service</a>
+<a class="text-[#eae1db]/60 hover:text-[#fff8f5] font-['Manrope'] text-sm uppercase tracking-widest transition-opacity" href="#">Travel Insurance</a>
+<a class="text-[#865300] underline underline-offset-4 font-['Manrope'] text-sm uppercase tracking-widest" href="#">Contact Support</a>
+</div>
+</footer>
+</body></html>

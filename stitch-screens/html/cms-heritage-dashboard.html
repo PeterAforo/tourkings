@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heritage Path Admin Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#862200",
+              "on-secondary": "#ffffff",
+              "tertiary-container": "#9b2900",
+              "surface-tint": "#2d5ea5",
+              "surface-dim": "#e1d8d3",
+              "tertiary": "#731c00",
+              "on-background": "#1f1b18",
+              "surface-container-low": "#fbf2ec",
+              "secondary-fixed": "#ffddb9",
+              "on-error-container": "#93000a",
+              "on-primary-fixed": "#001b3e",
+              "primary-fixed-dim": "#aac7ff",
+              "on-primary-container": "#abc7ff",
+              "inverse-surface": "#342f2c",
+              "on-secondary-fixed": "#2b1700",
+              "background": "#fff8f5",
+              "on-tertiary-fixed": "#3a0a00",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "surface-bright": "#fff8f5",
+              "inverse-on-surface": "#f8efea",
+              "primary": "#003b7a",
+              "surface-container": "#f6ece7",
+              "outline": "#737782",
+              "on-tertiary-container": "#ffb59f",
+              "on-secondary-container": "#694000",
+              "outline-variant": "#c3c6d2",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface": "#fff8f5",
+              "secondary-container": "#ffa522",
+              "primary-container": "#1d5299",
+              "on-surface-variant": "#424751",
+              "on-primary-fixed-variant": "#05458c",
+              "error": "#ba1a1a",
+              "error-container": "#ffdad6",
+              "on-tertiary": "#ffffff",
+              "surface-variant": "#eae1db",
+              "surface-container-high": "#f0e6e1",
+              "inverse-primary": "#aac7ff",
+              "secondary-fixed-dim": "#ffb963",
+              "on-primary": "#ffffff",
+              "on-secondary-fixed-variant": "#663e00",
+              "secondary": "#865300",
+              "on-surface": "#1f1b18",
+              "primary-fixed": "#d6e3ff",
+              "tertiary-fixed": "#ffdbd1",
+              "surface-container-highest": "#eae1db"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .royal-gradient {
+            background: linear-gradient(135deg, #003b7a 0%, #1d5299 100%);
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#fff8f5]/80 backdrop-blur-xl shadow-sm flex justify-between items-center px-8 h-16 w-full">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold bg-gradient-to-tr from-[#003b7a] to-[#1d5299] bg-clip-text text-transparent font-['Plus_Jakarta_Sans'] tracking-tight">TourKings Admin</span>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-[#1D5299] font-bold border-b-2 border-[#865300] py-5" href="#">Heritage Dashboard</a>
+<a class="text-[#1f1b18] hover:bg-[#eae1db]/50 transition-colors py-2 px-3 rounded-lg" href="#">Global Feed</a>
+<a class="text-[#1f1b18] hover:bg-[#eae1db]/50 transition-colors py-2 px-3 rounded-lg" href="#">System Logs</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary-container w-64" placeholder="Search navigators..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-[#eae1db]/50 p-2 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-[#eae1db]/50 p-2 rounded-full transition-colors">settings</button>
+<img alt="Administrator profile" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="close-up portrait of a professional administrator in a sharp navy blazer, sophisticated and authoritative lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9tEhHi-IUMfOMdqODFGSo50hweCNS_gB_rF6gtMvZvSQhsN1vXu3hkLuDbwhOSq_KAGQ7rbLgo-5smsWdCTamHrRcQQY46-lXFC3dSQh80JcKD-gL9SHF2oMCTfT7j4D5D_G5UXcASutPfPKgAZOQj33wrTL3ELJBcKCiFps-1lD3ekCxhkFo5yXaGb8Db_6JQnX9077DCShHVQ9hfaoKUkh0Zj5RuuNFk66aMW9NP59CSmXdGGjzdPRJdn9eFy7-OxrvnWbBHg"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#fff8f5] flex flex-col py-6 pr-4 space-y-2 z-40 pt-20">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 royal-gradient rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">castle</span>
+</div>
+<div>
+<h2 class="font-['Plus_Jakarta_Sans'] font-black text-[#1D5299] text-lg leading-tight">The Sovereign Voyager</h2>
+<p class="text-xs text-outline font-medium">Administrative CMS</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#003b7a] to-[#1d5299] text-white rounded-r-xl shadow-lg shadow-blue-900/10 font-medium text-sm" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Heritage Dashboard
+            </a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b18] hover:bg-[#fbf2ec] hover:translate-x-1 transition-all duration-200 rounded-r-xl font-medium text-sm" href="#">
+<span class="material-symbols-outlined">calculate</span>
+                Point Logic
+            </a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b18] hover:bg-[#fbf2ec] hover:translate-x-1 transition-all duration-200 rounded-r-xl font-medium text-sm" href="#">
+<span class="material-symbols-outlined">military_tech</span>
+                Medal Configuration
+            </a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b18] hover:bg-[#fbf2ec] hover:translate-x-1 transition-all duration-200 rounded-r-xl font-medium text-sm" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Engagement Reports
+            </a>
+</nav>
+<div class="px-4 mt-auto space-y-4">
+<button class="w-full royal-gradient text-white py-3 rounded-xl font-bold text-sm shadow-md flex items-center justify-center gap-2 active:scale-95 duration-200">
+<span class="material-symbols-outlined text-sm">add</span>
+                Create New Path
+            </button>
+<div class="pt-4 border-t border-surface-container">
+<a class="flex items-center gap-3 px-6 py-2 text-[#1f1b18] hover:bg-[#fbf2ec] rounded-r-xl text-sm" href="#">
+<span class="material-symbols-outlined text-lg">help</span>
+                    Support
+                </a>
+<a class="flex items-center gap-3 px-6 py-2 text-error hover:bg-error-container/20 rounded-r-xl text-sm" href="#">
+<span class="material-symbols-outlined text-lg">logout</span>
+                    Sign Out
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 pt-20 px-8 pb-12">
+<!-- Header -->
+<header class="mb-10 flex justify-between items-end">
+<div>
+<span class="text-secondary font-bold tracking-widest text-xs uppercase">Administrative Overview</span>
+<h1 class="text-4xl font-extrabold text-primary tracking-tight mt-1">Heritage Path Achievements</h1>
+</div>
+<div class="flex gap-3">
+<div class="bg-surface-container-low px-4 py-2 rounded-lg flex items-center gap-2 border border-outline-variant/10">
+<span class="text-sm font-medium text-on-surface-variant">Real-time Data:</span>
+<span class="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-bold text-on-surface">LIVE</span>
+</div>
+</div>
+</header>
+<!-- Section 1: Global Engagement Stats (Bento-style Cards) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="bg-surface-container-low p-8 rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-secondary font-bold text-xs uppercase tracking-widest mb-1">Total Points Earned</p>
+<h3 class="text-5xl font-black text-primary mb-2">1,284,500</h3>
+<div class="flex items-center gap-2 text-emerald-600 text-sm font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                        +12% from last month
+                    </div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform duration-700">
+<span class="material-symbols-outlined text-9xl">monetization_on</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10 relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-secondary font-bold text-xs uppercase tracking-widest mb-1">Most Active Medals</p>
+<h3 class="text-5xl font-black text-primary mb-2">42</h3>
+<p class="text-on-surface-variant text-sm font-medium">Across 15 Regional Paths</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:rotate-12 transition-transform duration-700">
+<span class="material-symbols-outlined text-9xl">military_tech</span>
+</div>
+</div>
+<div class="royal-gradient p-8 rounded-xl shadow-xl relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-secondary-fixed font-bold text-xs uppercase tracking-widest mb-1">Top Tier Navigators</p>
+<h3 class="text-5xl font-black text-white mb-2">892</h3>
+<div class="flex items-center gap-2 text-secondary-fixed text-sm font-bold">
+<span class="material-symbols-outlined text-sm">verified</span>
+                        Elite Heritage Status
+                    </div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-125 transition-transform duration-700">
+<span class="material-symbols-outlined text-9xl text-white">groups</span>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Section 2: Achievement Leaderboard -->
+<div class="lg:col-span-8 space-y-8">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">leaderboard</span>
+                            Achievement Leaderboard
+                        </h2>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+                            View Full List
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<!-- Leaderboard Item -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg group hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-4">
+<span class="w-8 text-xl font-black text-outline">01</span>
+<img alt="Traveler" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" data-alt="profile photo of a smiling adventurous man with sunglasses in front of a tropical forest background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxPaeUB2EVNsN9CudpS7ItRm0gkjrxTB2Lo_VmIfEjCITDFpWoKixoQT-ZmoSLf2fGxbCLPB1gQ1T7CSJpPD-31fs8Skx8X7ZLpdt0wfRNTOr5Xqn4VDM57FLlUInn2P7J7hKjGHZajI0VfofbRx8S07g_vjdQQByxG-wTD85QfOHJC0Ck03yYq4xSqcS-TzOmtWeQKIJiZRFt5S1FyK43OvYxgR12_7utB5r_v2F2yUtvPJSt-lje_we-yGIGD8n4kAQaYu0vvw"/>
+<div>
+<h4 class="font-bold text-on-surface">Kwesi Amponsah</h4>
+<p class="text-xs text-on-surface-variant">Recently unlocked: <span class="text-secondary font-bold">Golden Stool Legacy</span></p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-lg font-black text-primary">24,500 <span class="text-[10px] uppercase text-outline">pts</span></p>
+<div class="flex gap-1 justify-end mt-1">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+</div>
+</div>
+<!-- Leaderboard Item -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg group hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-4">
+<span class="w-8 text-xl font-black text-outline">02</span>
+<img alt="Traveler" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" data-alt="portrait of a young woman traveler with a camera around her neck, standing on a beach at sunrise" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmyetptYgYs75OFQe_5vXsnEwHpumQRtkshxEjzbftOkDHHAYIoy3SV6KLuyu9fcCEQ9uP27rVl-wsn4ym-vbY58ONeLg3se60x72clEVaVobzGHAtd5S16wGSc2fYH25iewxf-JJQTF7Tldh2Cfjq0IpWmLeE6Is6MzFl_ACP5DqFxqMaHO282TVWS3e4YNBZGxwLgkQnbiId3pmYyHI3R25H8TOBvv02TUZ23CzxwBzt-PAph1Z3Od2ZAvkBYrAvJr9wOv9Efg"/>
+<div>
+<h4 class="font-bold text-on-surface">Amara Okafor</h4>
+<p class="text-xs text-on-surface-variant">Recently unlocked: <span class="text-secondary font-bold">Coastal Guardian</span></p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-lg font-black text-primary">22,180 <span class="text-[10px] uppercase text-outline">pts</span></p>
+<div class="flex gap-1 justify-end mt-1">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+</div>
+</div>
+<!-- Leaderboard Item -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg group hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-4">
+<span class="w-8 text-xl font-black text-outline">03</span>
+<img alt="Traveler" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" data-alt="outdoor headshot of a mature traveler with a wide-brimmed hat, warm natural lighting in a savanna setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM7iEXXv3xmjarMFDUhfeZxbsRr5ZM8ttWcN-ji38dcp6S929Y_cRsABK876Lm4FYRvDvnT3Rey9Lm_s05Yvc167mbyQ_M5dlM18pgsERX7HfqiepHA_vpR1rVllJUZ3DF8IoQRgz9dJWm_Jql7hoAFKrAhefjmtsy6D420K3eloMzeI6KERIeXjWBqoEjk1Y5VHElNV4ikPlFM5QsmSNmJ5YDLoLUwCyzh-p8x1cEzQiDcu6QhfECaUwu2I9cnLA-WT2S9Ak_GQ"/>
+<div>
+<h4 class="font-bold text-on-surface">John Mensah</h4>
+<p class="text-xs text-on-surface-variant">Recently unlocked: <span class="text-secondary font-bold">Savanna Pathfinder</span></p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-lg font-black text-primary">19,450 <span class="text-[10px] uppercase text-outline">pts</span></p>
+<div class="flex gap-1 justify-end mt-1">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 4: Visual Cards Achievement Categories -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="group cursor-pointer">
+<div class="h-48 rounded-t-xl overflow-hidden relative">
+<img alt="Coastal" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="cinematic wide shot of a historic whitewashed fort on the rocky coast of Ghana under a dramatic sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbCUW_Hwd9Gylw2lkbDwdMtw-bxlrgcy5szVG3ezQ-6p1k7jkuFsGBt8-Tb5bsc8aPLTes6kDj-sfnROPa7h-2iKZL1bfI45tl2tbGhrr55FI0VKc_sGFN89497d9xGn9S7XRVElY4f1WtiILP-OugIbSREmq7JbN558Yvob_uBnLV5X1ZFSOIlHwhUHyXzkptGBXd_aHdPiz1x9xG4ektcuRZ1p5Z3Zvq-orrO6LUQjq6-DHXiAEFTYYqK0bh6VCMzieufIlDEQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<h4 class="text-white font-bold text-lg">Coastal</h4>
+<p class="text-primary-fixed-dim text-xs">12 Active Medals</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-b-xl border-t-0">
+<div class="flex justify-between items-center mb-3">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-widest">Growth</span>
+<span class="text-[10px] font-bold text-on-surface">+5.2%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="h-48 rounded-t-xl overflow-hidden relative">
+<img alt="Savanna" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="breathtaking landscape of a golden savanna at sunset with acacia trees silhouetted against a deep orange sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs6JjIhmd4cbw1zJ1nWIiB4kcmFxbVS8bRiz5isz15KOgSxxDFFSyhYrg_zD_Wzt-Ad_BYdkpYK2gQnq7Q1HQuaunf53hnJJV-BTZXx7ObALLTch8HwcWA1E_Mbs6ea30iktMyW71mgwKoKJdxEzEq-QT5lfdyIY-M9n3ycJY8Cq14FpB33bm4b-jlzl5qPL7N39eARCP5jCCy4V0mVl4IJGGDm_CBk1k-cqBDuvI4n7c9eTRRJFbfQxsQitkWd57oAxkhM8E2Hw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<h4 class="text-white font-bold text-lg">Savanna</h4>
+<p class="text-primary-fixed-dim text-xs">8 Active Medals</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-b-xl border-t-0">
+<div class="flex justify-between items-center mb-3">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-widest">Growth</span>
+<span class="text-[10px] font-bold text-on-surface">+8.9%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[42%]"></div>
+</div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="h-48 rounded-t-xl overflow-hidden relative">
+<img alt="Cultural" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="vibrant close-up of traditional Kente cloth weaving with intricate patterns and bold colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8mVX5pZRsIMaNkwGwvX1WHjUAFDORQssGVQuJewVQ6n2-cJeSYw_CbVvNNUzma4QXaBAhgLUp2fUZ4_PGOSwqd35oYvMM0OEDaySldWA9Oe5qGRnFRuLJmvMDRbUHpj_BR_s-HGY0Oh9UZnAqAfqkAv3jwj8BRPr0Awg9OnTCMWEa6tZ4yhcGNrffzp1QM-eI-pknPn38-PZBwsTJS5c988hKxS5s7yE5czpRLfgNgLmw1I-TvVwU_do5B27I2P28lqchIXI_-w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<h4 class="text-white font-bold text-lg">Cultural</h4>
+<p class="text-primary-fixed-dim text-xs">22 Active Medals</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-b-xl border-t-0">
+<div class="flex justify-between items-center mb-3">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-widest">Growth</span>
+<span class="text-[10px] font-bold text-on-surface">+14.1%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[88%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Recent Heritage Activity -->
+<div class="lg:col-span-4">
+<div class="bg-surface-container rounded-xl p-8 h-full">
+<h2 class="text-2xl font-bold text-primary mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">history</span>
+                        Live Activity Log
+                    </h2>
+<div class="space-y-6">
+<!-- Activity Item -->
+<div class="relative pl-8 pb-6 border-l-2 border-outline-variant/30 last:pb-0 last:border-l-0">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" style="font-variation-settings: 'FILL' 1;">add</span>
+</div>
+<div>
+<span class="text-[10px] font-bold text-secondary uppercase tracking-widest">2 MINUTES AGO</span>
+<p class="text-sm text-on-surface mt-1"><span class="font-bold">Ebenezer Mensah</span> earned <span class="font-bold text-primary">+500 Heritage Points</span></p>
+<p class="text-xs text-on-surface-variant mt-1">Action: First Visit to Elmina Castle</p>
+</div>
+</div>
+<!-- Activity Item -->
+<div class="relative pl-8 pb-6 border-l-2 border-outline-variant/30 last:pb-0 last:border-l-0">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-secondary flex items-center justify-center shadow-lg shadow-secondary/20">
+<span class="material-symbols-outlined text-[10px] text-white" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<div>
+<span class="text-[10px] font-bold text-secondary uppercase tracking-widest">15 MINUTES AGO</span>
+<p class="text-sm text-on-surface mt-1"><span class="font-bold">Kofi Boateng</span> unlocked the <span class="font-bold text-primary">Savanna Explorer Medal</span></p>
+<p class="text-xs text-on-surface-variant mt-1">Achievement: Visited 3 northern wildlife reserves</p>
+</div>
+</div>
+<!-- Activity Item -->
+<div class="relative pl-8 pb-6 border-l-2 border-outline-variant/30 last:pb-0 last:border-l-0">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" style="font-variation-settings: 'FILL' 1;">person_add</span>
+</div>
+<div>
+<span class="text-[10px] font-bold text-secondary uppercase tracking-widest">45 MINUTES AGO</span>
+<p class="text-sm text-on-surface mt-1">New Navigator <span class="font-bold">Sarah Jenkins</span> joined the path</p>
+<p class="text-xs text-on-surface-variant mt-1">Origin: London, UK</p>
+</div>
+</div>
+<!-- Activity Item -->
+<div class="relative pl-8 pb-6 border-l-2 border-outline-variant/30 last:pb-0 last:border-l-0">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-emerald-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" style="font-variation-settings: 'FILL' 1;">redeem</span>
+</div>
+<div>
+<span class="text-[10px] font-bold text-secondary uppercase tracking-widest">1 HOUR AGO</span>
+<p class="text-sm text-on-surface mt-1"><span class="font-bold">Ama Serwaa</span> redeemed 5,000 points</p>
+<p class="text-xs text-on-surface-variant mt-1">Reward: Traditional Hand-woven Stole</p>
+</div>
+</div>
+<!-- Activity Item -->
+<div class="relative pl-8 pb-6 border-l-2 border-outline-variant/30 last:pb-0 last:border-l-0">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" style="font-variation-settings: 'FILL' 1;">add</span>
+</div>
+<div>
+<span class="text-[10px] font-bold text-secondary uppercase tracking-widest">2 HOURS AGO</span>
+<p class="text-sm text-on-surface mt-1"><span class="font-bold">David Smith</span> earned <span class="font-bold text-primary">+200 Heritage Points</span></p>
+<p class="text-xs text-on-surface-variant mt-1">Action: Photo Check-in at Independence Square</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-12 py-3 bg-surface-container-highest text-primary font-bold rounded-lg border border-outline-variant/20 hover:bg-surface-variant transition-colors text-sm">
+                        Audit All Activity
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Adinkra Pattern Background Element -->
+<div class="fixed bottom-0 right-0 w-96 h-96 opacity-[0.03] pointer-events-none z-[-1] scale-150 rotate-12">
+<svg class="w-full h-full" viewbox="0 0 100 100">
+<path d="M50 0 C 60 20 80 20 100 0 L 100 100 C 80 80 60 80 50 100 C 40 80 20 80 0 100 L 0 0 C 20 20 40 20 50 0" fill="currentColor"></path>
+</svg>
+</div>
+</body></html>

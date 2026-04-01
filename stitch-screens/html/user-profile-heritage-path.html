@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TourKings | Royal Voyager Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#c3c6d2",
+              "on-surface-variant": "#424751",
+              "on-secondary-fixed-variant": "#663e00",
+              "on-primary-fixed-variant": "#05458c",
+              "secondary-container": "#ffa522",
+              "primary": "#003b7a",
+              "surface": "#fff8f5",
+              "primary-fixed": "#d6e3ff",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-bright": "#fff8f5",
+              "on-tertiary-fixed-variant": "#862200",
+              "on-tertiary-container": "#ffb59f",
+              "on-primary-fixed": "#001b3e",
+              "on-surface": "#1f1b18",
+              "surface-container": "#f6ece7",
+              "on-secondary": "#ffffff",
+              "inverse-primary": "#aac7ff",
+              "tertiary-container": "#9b2900",
+              "primary-fixed-dim": "#aac7ff",
+              "error-container": "#ffdad6",
+              "primary-container": "#1d5299",
+              "on-primary": "#ffffff",
+              "on-secondary-fixed": "#2b1700",
+              "inverse-surface": "#342f2c",
+              "tertiary-fixed": "#ffdbd1",
+              "surface-container-highest": "#eae1db",
+              "secondary": "#865300",
+              "on-error-container": "#93000a",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#ffddb9",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "surface-container-low": "#fbf2ec",
+              "on-tertiary-fixed": "#3a0a00",
+              "on-background": "#1f1b18",
+              "surface-dim": "#e1d8d3",
+              "error": "#ba1a1a",
+              "tertiary": "#731c00",
+              "on-secondary-container": "#694000",
+              "surface-container-high": "#f0e6e1",
+              "secondary-fixed-dim": "#ffb963",
+              "on-primary-container": "#abc7ff",
+              "inverse-on-surface": "#f8efea",
+              "outline": "#737782",
+              "background": "#fff8f5",
+              "surface-variant": "#eae1db",
+              "surface-tint": "#2d5ea5"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .heritage-gradient {
+            background: linear-gradient(135deg, #003b7a 0%, #1d5299 100%);
+        }
+        .glass-panel {
+            background: rgba(255, 248, 245, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-stone-950/80 backdrop-blur-xl shadow-sm border-b border-stone-200/15">
+<div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+<span class="text-2xl font-bold tracking-tighter text-blue-900 dark:text-blue-100 font-headline">TourKings</span>
+<div class="hidden md:flex items-center space-x-8 font-plus-jakarta text-sm tracking-tight">
+<a class="text-stone-600 hover:text-blue-800 transition-colors" href="#">Tours</a>
+<a class="text-stone-600 hover:text-blue-800 transition-colors" href="#">Destinations</a>
+<a class="text-stone-600 hover:text-blue-800 transition-colors" href="#">Expeditions</a>
+<a class="text-stone-600 hover:text-blue-800 transition-colors" href="#">Heritage</a>
+<a class="text-stone-600 hover:text-blue-800 transition-colors" href="#">Community</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="p-2 text-stone-600 hover:bg-stone-100/50 rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center space-x-2 pl-2 border-l border-outline-variant/30">
+<span class="text-blue-900 font-bold border-b-2 border-amber-600 pb-1">account_circle</span>
+<span class="material-symbols-outlined text-blue-900">account_circle</span>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-20 px-6 max-w-7xl mx-auto">
+<!-- Hero Profile Header -->
+<header class="mb-12 relative overflow-hidden rounded-xl bg-surface-container-high p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
+<div class="relative z-10 w-32 h-32 md:w-48 md:h-48 rounded-xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="portrait of a distinguished ghanaian traveler in a tailored linen suit with a soft warm backlight at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr4W0ixIYpTjPhkvt0j3GFNdfQQPOhvhmnbNFTcZ89hlrYfESN-sQX8EVlg2meBMQTE7PXtRJZ_wfWlRBq2GS7a_y93exaFOJvm93FGx2Mo8Qz5CcjHJl1iKkosN2xQ9Nv8QjutiEOJTl8uUaaRJvbixsCOstpsKBJthm5ML4_b4voSKI0SOVzgjB94Rpet-fVZCniLYabFq6tzI87kSW5wpSpqD35v4ldGLx96oZkywIERwLvY-b1T-1llvv01H_AJXSX18hiqA"/>
+</div>
+<div class="relative z-10 flex-1 text-center md:text-left">
+<span class="text-secondary font-headline font-bold text-xs uppercase tracking-[0.2em] mb-2 block">Voyager Profile</span>
+<h1 class="text-4xl md:text-5xl font-headline font-extrabold text-primary mb-2 tracking-tighter">Kwame Mensah</h1>
+<p class="text-on-surface-variant flex items-center justify-center md:justify-start gap-2">
+<span class="material-symbols-outlined text-sm">verified</span> 
+                    Royal Concierge Member Since 2021
+                </p>
+<div class="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
+<button class="heritage-gradient text-on-primary px-6 py-2.5 rounded-lg font-bold text-sm shadow-lg hover:translate-y-[-2px] transition-all">
+                        Edit Profile
+                    </button>
+<button class="bg-surface-container-highest text-primary px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-surface-container-high transition-all">
+                        Share Passport
+                    </button>
+</div>
+</div>
+<!-- Heritage Pattern Decorative Element -->
+<div class="absolute right-[-5%] top-[-10%] opacity-5 pointer-events-none select-none">
+<span class="material-symbols-outlined text-[300px]">filter_vintage</span>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Heritage Path & Vault -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Heritage Path Section -->
+<section class="bg-surface-container-low rounded-xl p-8 relative overflow-hidden">
+<div class="flex justify-between items-center mb-10">
+<h2 class="text-2xl font-headline font-extrabold text-primary tracking-tight">Heritage Path</h2>
+<span class="text-secondary font-bold text-sm tracking-wider uppercase">Level: Navigator</span>
+</div>
+<!-- Custom Heritage Path Progress Tracker -->
+<div class="relative py-12">
+<div class="absolute top-1/2 left-0 w-full h-1 bg-outline-variant/20 -translate-y-1/2"></div>
+<div class="absolute top-1/2 left-0 w-3/4 h-1 bg-secondary -translate-y-1/2"></div>
+<div class="relative flex justify-between">
+<!-- Milestone 1 -->
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center z-10 shadow-lg">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">castle</span>
+</div>
+<span class="text-xs font-bold text-primary uppercase">Elmina</span>
+</div>
+<!-- Milestone 2 -->
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center z-10 shadow-lg">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">forest</span>
+</div>
+<span class="text-xs font-bold text-primary uppercase">Kakum</span>
+</div>
+<!-- Milestone 3 -->
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center z-10 shadow-lg">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">temple_hindu</span>
+</div>
+<span class="text-xs font-bold text-primary uppercase">Manhyia</span>
+</div>
+<!-- Milestone 4 (Upcoming) -->
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-outline flex items-center justify-center z-10 border-2 border-dashed border-outline-variant">
+<span class="material-symbols-outlined text-xl">landscape</span>
+</div>
+<span class="text-xs font-bold text-outline uppercase">Mole</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+<div class="bg-surface-container-lowest p-5 rounded-lg flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-3xl">military_tech</span>
+<div>
+<p class="text-on-surface font-bold">Historian Medal</p>
+<p class="text-on-surface-variant text-xs">Unlocked after visiting 5 Heritage sites</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-lg flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-3xl">star</span>
+<div>
+<p class="text-on-surface font-bold">Royal Points</p>
+<p class="text-on-surface-variant text-xs">8,450 points to next tier</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Vault Savings Summary -->
+<section class="bg-primary rounded-xl p-8 text-on-primary relative overflow-hidden">
+<div class="absolute right-[-2rem] bottom-[-2rem] opacity-10">
+<span class="material-symbols-outlined text-[180px]">account_balance_wallet</span>
+</div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h2 class="text-xl font-headline font-bold text-on-primary/80 uppercase tracking-widest text-xs mb-1">The Royal Vault</h2>
+<p class="text-4xl font-headline font-extrabold tracking-tighter">GH₵ 12,450.00</p>
+</div>
+<span class="bg-on-primary/20 text-on-primary px-3 py-1 rounded-full text-xs font-bold">Active Savings</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-end mb-2">
+<p class="text-sm font-bold">Next Expedition: Mole Safari</p>
+<p class="text-sm font-bold">82%</p>
+</div>
+<div class="w-full h-2 bg-on-primary/20 rounded-full">
+<div class="w-[82%] h-full bg-secondary-container rounded-full"></div>
+</div>
+</div>
+<div class="mt-8 flex gap-4">
+<button class="bg-on-primary text-primary px-5 py-2 rounded-lg text-sm font-bold hover:bg-primary-fixed transition-colors">Deposit</button>
+<button class="border border-on-primary/30 px-5 py-2 rounded-lg text-sm font-bold hover:bg-on-primary/10 transition-colors">Details</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Info & Security -->
+<div class="space-y-8">
+<!-- Personal Information -->
+<section class="bg-surface-container rounded-xl p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">person</span>
+<h2 class="text-xl font-headline font-bold text-primary">Identity</h2>
+</div>
+<div class="space-y-6">
+<div>
+<label class="block text-[10px] uppercase tracking-widest text-secondary font-bold mb-1">Email Address</label>
+<p class="text-on-surface font-medium border-b border-outline-variant/20 pb-2">kwame.mensah@heritage.gh</p>
+</div>
+<div>
+<label class="block text-[10px] uppercase tracking-widest text-secondary font-bold mb-1">Contact Number</label>
+<p class="text-on-surface font-medium border-b border-outline-variant/20 pb-2">+233 (0) 55 123 4567</p>
+</div>
+<div>
+<label class="block text-[10px] uppercase tracking-widest text-secondary font-bold mb-1">Preferred Language</label>
+<p class="text-on-surface font-medium border-b border-outline-variant/20 pb-2">English / Twi</p>
+</div>
+</div>
+</section>
+<!-- Security Section -->
+<section class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">shield</span>
+<h2 class="text-xl font-headline font-bold text-primary">Vault Security</h2>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">fingerprint</span>
+<span class="text-sm font-bold">Biometric Login</span>
+</div>
+<div class="w-10 h-5 bg-primary rounded-full relative">
+<div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">lock</span>
+<span class="text-sm font-bold">Password</span>
+</div>
+<button class="text-primary font-bold text-xs uppercase hover:underline">Change</button>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">devices</span>
+<span class="text-sm font-bold">Linked Devices</span>
+</div>
+<span class="text-on-surface-variant text-xs">2 Active</span>
+</div>
+</div>
+</section>
+<!-- Support CTA Card -->
+<div class="bg-secondary-container rounded-xl p-8 text-on-secondary-container">
+<span class="material-symbols-outlined text-4xl mb-4">support_agent</span>
+<h3 class="text-lg font-headline font-bold mb-2">Need a Concierge?</h3>
+<p class="text-sm opacity-90 mb-6">Our royal travel advisors are ready to assist with your next Ghanaian expedition.</p>
+<button class="w-full bg-on-secondary-container text-white py-3 rounded-lg font-bold text-sm shadow-xl">Contact Royal Concierge</button>
+</div>
+</div>
+</div>
+<!-- Recent Activity Asymmetric Layout -->
+<section class="mt-20">
+<h2 class="text-3xl font-headline font-extrabold text-primary mb-10 tracking-tight">Recent Journey Log</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="md:col-span-2 bg-white rounded-xl shadow-sm p-6 flex flex-col justify-between min-h-[240px]">
+<div>
+<span class="text-secondary text-[10px] font-bold uppercase tracking-widest">Last Expedition</span>
+<h3 class="text-2xl font-headline font-bold mt-2">The Golden Coast Retreat</h3>
+<p class="text-on-surface-variant mt-2 text-sm">3 Nights at Lou Moon, Axim</p>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="close up profile of a happy traveler" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDayRrKbUVmVbAU8sHs8wzRxqg56EEKybNsgRqRuI0umQGNDgeFQ7xtS_hhx9g4zVFxxsHzwpWvczi2rAxwoIpm1QE78nE7xufGbMnZAhXOiv-bAHFGZbyipWUU_L19_Y5tisTI10M_9MgR7OWbUDXkOptyfREcn5ka6wFMIDB0_V1IqPVD6DDIdQnY9X67H6lawLhw8gd6SGnl0cDiWLvktBCzAs_a7za8uMnCldhr_5vKsGigy8BcThnAXaRfPIh3XaKs3DxsRg"/>
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="profile of an adventurer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMsoSEycFzwmYf7acvoYHf06-dou_S-IRozSZjz52Flhd7Kk26G-EJKHWPf8DYmn8kE6uIV--ZTwYBGaSFgLnlrDua5zhsnidg6YcuraL_Qo6ICc60iZLe6u8a71zRBN-cmsHdzlGpV82pkldX1wwG1F2XrMP3KcQOZyiXtW1gUg6nWJtvD4usMonKmkJ3iqoHDLD_-uxmcrsTH7RxwRlECX3M1eco2lsXE-QFhSHz-rqgZhmKevOa95qSaoxUVhpOL1enZ1ro9A"/>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-[10px] font-bold">+3</div>
+</div>
+<button class="text-primary font-bold flex items-center gap-1 text-sm">View Album <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</div>
+</div>
+<div class="bg-surface-container-high rounded-xl p-6 flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-4xl text-secondary mb-4">forum</span>
+<h4 class="font-bold text-on-surface">Community Story</h4>
+<p class="text-xs text-on-surface-variant mt-2">Shared 15 photos from Mole National Park</p>
+</div>
+<div class="bg-surface-container rounded-xl p-6 flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<h4 class="font-bold text-on-surface">Legacy Badge</h4>
+<p class="text-xs text-on-surface-variant mt-2">Earned 'Savannah Sentinel' achievement</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-stone-50 dark:bg-stone-950 w-full py-12 border-t border-stone-200/10">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 space-y-6 md:space-y-0 max-w-7xl mx-auto">
+<div class="flex flex-col items-center md:items-start">
+<span class="font-plus-jakarta font-bold text-stone-900 dark:text-white text-xl">TourKings</span>
+<p class="font-manrope text-xs tracking-wide uppercase text-stone-500 mt-2">© 2024 TourKings. The Royal Navigator of Ghana.</p>
+</div>
+<div class="flex space-x-8 font-manrope text-xs tracking-wide uppercase">
+<a class="text-stone-500 hover:text-amber-500 transition-colors" href="#">Privacy Policy</a>
+<a class="text-stone-500 hover:text-amber-500 transition-colors" href="#">Heritage Terms</a>
+<a class="text-stone-500 hover:text-amber-500 transition-colors" href="#">Luxury Concierge</a>
+<a class="text-stone-500 hover:text-amber-500 transition-colors" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

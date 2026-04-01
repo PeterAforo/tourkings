@@ -1,0 +1,172 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum PaymentType {
+  BOOKING
+  WALLET_TOPUP
+}
+
+enum TransactionType {
+  CREDIT
+  DEBIT
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  password      String
+  firstName     String
+  lastName      String
+  phone         String?
+  role          Role           @default(CUSTOMER)
+  avatarUrl     String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  wallet        Wallet?
+  bookings      Booking[]
+  payments      Payment[]
+  notifications Notification[]
+}
+
+model Wallet {
+  id           String              @id @default(cuid())
+  userId       String              @unique
+  balance      Float               @default(0)
+  currency     String              @default("GHS")
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions WalletTransaction[]
+}
+
+model WalletTransaction {
+  id          String          @id @default(cuid())
+  walletId    String
+  amount      Float
+  type        TransactionType
+  reference   String?
+  description String?
+  createdAt   DateTime        @default(now())
+  wallet      Wallet          @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  payment     Payment?
+}
+
+model Destination {
+  id          String    @id @default(cuid())
+  name        String
+  country     String
+  description String    @db.Text
+  imageUrl    String?
+  featured    Boolean   @default(false)
+  slug        String    @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  packages    Package[]
+}
+
+model Package {
+  id             String      @id @default(cuid())
+  title          String
+  slug           String      @unique
+  description    String      @db.Text
+  destinationId  String
+  price          Float
+  currency       String      @default("GHS")
+  duration       String
+  groupSize      Int         @default(10)
+  included       String[]
+  excluded       String[]
+  images         String[]
+  featured       Boolean     @default(false)
+  active         Boolean     @default(true)
+  itinerary      Json?       // Array of { day, title, description, activities[] }
+  hotels         Json?       // Array of { name, rating, location, amenities[], nights, imageUrl? }
+  transportation Json?       // { type, details, pickup?, dropoff? }
+  amenities      Json?       // Array of strings or { category, items[] }
+  highlights     String[]    // Top-level bullet points for the package
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  destination    Destination @relation(fields: [destinationId], references: [id])
+  bookings       Booking[]
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  userId      String
+  packageId   String
+  status      BookingStatus @default(PENDING)
+  travelDate  DateTime?
+  travelers   Int           @default(1)
+  totalAmount Float
+  paidAmount  Float         @default(0)
+  notes       String?       @db.Text
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  user        User          @relation(fields: [userId], references: [id])
+  package     Package       @relation(fields: [packageId], references: [id])
+  payments    Payment[]
+}
+
+model Payment {
+  id                  String          @id @default(cuid())
+  userId              String
+  bookingId           String?
+  walletTransactionId String?         @unique
+  amount              Float
+  currency            String          @default("GHS")
+  provider            String          @default("flutterwave")
+  providerRef         String?
+  status              PaymentStatus   @default(PENDING)
+  type                PaymentType
+  metadata            Json?
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  user                User            @relation(fields: [userId], references: [id])
+  booking             Booking?        @relation(fields: [bookingId], references: [id])
+  walletTransaction   WalletTransaction? @relation(fields: [walletTransactionId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  message   String   @db.Text
+  read      Boolean  @default(false)
+  metadata  Json?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SiteContent {
+  id        String   @id @default(cuid())
+  section   String
+  key       String
+  value     Json
+  updatedAt DateTime @updatedAt
+
+  @@unique([section, key])
+}

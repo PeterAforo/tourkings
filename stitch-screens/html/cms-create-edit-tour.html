@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TourKings CMS - Create Tour</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#eae1db",
+              "error": "#ba1a1a",
+              "tertiary-fixed": "#ffdbd1",
+              "surface-container-low": "#fbf2ec",
+              "secondary-fixed": "#ffddb9",
+              "on-secondary-fixed": "#2b1700",
+              "on-primary-fixed": "#001b3e",
+              "primary-fixed-dim": "#aac7ff",
+              "on-error": "#ffffff",
+              "error-container": "#ffdad6",
+              "on-tertiary-fixed-variant": "#862200",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#abc7ff",
+              "on-tertiary-fixed": "#3a0a00",
+              "on-primary-fixed-variant": "#05458c",
+              "tertiary-fixed-dim": "#ffb59f",
+              "tertiary": "#731c00",
+              "surface": "#fff8f5",
+              "primary-fixed": "#d6e3ff",
+              "inverse-on-surface": "#f8efea",
+              "surface-container-lowest": "#ffffff",
+              "background": "#fff8f5",
+              "surface-container": "#f6ece7",
+              "on-tertiary": "#ffffff",
+              "primary": "#003b7a",
+              "surface-bright": "#fff8f5",
+              "outline": "#737782",
+              "on-error-container": "#93000a",
+              "inverse-surface": "#342f2c",
+              "surface-variant": "#eae1db",
+              "surface-tint": "#2d5ea5",
+              "primary-container": "#1d5299",
+              "on-tertiary-container": "#ffb59f",
+              "on-surface-variant": "#424751",
+              "on-background": "#1f1b18",
+              "on-secondary-container": "#694000",
+              "surface-dim": "#e1d8d3",
+              "secondary-fixed-dim": "#ffb963",
+              "tertiary-container": "#9b2900",
+              "on-secondary-fixed-variant": "#663e00",
+              "inverse-primary": "#aac7ff",
+              "secondary-container": "#ffa522",
+              "on-primary": "#ffffff",
+              "secondary": "#865300",
+              "surface-container-high": "#f0e6e1",
+              "on-surface": "#1f1b18",
+              "outline-variant": "#c3c6d2"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .royal-gradient {
+            background: linear-gradient(135deg, #003b7a 0%, #1d5299 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-[#fbf2ec] dark:bg-slate-900 shadow-2xl shadow-slate-900/5 flex flex-col py-6 border-r border-slate-200/10">
+<div class="px-6 mb-10">
+<h1 class="text-lg font-black text-[#003b7a] dark:text-white font-headline">TourKings CMS</h1>
+<p class="text-xs font-['Manrope'] font-semibold uppercase tracking-widest text-secondary">Royal Navigator Edition</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 mx-2 hover:bg-[#eae1db]/50 dark:hover:bg-slate-800/50 transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Manrope'] text-sm font-semibold uppercase tracking-widest">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 bg-[#eae1db] dark:bg-slate-800 text-[#003b7a] rounded-lg px-4 py-3 mx-2 transition-all duration-300 translate-x-1" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Manrope'] text-sm font-semibold uppercase tracking-widest">Inventory</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 mx-2 hover:bg-[#eae1db]/50 dark:hover:bg-slate-800/50 transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-['Manrope'] text-sm font-semibold uppercase tracking-widest">Destinations</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 mx-2 hover:bg-[#eae1db]/50 dark:hover:bg-slate-800/50 transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="font-['Manrope'] text-sm font-semibold uppercase tracking-widest">Bookings</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 mx-2 hover:bg-[#eae1db]/50 dark:hover:bg-slate-800/50 transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-['Manrope'] text-sm font-semibold uppercase tracking-widest">Analytics</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 mx-2 hover:bg-[#eae1db]/50 dark:hover:bg-slate-800/50 transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+<span class="font-['Manrope'] text-sm font-semibold uppercase tracking-widest">Heritage Assets</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pt-4 border-t border-slate-200/10">
+<button class="w-full royal-gradient text-on-primary py-3 rounded-lg font-bold text-sm mb-6 shadow-lg shadow-primary/20">
+                Support Concierge
+            </button>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-xs font-bold uppercase tracking-widest">Help Center</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-2 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-xs font-bold uppercase tracking-widest">Log Out</span>
+</a>
+</div>
+</aside>
+<main class="ml-64 min-h-screen">
+<header class="w-full sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-sm flex justify-between items-center h-16 px-8 border-b border-slate-200/15">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold bg-gradient-to-tr from-[#003b7a] to-[#1d5299] bg-clip-text text-transparent font-headline">The Sovereign Voyager</span>
+<div class="h-6 w-px bg-slate-200 mx-2"></div>
+<h2 class="text-primary font-headline font-bold tracking-tight">Inventory / Create Tour</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<img alt="Administrator Profile" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="professional portrait of a high-end travel administrator in a modern office with warm architectural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJY3Kwk4vOUyBq3eRECXAq7J0pHplJp18Tp9MA4GC6Uu1H2yM0IrZs0jQVLD9Cp8zijsqEK__YD5qk27kPYKgY9dtrcciKR9z5IyGKkklIiQAs4TITRHBdU8vsasdV2LrePjKYRzI4dZRZKka1wUILlpV_Ty-56JgEYGvCZPUso4rnFbc0SMfbRIqhE4XoiXLFJGU3G4-hkeKzPpt_tORdtmCK9_MNDZyYlEVYjWqznW36yDXpfGakWkGnomuO8YngYpC8oVyRkw"/>
+</div>
+</header>
+<div class="p-10 max-w-6xl mx-auto">
+<div class="flex items-center justify-between mb-12">
+<div>
+<span class="text-secondary font-bold uppercase tracking-[0.2em] text-xs">New Heritage Expedition</span>
+<h1 class="text-4xl font-extrabold font-headline text-on-surface mt-2">Curate Royal Journey</h1>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 rounded-lg font-bold text-primary bg-surface-container-highest hover:bg-surface-container-high transition-all">Save Draft</button>
+<button class="px-8 py-2.5 rounded-lg font-bold text-on-primary royal-gradient shadow-md active:scale-95 duration-200">Publish Tour</button>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-8">
+<nav class="col-span-3 space-y-2">
+<div class="p-4 rounded-xl bg-surface-container-highest border-l-4 border-primary">
+<p class="text-xs font-bold text-secondary uppercase tracking-widest mb-1">Step 01</p>
+<p class="font-headline font-bold text-primary">General Info</p>
+</div>
+<div class="p-4 rounded-xl hover:bg-surface-container-low transition-colors group cursor-pointer">
+<p class="text-xs font-bold text-outline uppercase tracking-widest mb-1 group-hover:text-secondary">Step 02</p>
+<p class="font-headline font-bold text-on-surface-variant">Itinerary Builder</p>
+</div>
+<div class="p-4 rounded-xl hover:bg-surface-container-low transition-colors group cursor-pointer">
+<p class="text-xs font-bold text-outline uppercase tracking-widest mb-1 group-hover:text-secondary">Step 03</p>
+<p class="font-headline font-bold text-on-surface-variant">Pricing &amp; Vault</p>
+</div>
+<div class="p-4 rounded-xl hover:bg-surface-container-low transition-colors group cursor-pointer">
+<p class="text-xs font-bold text-outline uppercase tracking-widest mb-1 group-hover:text-secondary">Step 04</p>
+<p class="font-headline font-bold text-on-surface-variant">Media Assets</p>
+</div>
+</nav>
+<div class="col-span-9 space-y-12">
+<section class="bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-outline-variant/15">
+<h3 class="text-2xl font-bold font-headline mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">description</span>
+                            Primary Narrative
+                        </h3>
+<div class="grid grid-cols-2 gap-6">
+<div class="col-span-2">
+<label class="block text-xs font-bold text-secondary uppercase tracking-widest mb-2">Tour Expedition Title</label>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-sm p-4 text-on-surface font-medium transition-all" placeholder="e.g. The Ashanti Gold Legacy Expedition" type="text"/>
+</div>
+<div class="col-span-1">
+<label class="block text-xs font-bold text-secondary uppercase tracking-widest mb-2">Duration (Days)</label>
+<select class="w-full bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-sm p-4 text-on-surface font-medium transition-all">
+<option>Select Duration</option>
+<option>3 Days</option>
+<option>7 Days</option>
+<option>10 Days</option>
+<option>14 Days</option>
+</select>
+</div>
+<div class="col-span-1">
+<label class="block text-xs font-bold text-secondary uppercase tracking-widest mb-2">Tour Architecture</label>
+<select class="w-full bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-sm p-4 text-on-surface font-medium transition-all">
+<option>Cultural Heritage</option>
+<option>Coastal Luxury</option>
+<option>Eco-Adventure</option>
+<option>Private Charter</option>
+</select>
+</div>
+<div class="col-span-2">
+<label class="block text-xs font-bold text-secondary uppercase tracking-widest mb-2">Heritage Description</label>
+<textarea class="w-full bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-sm p-4 text-on-surface font-medium transition-all" placeholder="Describe the soul of this journey..." rows="4"></textarea>
+</div>
+</div>
+</section>
+<section class="bg-surface p-0">
+<div class="flex justify-between items-end mb-6">
+<h3 class="text-2xl font-bold font-headline flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">map</span>
+                                Itinerary Chronology
+                            </h3>
+<button class="text-primary font-bold text-sm flex items-center gap-1 border-b-2 border-secondary pb-0.5">
+<span class="material-symbols-outlined text-sm">add_circle</span> Add Heritage Day
+                            </button>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex gap-6 items-start group hover:bg-surface-container transition-colors">
+<div class="bg-primary text-on-primary w-12 h-12 rounded-lg flex items-center justify-center font-bold font-headline text-xl shrink-0">01</div>
+<div class="flex-1 space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<input class="bg-surface-container-lowest border-0 rounded p-3 text-sm font-bold w-full" placeholder="Day Title: Royal Arrival" type="text"/>
+<input class="bg-surface-container-lowest border-0 rounded p-3 text-sm w-full" placeholder="Location: Kumasi Cultural Center" type="text"/>
+</div>
+<textarea class="bg-surface-container-lowest border-0 rounded p-3 text-sm w-full h-24 resize-none" placeholder="Outline the day's events and royal encounters..."></textarea>
+</div>
+<button class="text-outline hover:text-error transition-colors p-2">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-dashed border-outline-variant/50 flex items-center justify-center py-12">
+<div class="text-center">
+<span class="material-symbols-outlined text-4xl text-outline mb-2">auto_awesome</span>
+<p class="text-outline font-medium">Continue building your heritage path...</p>
+</div>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-2 gap-8">
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/15">
+<h3 class="text-xl font-bold font-headline mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">payments</span>
+                                Financial Value
+                            </h3>
+<div class="space-y-6">
+<div>
+<label class="block text-xs font-bold text-secondary uppercase tracking-widest mb-2">Outright Price (USD)</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-outline">$</span>
+<input class="w-full bg-surface-container-low border-0 rounded-sm p-4 pl-10 text-on-surface font-bold" placeholder="4,500" type="number"/>
+</div>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-high/50 border border-secondary/20">
+<label class="block text-xs font-bold text-secondary uppercase tracking-widest mb-2">Suggested Vault Contribution</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-outline">$</span>
+<input class="w-full bg-surface-container-low border-0 rounded-sm p-4 pl-10 text-primary font-bold" placeholder="500" type="number"/>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-2 italic">*Automated allocation for Ghana Heritage preservation funds.</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/15">
+<h3 class="text-xl font-bold font-headline mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">concierge</span>
+                                Royal Amenities
+                            </h3>
+<div class="space-y-4">
+<label class="flex items-center gap-4 p-3 bg-surface-container-low rounded-lg cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="w-5 h-5 text-primary rounded border-outline-variant focus:ring-primary" type="checkbox"/>
+<span class="font-semibold text-on-surface">Private Chauffeur Service</span>
+</label>
+<label class="flex items-center gap-4 p-3 bg-surface-container-low rounded-lg cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="w-5 h-5 text-primary rounded border-outline-variant focus:ring-primary" type="checkbox"/>
+<span class="font-semibold text-on-surface">Luxury Full Board Meals</span>
+</label>
+<label class="flex items-center gap-4 p-3 bg-surface-container-low rounded-lg cursor-pointer hover:bg-surface-container transition-colors">
+<input class="w-5 h-5 text-primary rounded border-outline-variant focus:ring-primary" type="checkbox"/>
+<span class="font-semibold text-on-surface">Dedicated Concierge</span>
+</label>
+<label class="flex items-center gap-4 p-3 bg-surface-container-low rounded-lg cursor-pointer hover:bg-surface-container transition-colors">
+<input class="w-5 h-5 text-primary rounded border-outline-variant focus:ring-primary" type="checkbox"/>
+<span class="font-semibold text-on-surface">Traditional Welcoming Rites</span>
+</label>
+</div>
+</div>
+</section>
+<section class="bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-outline-variant/15">
+<h3 class="text-2xl font-bold font-headline mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">gallery_thumbnail</span>
+                            Visual Gallery
+                        </h3>
+<div class="grid grid-cols-3 gap-4 mb-8">
+<div class="aspect-video rounded-xl overflow-hidden relative group">
+<img alt="Preview 1" class="w-full h-full object-cover" data-alt="vibrant photo of a luxury tented camp overlooking the volta river in ghana at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9XE-8CF_UPKn0IT_e8KiJXfTpH_CWLX3cGyVX3gg3vzPMv3L_LHacsDXpDWefZ07jMZwW60iUyr5DquBB32K1jqteDdzo1Sfh_6_QDZy01YBStoBI6G4zdwcjcKZy4t9VEHLHnajMWJrPdZf9wbalTFYafNYmO2XRemWpcJbytElYYbqCbJ1X0YM3phiGgeRBvlXHnjuVphsROe9tGoX1CLrXK2JFBrt8e_TnA17X_08TaRQo2_6kYbbgsjwdFB9Q3rWzasB8KQ"/>
+<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-surface text-primary p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<div class="aspect-video rounded-xl overflow-hidden relative group">
+<img alt="Preview 2" class="w-full h-full object-cover" data-alt="close up of intricate kente cloth weaving with vibrant gold and blue patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6YbekFGUQF0eJwGQecCpaJ3GH-eBDqpah0hoh57XB2VhPDuQmOob-P1aFqUerKqHCfcl3DaUJPkiGaOSE3z-eEUW2lxVtVjIrIwSF-21P50OnHFKIZQOUrhOggDzY7sE8zHZR1JF8ng6tPU0oXy4omW_2FUy1XsPfnFHEx2OVaQUPl4gUuWzkNWu5rbof6VYhx_KakEvEY0C5br3k2lQOGf7tvZ-ENEvemJbWHfS_mjsjH453RuF2wjYlsa6cGslRWlesAqtPbw"/>
+<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-surface text-primary p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<button class="aspect-video rounded-xl border-2 border-dashed border-outline-variant flex flex-col items-center justify-center hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-3xl text-outline mb-2">add_a_photo</span>
+<span class="text-xs font-bold text-outline uppercase tracking-widest">Upload Image</span>
+</button>
+</div>
+<div class="bg-surface-container-low border-2 border-dashed border-outline-variant/50 p-12 rounded-xl text-center">
+<span class="material-symbols-outlined text-5xl text-primary mb-4">cloud_upload</span>
+<h4 class="text-lg font-bold font-headline text-on-surface mb-2">Drop Heritage Media Here</h4>
+<p class="text-outline text-sm mb-6">Support for High-Res JPG, PNG (Max 15MB per file)</p>
+<button class="px-8 py-3 bg-primary text-on-primary rounded-lg font-bold shadow-lg shadow-primary/20">Browse Files</button>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-10 right-10 flex gap-4">
+<button class="w-14 h-14 bg-surface-container-highest text-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="royal-gradient text-on-primary px-8 py-4 rounded-full shadow-2xl font-bold flex items-center gap-3 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">save</span>
+            Instant Save
+        </button>
+</div>
+</body></html>

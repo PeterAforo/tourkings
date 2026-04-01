@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heritage Path Configuration | TourKings Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed-variant": "#862200",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#9b2900",
+                        "surface-tint": "#2d5ea5",
+                        "surface-dim": "#e1d8d3",
+                        "tertiary": "#731c00",
+                        "on-background": "#1f1b18",
+                        "surface-container-low": "#fbf2ec",
+                        "secondary-fixed": "#ffddb9",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#001b3e",
+                        "primary-fixed-dim": "#aac7ff",
+                        "on-primary-container": "#abc7ff",
+                        "inverse-surface": "#342f2c",
+                        "on-secondary-fixed": "#2b1700",
+                        "background": "#fff8f5",
+                        "on-tertiary-fixed": "#3a0a00",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fff8f5",
+                        "inverse-on-surface": "#f8efea",
+                        "primary": "#003b7a",
+                        "surface-container": "#f6ece7",
+                        "outline": "#737782",
+                        "on-tertiary-container": "#ffb59f",
+                        "on-secondary-container": "#694000",
+                        "outline-variant": "#c3c6d2",
+                        "tertiary-fixed-dim": "#ffb59f",
+                        "surface": "#fff8f5",
+                        "secondary-container": "#ffa522",
+                        "primary-container": "#1d5299",
+                        "on-surface-variant": "#424751",
+                        "on-primary-fixed-variant": "#05458c",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#eae1db",
+                        "surface-container-high": "#f0e6e1",
+                        "inverse-primary": "#aac7ff",
+                        "secondary-fixed-dim": "#ffb963",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#663e00",
+                        "secondary": "#865300",
+                        "on-surface": "#1f1b18",
+                        "primary-fixed": "#d6e3ff",
+                        "tertiary-fixed": "#ffdbd1",
+                        "surface-container-highest": "#eae1db"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .heritage-gradient {
+            background: linear-gradient(135deg, #003b7a 0%, #1d5299 100%);
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #fff8f5;
+            color: #1f1b18;
+        }
+        h1, h2, h3, .brand-font {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r-0 bg-[#fff8f5] dark:bg-slate-950 flex flex-col py-6 pr-4 space-y-2 z-50">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 heritage-gradient rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-900/20">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h2 class="font-['Plus_Jakarta_Sans'] font-black text-[#1D5299] text-lg leading-none">The Sovereign Voyager</h2>
+<p class="text-[10px] uppercase tracking-widest text-secondary font-bold mt-1">Administrative CMS</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b18] dark:text-slate-400 hover:bg-[#fbf2ec] dark:hover:bg-slate-900 rounded-r-xl hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-medium text-sm">Heritage Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b18] dark:text-slate-400 hover:bg-[#fbf2ec] dark:hover:bg-slate-900 rounded-r-xl hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calculate">calculate</span>
+<span class="font-medium text-sm">Point Logic</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#003b7a] to-[#1d5299] text-white rounded-r-xl shadow-lg shadow-blue-900/10 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="military_tech" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="font-medium text-sm">Medal Configuration</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b18] dark:text-slate-400 hover:bg-[#fbf2ec] dark:hover:bg-slate-900 rounded-r-xl hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-medium text-sm">Engagement Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-6 space-y-4">
+<button class="w-full heritage-gradient text-white font-bold py-3 px-4 rounded-xl shadow-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span>Create New Path</span>
+</button>
+<div class="pt-6 border-t border-surface-container space-y-1">
+<a class="flex items-center gap-3 py-2 text-[#1f1b18] hover:text-primary transition-colors text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 py-2 text-error hover:opacity-80 transition-opacity text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Sign Out</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-64 h-16 z-40 bg-[#fff8f5]/80 backdrop-blur-xl flex justify-between items-center px-8 shadow-sm">
+<div class="flex items-center gap-4">
+<h1 class="text-xl font-bold bg-gradient-to-tr from-[#003b7a] to-[#1d5299] bg-clip-text text-transparent font-['Plus_Jakarta_Sans'] tracking-tight">
+                    Heritage Path Configuration
+                </h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Search path logic..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:bg-[#eae1db]/50 p-2 rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-[#eae1db]/50 p-2 rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Administrator profile" class="object-cover w-full h-full" data-alt="portrait of a professional male administrator in his 40s with a sharp suit and friendly confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM4iV1jLxnisiwYzCl8rd202ooqsC4M0yxSwyNJgZpSOXHcMV3ux-R9PkunhxXbh90CoTjG9XCrKnZMc3QmVcX2vFdyOqaNzYauu0nC6AiFLdgOuCJA4AgehOqZdSn5qQcHy7TXjxxi-a-RMu_5Et2Rg6jjL19p5aXjpx29xzznifKlwOkA1exeH6A_hTS7SXLrZ8kxrorzQfMPl7_cx-_on0xy8PRGwXyE2C2DdwdVwIbH3O3Hv60UuRggcWHtYoUmQvLZO0ofA"/>
+</div>
+</div>
+</div>
+</header>
+<div class="pt-24 px-10 pb-20 max-w-7xl mx-auto">
+<!-- Bento Grid Section 1: Core Configuration & Preview -->
+<div class="grid grid-cols-12 gap-8 mb-12">
+<!-- Point Multipliers Card -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container-low p-8 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 opacity-5 -mr-8 -mt-8 rotate-12 transition-transform group-hover:rotate-6 duration-700">
+<span class="material-symbols-outlined text-[160px]" data-icon="calculate">calculate</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 text-secondary mb-2">
+<span class="text-[10px] font-bold uppercase tracking-[0.2em]">System Engine</span>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-6">Point Multipliers</h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Points per GHC Saved</label>
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-lg shadow-sm border-b-2 border-primary">
+<span class="material-symbols-outlined text-secondary" data-icon="savings">savings</span>
+<input class="border-none bg-transparent text-xl font-bold focus:ring-0 w-full" type="number" value="12"/>
+<span class="text-sm font-semibold text-outline">PTS</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Points per Tour Completion</label>
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-lg shadow-sm border-b-2 border-primary">
+<span class="material-symbols-outlined text-secondary" data-icon="travel_explore">travel_explore</span>
+<input class="border-none bg-transparent text-xl font-bold focus:ring-0 w-full" type="number" value="500"/>
+<span class="text-sm font-semibold text-outline">PTS</span>
+</div>
+</div>
+<div class="pt-4">
+<button class="w-full py-3 bg-primary text-on-primary font-bold rounded-lg shadow-lg hover:bg-primary-container transition-colors">Update Global Multipliers</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Medal Preview Panel (Light/Dark Toggle) -->
+<div class="col-span-12 lg:col-span-7 grid grid-rows-2 gap-8">
+<!-- Preview Context: Light -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-bold text-primary">Medal Visual Identity (Light)</h3>
+<span class="px-3 py-1 bg-surface-container-low text-[10px] font-bold rounded-full text-secondary">ACTIVE THEME</span>
+</div>
+<div class="flex gap-10 justify-center">
+<div class="flex flex-col items-center gap-3 group cursor-pointer">
+<div class="w-20 h-20 rounded-full bg-secondary-fixed flex items-center justify-center border-4 border-white shadow-xl transform transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="history_edu" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+</div>
+<span class="text-[10px] font-bold uppercase text-on-surface-variant">Historian</span>
+</div>
+<div class="flex flex-col items-center gap-3 group cursor-pointer">
+<div class="w-20 h-20 rounded-full bg-primary-fixed flex items-center justify-center border-4 border-white shadow-xl transform transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="fort" style="font-variation-settings: 'FILL' 1;">fort</span>
+</div>
+<span class="text-[10px] font-bold uppercase text-on-surface-variant">Explorer</span>
+</div>
+<div class="flex flex-col items-center gap-3 group cursor-pointer">
+<div class="w-20 h-20 rounded-full bg-tertiary-fixed flex items-center justify-center border-4 border-white shadow-xl transform transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-tertiary text-4xl" data-icon="diamond" style="font-variation-settings: 'FILL' 1;">diamond</span>
+</div>
+<span class="text-[10px] font-bold uppercase text-on-surface-variant">Sovereign</span>
+</div>
+</div>
+</div>
+<!-- Preview Context: Dark -->
+<div class="bg-slate-950 p-8 rounded-xl shadow-2xl">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-bold text-slate-100">Medal Visual Identity (Dark)</h3>
+<span class="px-3 py-1 bg-slate-800 text-[10px] font-bold rounded-full text-slate-400">EMULATED</span>
+</div>
+<div class="flex gap-10 justify-center">
+<div class="flex flex-col items-center gap-3">
+<div class="w-16 h-16 rounded-full bg-secondary/20 flex items-center justify-center border-2 border-secondary shadow-[0_0_20px_rgba(134,83,0,0.3)]">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="history_edu" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+</div>
+<span class="text-[10px] font-bold uppercase text-slate-500">Historian</span>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center border-2 border-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+<span class="material-symbols-outlined text-blue-400 text-3xl" data-icon="fort" style="font-variation-settings: 'FILL' 1;">fort</span>
+</div>
+<span class="text-[10px] font-bold uppercase text-slate-500">Explorer</span>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center border-2 border-red-400 shadow-[0_0_20px_rgba(239,68,68,0.3)]">
+<span class="material-symbols-outlined text-red-400 text-3xl" data-icon="diamond" style="font-variation-settings: 'FILL' 1;">diamond</span>
+</div>
+<span class="text-[10px] font-bold uppercase text-slate-500">Sovereign</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Medal Configuration Grid -->
+<div class="mb-16">
+<div class="flex justify-between items-end mb-8">
+<div>
+<div class="flex items-center gap-2 text-secondary mb-2">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-[10px] font-bold uppercase tracking-[0.2em]">Milestone Rewards</span>
+</div>
+<h2 class="text-3xl font-bold text-primary">Medal Configuration</h2>
+</div>
+<button class="flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all duration-300">
+<span>View Reward Catalog</span>
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Medal Card 1 -->
+<div class="bg-surface-container p-6 rounded-xl border-l-4 border-secondary group hover:shadow-lg transition-shadow">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-secondary-fixed rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="history_edu">history_edu</span>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-bold bg-white px-2 py-1 rounded text-primary">COMMON</span>
+<h4 class="font-bold text-on-surface mt-1">Historian</h4>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<label class="text-[10px] font-bold text-outline uppercase">Requirement String</label>
+<div class="relative mt-1">
+<input class="w-full bg-surface-container-lowest border-none text-sm font-medium rounded p-3 focus:ring-1 focus:ring-secondary" type="text" value="Visit 5 coastal sites"/>
+</div>
+</div>
+<div class="flex justify-between gap-4">
+<div class="flex-1">
+<label class="text-[10px] font-bold text-outline uppercase">XP Yield</label>
+<input class="w-full bg-surface-container-lowest border-none text-sm font-medium rounded p-3 mt-1" type="text" value="250"/>
+</div>
+<div class="flex-1">
+<label class="text-[10px] font-bold text-outline uppercase">Stock Icon</label>
+<input class="w-full bg-surface-container-lowest border-none text-sm font-medium rounded p-3 mt-1" type="text" value="history_edu"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Medal Card 2 -->
+<div class="bg-surface-container p-6 rounded-xl border-l-4 border-primary group hover:shadow-lg transition-shadow">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-primary-fixed rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="castle">castle</span>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-bold bg-white px-2 py-1 rounded text-primary">RARE</span>
+<h4 class="font-bold text-on-surface mt-1">Fortress Explorer</h4>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<label class="text-[10px] font-bold text-outline uppercase">Requirement String</label>
+<div class="relative mt-1">
+<input class="w-full bg-surface-container-lowest border-none text-sm font-medium rounded p-3 focus:ring-1 focus:ring-primary" type="text" value="Unlock 3 regional forts"/>
+</div>
+</div>
+<div class="flex justify-between gap-4">
+<div class="flex-1">
+<label class="text-[10px] font-bold text-outline uppercase">XP Yield</label>
+<input class="w-full bg-surface-container-lowest border-none text-sm font-medium rounded p-3 mt-1" type="text" value="1,200"/>
+</div>
+<div class="flex-1">
+<label class="text-[10px] font-bold text-outline uppercase">Stock Icon</label>
+<input class="w-full bg-surface-container-lowest border-none text-sm font-medium rounded p-3 mt-1" type="text" value="castle"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Medal Card 3 -->
+<div class="bg-surface-container p-6 rounded-xl border-l-4 border-tertiary group hover:shadow-lg transition-shadow">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-tertiary-fixed rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-3xl" data-icon="eco">eco</span>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-bold bg-white px-2 py-1 rounded text-primary">EPIC</span>
+<h4 class="font-bold text-on-surface mt-1">Canopy Walker</h4>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<label class="text-[10px] font-bold text-outline uppercase">Requirement String</label>
+<div class="relative mt-1">
+<input class="w-full bg-surface-container-lowest border-none text-sm font-medium rounded p-3 focus:ring-1 focus:ring-tertiary" type="text" value="Complete Kakum Dawn Walk"/>
+</div>
+</div>
+<div class="flex justify-between gap-4">
+<div class="flex-1">
+<label class="text-[10px] font-bold text-outline uppercase">XP Yield</label>
+<input class="w-full bg-surface-container-lowest border-none text-sm font-medium rounded p-3 mt-1" type="text" value="3,500"/>
+</div>
+<div class="flex-1">
+<label class="text-[10px] font-bold text-outline uppercase">Stock Icon</label>
+<input class="w-full bg-surface-container-lowest border-none text-sm font-medium rounded p-3 mt-1" type="text" value="eco"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Level/Tier Thresholds Section -->
+<div class="bg-surface-container-low rounded-2xl overflow-hidden shadow-sm">
+<div class="p-8 border-b border-outline-variant/10 flex items-center justify-between">
+<div>
+<h3 class="text-xl font-bold text-primary">Rank Hierarchy &amp; Thresholds</h3>
+<p class="text-sm text-on-surface-variant">Configure point boundaries for the Sovereign path tiers.</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-sm font-bold text-primary hover:bg-white rounded-lg transition-colors">Export Logic</button>
+<button class="px-6 py-2 text-sm font-bold bg-primary text-white rounded-lg shadow-md">Save Hierarchy</button>
+</div>
+</div>
+<div class="p-8">
+<div class="relative">
+<!-- Connecting Line -->
+<div class="absolute left-[31px] top-8 bottom-8 w-1 bg-gradient-to-b from-secondary via-primary to-tertiary rounded-full opacity-20"></div>
+<!-- Threshold Rows -->
+<div class="space-y-10 relative z-10">
+<!-- Tier 1 -->
+<div class="flex items-center gap-8 group">
+<div class="w-16 h-16 rounded-2xl bg-secondary text-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="book">book</span>
+</div>
+<div class="flex-1 grid grid-cols-12 gap-6 items-center">
+<div class="col-span-3">
+<p class="text-[10px] font-bold uppercase text-secondary tracking-widest">Rank Level 1</p>
+<h4 class="font-bold text-lg">Royal Chronicler</h4>
+</div>
+<div class="col-span-4">
+<label class="text-[10px] font-bold text-outline uppercase">Required Points</label>
+<div class="mt-1 flex items-center bg-white rounded p-3 shadow-inner">
+<input class="border-none bg-transparent p-0 w-full font-bold focus:ring-0" type="text" value="0 - 5,000"/>
+<span class="text-xs text-outline">PTS</span>
+</div>
+</div>
+<div class="col-span-5">
+<label class="text-[10px] font-bold text-outline uppercase">Unlocked Perks (JSON Array)</label>
+<input class="mt-1 w-full border-none bg-white rounded p-3 text-sm focus:ring-1 focus:ring-secondary" type="text" value='["Welcome Badge", "Legacy Access"]'/>
+</div>
+</div>
+</div>
+<!-- Tier 2 -->
+<div class="flex items-center gap-8 group">
+<div class="w-16 h-16 rounded-2xl bg-primary text-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="museum">museum</span>
+</div>
+<div class="flex-1 grid grid-cols-12 gap-6 items-center">
+<div class="col-span-3">
+<p class="text-[10px] font-bold uppercase text-primary tracking-widest">Rank Level 2</p>
+<h4 class="font-bold text-lg">Grand Historian</h4>
+</div>
+<div class="col-span-4">
+<label class="text-[10px] font-bold text-outline uppercase">Required Points</label>
+<div class="mt-1 flex items-center bg-white rounded p-3 shadow-inner">
+<input class="border-none bg-transparent p-0 w-full font-bold focus:ring-0" type="text" value="5,001 - 25,000"/>
+<span class="text-xs text-outline">PTS</span>
+</div>
+</div>
+<div class="col-span-5">
+<label class="text-[10px] font-bold text-outline uppercase">Unlocked Perks (JSON Array)</label>
+<input class="mt-1 w-full border-none bg-white rounded p-3 text-sm focus:ring-1 focus:ring-primary" type="text" value='["Priority Booking", "Fortress Pass"]'/>
+</div>
+</div>
+</div>
+<!-- Tier 3 -->
+<div class="flex items-center gap-8 group">
+<div class="w-16 h-16 rounded-2xl bg-tertiary text-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="workspace_premium">workspace_premium</span>
+</div>
+<div class="flex-1 grid grid-cols-12 gap-6 items-center">
+<div class="col-span-3">
+<p class="text-[10px] font-bold uppercase text-tertiary tracking-widest">Rank Level 3</p>
+<h4 class="font-bold text-lg">Sovereign</h4>
+</div>
+<div class="col-span-4">
+<label class="text-[10px] font-bold text-outline uppercase">Required Points</label>
+<div class="mt-1 flex items-center bg-white rounded p-3 shadow-inner">
+<input class="border-none bg-transparent p-0 w-full font-bold focus:ring-0" type="text" value="25,000+"/>
+<span class="text-xs text-outline">PTS</span>
+</div>
+</div>
+<div class="col-span-5">
+<label class="text-[10px] font-bold text-outline uppercase">Unlocked Perks (JSON Array)</label>
+<input class="mt-1 w-full border-none bg-white rounded p-3 text-sm focus:ring-1 focus:ring-tertiary" type="text" value='["Private Concierge", "Elite Gifting"]'/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Contextual Note (No Divider Rule) -->
+<div class="mt-20 flex gap-10 items-start">
+<div class="flex-1 bg-surface-container-highest/30 p-10 rounded-2xl border border-outline-variant/10">
+<h5 class="text-secondary font-bold uppercase text-[10px] tracking-widest mb-4">Adinkra Logic Integration</h5>
+<div class="flex gap-8 items-center">
+<div class="w-32 h-32 opacity-10 flex-shrink-0">
+<img class="w-full h-full object-contain grayscale" data-alt="abstract gold patterns inspired by traditional Ghanaian Adinkra symbols on a clean white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG2V_Yz0Eody9Jktui1zmMUTp_fzNxhKDzbI79Hz7AphalZdvcDHzHnRE086ta-5JGBtbcr5iOW-CDpoVY3H3qdQdUyKWFwvOmevu5TwsYSRFrT5_63H1YP9MpkJ8iUPvqHlgnmI8IlIgxQ9g12wxlpXrVpDhaENrQb3P3b6DOVdDA5p_ZlzjnnYFGmoOHeeguiOKaUYdn7nP9ZZMrS6iEaCAMmX9jP1R-ahuCc9oGteEGqILUES6Htl6hrFvNWEBMfPO6__tIRA"/>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-xl">
+                            All "Heritage Path" rewards are cryptographically tied to the Adinkra sub-system. When an admin updates a requirement, the system automatically recalibrates the user progression curve across the administrative suite. 
+                            <span class="text-primary font-bold">Borders have been suppressed to prioritize tonal hierarchy and editorial flow.</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
