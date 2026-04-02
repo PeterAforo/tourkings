@@ -1,24 +1,32 @@
-import type { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { logAdminAction } from "@/lib/admin-log";
 
-const bookingExportInclude = {
-  user: { select: { email: true, firstName: true, lastName: true } },
-  package: { select: { title: true, slug: true } },
-} satisfies Prisma.BookingInclude;
-
-type BookingExportRow = Prisma.BookingGetPayload<{ include: typeof bookingExportInclude }>;
+/** Shape of `findMany` with user + package selects (no Prisma namespace — CI-safe). */
+type BookingExportRow = {
+  id: string;
+  status: string;
+  travelDate: Date | null;
+  travelers: number;
+  totalAmount: number;
+  paidAmount: number;
+  createdAt: Date;
+  user: { email: string; firstName: string; lastName: string };
+  package: { title: string; slug: string };
+};
 
 export async function GET() {
   try {
     const admin = await requireAdmin();
 
-    const bookings: BookingExportRow[] = await db.booking.findMany({
+    const bookings = (await db.booking.findMany({
       orderBy: { createdAt: "desc" },
-      include: bookingExportInclude,
-    });
+      include: {
+        user: { select: { email: true, firstName: true, lastName: true } },
+        package: { select: { title: true, slug: true } },
+      },
+    })) as BookingExportRow[];
 
     const headers = ["id", "status", "travelDate", "travelers", "totalAmount", "paidAmount", "createdAt", "customerEmail", "packageTitle"];
     const escape = (v: string | number | null | undefined) => {
@@ -29,7 +37,7 @@ export async function GET() {
       return s;
     };
 
-    const rows = bookings.map((b) =>
+    const rows = bookings.map((b: BookingExportRow) =>
       [
         b.id,
         b.status,
