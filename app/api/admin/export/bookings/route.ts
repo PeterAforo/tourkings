@@ -1,18 +1,23 @@
+import type { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { logAdminAction } from "@/lib/admin-log";
 
+const bookingExportInclude = {
+  user: { select: { email: true, firstName: true, lastName: true } },
+  package: { select: { title: true, slug: true } },
+} satisfies Prisma.BookingInclude;
+
+type BookingExportRow = Prisma.BookingGetPayload<{ include: typeof bookingExportInclude }>;
+
 export async function GET() {
   try {
     const admin = await requireAdmin();
 
-    const bookings = await db.booking.findMany({
+    const bookings: BookingExportRow[] = await db.booking.findMany({
       orderBy: { createdAt: "desc" },
-      include: {
-        user: { select: { email: true, firstName: true, lastName: true } },
-        package: { select: { title: true, slug: true } },
-      },
+      include: bookingExportInclude,
     });
 
     const headers = ["id", "status", "travelDate", "travelers", "totalAmount", "paidAmount", "createdAt", "customerEmail", "packageTitle"];
