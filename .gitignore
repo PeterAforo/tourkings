@@ -38,3 +38,6 @@ yarn-error.log*
 next-env.d.ts
 
 /generated/prisma
+
+# Google Stitch CLI export (HTML + PNG; regenerate with npm run stitch:export)
+/stitch-export

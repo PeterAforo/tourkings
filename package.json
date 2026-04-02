@@ -11,7 +11,8 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "stitch:export": "node scripts/fetch-stitch-screens.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.6.0",
@@ -32,6 +33,7 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@google/stitch-sdk": "^0.0.3",
     "@tailwindcss/postcss": "^4.2.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^25.5.0",
