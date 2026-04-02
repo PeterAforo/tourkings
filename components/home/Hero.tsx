@@ -6,7 +6,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { PublicSiteContent } from "@/lib/site-content-defaults";
-import { FALLBACK_HERO_IMAGE_URL, mergePublicSiteContent } from "@/lib/site-content-defaults";
+import {
+  FALLBACK_HERO_IMAGE_URL,
+  mergePublicSiteContent,
+  sanitizeUnsplashImageUrl,
+} from "@/lib/site-content-defaults";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -78,7 +82,11 @@ export default function Hero() {
     >
       <div className="absolute inset-0 z-0">
         <Image
-          src={heroImageFailed ? FALLBACK_HERO_IMAGE_URL : hero.image_url}
+          src={
+            heroImageFailed
+              ? FALLBACK_HERO_IMAGE_URL
+              : sanitizeUnsplashImageUrl(hero.image_url, FALLBACK_HERO_IMAGE_URL)
+          }
           alt=""
           fill
           sizes="100vw"

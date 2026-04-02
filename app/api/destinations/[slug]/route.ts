@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { sanitizePackageImages, sanitizeUnsplashImageUrl } from "@/lib/site-content-defaults";
 
 export async function GET(
   req: NextRequest,
@@ -22,7 +23,20 @@ export async function GET(
       return NextResponse.json({ error: "Destination not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ destination });
+    const packages = destination.packages.map((p) => ({
+      ...p,
+      images: sanitizePackageImages(p.images),
+    }));
+
+    return NextResponse.json({
+      destination: {
+        ...destination,
+        imageUrl: destination.imageUrl
+          ? sanitizeUnsplashImageUrl(destination.imageUrl)
+          : null,
+        packages,
+      },
+    });
   } catch {
     return NextResponse.json({ error: "Failed to fetch destination" }, { status: 500 });
   }

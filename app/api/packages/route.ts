@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { sanitizePackageImages } from "@/lib/site-content-defaults";
 
 export async function GET(req: NextRequest) {
   try {
@@ -27,7 +28,12 @@ export async function GET(req: NextRequest) {
       ...(limit ? { take: parseInt(limit) } : {}),
     });
 
-    return NextResponse.json({ packages });
+    const sanitized = packages.map((p) => ({
+      ...p,
+      images: sanitizePackageImages(p.images),
+    }));
+
+    return NextResponse.json({ packages: sanitized });
   } catch {
     return NextResponse.json({ error: "Failed to fetch packages" }, { status: 500 });
   }

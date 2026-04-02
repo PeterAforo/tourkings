@@ -117,6 +117,10 @@ const DEFAULTS: PublicSiteContent = {
 /** Default hero photo when CMS `hero.image_url` is missing or returns 404 (removed Unsplash asset). */
 export const FALLBACK_HERO_IMAGE_URL = DEFAULTS.hero.image_url;
 
+/** Safe default for package/destination cards when a URL is dead or missing. */
+export const FALLBACK_PACKAGE_IMAGE_URL =
+  "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600&q=80";
+
 /** Unsplash photo IDs that return 404 from images.unsplash.com (removed or invalid). */
 const DEAD_UNSPLASH_IDS = ["photo-1569949381669-ecf31ae8f613"] as const;
 
@@ -127,6 +131,22 @@ function replaceDeadUnsplashUrl(url: string, fallback: string): string {
     if (url.includes(id)) return fallback;
   }
   return url;
+}
+
+/**
+ * Use for any Unsplash URL from DB or CMS (packages, destinations, hero).
+ * Add IDs to DEAD_UNSPLASH_IDS when Unsplash removes an asset.
+ */
+export function sanitizeUnsplashImageUrl(
+  url: string | null | undefined,
+  fallback: string = FALLBACK_PACKAGE_IMAGE_URL
+): string {
+  if (!url) return fallback;
+  return replaceDeadUnsplashUrl(url, fallback);
+}
+
+export function sanitizePackageImages(images: string[]): string[] {
+  return images.map((u) => sanitizeUnsplashImageUrl(u));
 }
 
 function asString(v: unknown, fallback: string): string {
@@ -168,7 +188,7 @@ export function mergePublicSiteContent(
       title: asString(hero.title, DEFAULTS.hero.title),
       subtitle: asString(hero.subtitle, DEFAULTS.hero.subtitle),
       cta_text: asString(hero.cta_text, DEFAULTS.hero.cta_text),
-      image_url: replaceDeadUnsplashUrl(
+      image_url: sanitizeUnsplashImageUrl(
         asString(hero.image_url, DEFAULTS.hero.image_url),
         FALLBACK_HERO_IMAGE_URL
       ),

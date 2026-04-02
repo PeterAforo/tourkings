@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { sanitizeUnsplashImageUrl } from "@/lib/site-content-defaults";
 
 export async function GET(req: NextRequest) {
   try {
@@ -15,7 +16,12 @@ export async function GET(req: NextRequest) {
       orderBy: { name: "asc" },
     });
 
-    return NextResponse.json({ destinations });
+    const sanitized = destinations.map((d) => ({
+      ...d,
+      imageUrl: d.imageUrl ? sanitizeUnsplashImageUrl(d.imageUrl) : null,
+    }));
+
+    return NextResponse.json({ destinations: sanitized });
   } catch {
     return NextResponse.json({ error: "Failed to fetch destinations" }, { status: 500 });
   }
