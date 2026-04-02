@@ -114,6 +114,9 @@ const DEFAULTS: PublicSiteContent = {
   },
 };
 
+/** Default hero photo when CMS `hero.image_url` is missing or returns 404 (removed Unsplash asset). */
+export const FALLBACK_HERO_IMAGE_URL = DEFAULTS.hero.image_url;
+
 function asString(v: unknown, fallback: string): string {
   if (typeof v === "string") return v;
   if (v != null && typeof v === "object" && "toString" in v) return String(v);

@@ -6,13 +6,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { PublicSiteContent } from "@/lib/site-content-defaults";
-import { mergePublicSiteContent } from "@/lib/site-content-defaults";
+import { FALLBACK_HERO_IMAGE_URL, mergePublicSiteContent } from "@/lib/site-content-defaults";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const [content, setContent] = useState<PublicSiteContent | null>(null);
+  const [heroImageFailed, setHeroImageFailed] = useState(false);
 
   useEffect(() => {
     fetch("/api/public/site-content")
@@ -53,6 +54,10 @@ export default function Hero() {
     return () => ctx.revert();
   }, [hero]);
 
+  useEffect(() => {
+    setHeroImageFailed(false);
+  }, [hero?.image_url]);
+
   if (!hero) {
     return <section className="relative min-h-[50vh] bg-surface" aria-hidden />;
   }
@@ -73,12 +78,13 @@ export default function Hero() {
     >
       <div className="absolute inset-0 z-0">
         <Image
-          src={hero.image_url}
+          src={heroImageFailed ? FALLBACK_HERO_IMAGE_URL : hero.image_url}
           alt=""
           fill
           sizes="100vw"
           priority
           className="object-cover"
+          onError={() => setHeroImageFailed(true)}
         />
         <div className="hero-overlay absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/40 to-transparent" />
       </div>
