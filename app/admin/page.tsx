@@ -2,18 +2,39 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Users, Package, Calendar, CreditCard, TrendingUp, ArrowUpRight } from "lucide-react";
+import { Users, Package, Calendar, CreditCard, ArrowUpRight } from "lucide-react";
 import Card from "@/components/ui/Card";
 import { formatCurrency, cn } from "@/lib/utils";
+
+interface MonthlyRev {
+  month: string;
+  amount: number;
+}
+
+interface BookingStatusRow {
+  status: string;
+  count: number;
+}
 
 interface AdminStats {
   totalCustomers: number;
   totalPackages: number;
   totalBookings: number;
   totalRevenue: number;
+  monthlyRevenue?: MonthlyRev[];
+  bookingStatusCounts?: BookingStatusRow[];
   recentBookings: { id: string; user: { firstName: string; lastName: string }; package: { title: string }; totalAmount: number; status: string; createdAt: string }[];
   recentPayments: { id: string; amount: number; type: string; status: string; createdAt: string; user: { firstName: string; lastName: string } }[];
 }
+
+const STATUS_ORDER = ["CONFIRMED", "PENDING", "COMPLETED", "CANCELLED"] as const;
+
+const STATUS_STYLE: Record<string, string> = {
+  CONFIRMED: "bg-emerald-500",
+  PENDING: "bg-yellow-500",
+  COMPLETED: "bg-blue-500",
+  CANCELLED: "bg-red-500",
+};
 
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState<AdminStats>({
@@ -35,12 +56,23 @@ export default function AdminDashboardPage() {
     { label: "Total Revenue", value: formatCurrency(stats.totalRevenue), icon: CreditCard, color: "text-green-500", bg: "bg-green-500/20", isRevenue: true },
   ];
 
-  const months = ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"];
-  const monthlyData = months.map((month, i) => ({
-    month,
-    amount: Math.round((stats.totalRevenue || 0) * (0.1 + Math.random() * 0.3) / (6 - i)),
-  }));
-  const maxRevenue = Math.max(...monthlyData.map(m => m.amount), 1);
+  const monthlyData =
+    stats.monthlyRevenue && stats.monthlyRevenue.length > 0
+      ? stats.monthlyRevenue
+      : [{ month: "—", amount: 0 }];
+  const maxRevenue = Math.max(...monthlyData.map((m) => m.amount), 1);
+
+  const statusRows = (() => {
+    const map = new Map<string, number>();
+    for (const row of stats.bookingStatusCounts ?? []) {
+      map.set(row.status, row.count);
+    }
+    const ordered = STATUS_ORDER.filter((s) => map.has(s)).map((s) => ({ label: s, count: map.get(s)! }));
+    const rest = (stats.bookingStatusCounts ?? []).filter((r) => !STATUS_ORDER.includes(r.status as (typeof STATUS_ORDER)[number]));
+    return [...ordered, ...rest.map((r) => ({ label: r.status, count: r.count }))];
+  })();
+
+  const statusTotal = statusRows.reduce((a, s) => a + s.count, 0) || stats.totalBookings || 1;
 
   return (
     <div className="space-y-8">
@@ -64,14 +96,16 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
           <h2 className="text-lg font-headline font-bold text-on-surface mb-6">Revenue Overview</h2>
+          <p className="text-on-surface-variant text-xs mb-4">Successful payments by month (latest periods)</p>
           <div className="flex items-end gap-2 h-48">
             {monthlyData.map((m, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-2">
+              <div key={`${m.month}-${i}`} className="flex-1 flex flex-col items-center gap-2 min-w-0">
                 <div
                   className="w-full bg-primary/80 rounded-t-lg transition-all hover:bg-primary"
-                  style={{ height: `${(m.amount / maxRevenue) * 100}%`, minHeight: "4px" }}
+                  style={{ height: `${Math.max(4, (m.amount / maxRevenue) * 100)}%`, minHeight: "4px" }}
+                  title={`${m.month}: ${formatCurrency(m.amount)}`}
                 />
-                <span className="text-xs text-on-surface-variant">{m.month}</span>
+                <span className="text-xs text-on-surface-variant truncate w-full text-center">{m.month}</span>
               </div>
             ))}
           </div>
@@ -80,22 +114,30 @@ export default function AdminDashboardPage() {
         <Card className="p-6">
           <h2 className="text-lg font-headline font-bold text-on-surface mb-6">Booking Status</h2>
           <div className="flex gap-6 items-center">
-            <div className="w-32 h-32 rounded-full border-8 border-primary relative flex items-center justify-center">
+            <div className="w-32 h-32 rounded-full border-8 border-primary relative flex items-center justify-center shrink-0">
               <span className="text-2xl font-headline font-bold text-on-surface">{stats.totalBookings}</span>
               <span className="text-xs text-on-surface-variant absolute -bottom-6">Total</span>
             </div>
-            <div className="space-y-3 flex-1">
-              {[
-                { label: "Confirmed", color: "bg-emerald-500", count: Math.round((stats.totalBookings || 0) * 0.6) },
-                { label: "Pending", color: "bg-yellow-500", count: Math.round((stats.totalBookings || 0) * 0.25) },
-                { label: "Completed", color: "bg-blue-500", count: Math.round((stats.totalBookings || 0) * 0.15) },
-              ].map(s => (
-                <div key={s.label} className="flex items-center gap-3">
-                  <div className={`w-3 h-3 rounded-full ${s.color}`} />
-                  <span className="text-sm text-on-surface-variant flex-1">{s.label}</span>
-                  <span className="text-sm font-bold text-on-surface">{s.count}</span>
-                </div>
-              ))}
+            <div className="space-y-3 flex-1 min-w-0">
+              {statusRows.length === 0 ? (
+                <p className="text-on-surface-variant text-sm">No booking breakdown yet</p>
+              ) : (
+                statusRows.map((s) => (
+                  <div key={s.label} className="flex items-center gap-3">
+                    <div
+                      className={cn(
+                        "w-3 h-3 rounded-full shrink-0",
+                        STATUS_STYLE[s.label] ?? "bg-outline-variant"
+                      )}
+                    />
+                    <span className="text-sm text-on-surface-variant flex-1 truncate">{s.label}</span>
+                    <span className="text-sm font-bold text-on-surface tabular-nums">{s.count}</span>
+                    <span className="text-xs text-on-surface-variant tabular-nums w-12 text-right">
+                      {Math.round((s.count / statusTotal) * 100)}%
+                    </span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </Card>
@@ -143,7 +185,7 @@ export default function AdminDashboardPage() {
                     <p className="text-emerald-500 text-sm font-medium">{formatCurrency(payment.amount)}</p>
                     <span className={cn(
                       "text-xs",
-                      payment.status === "SUCCESS" ? "text-emerald-500" : "text-yellow-500"
+                      payment.status === "SUCCESS" ? "text-emerald-500" : payment.status === "REFUNDED" ? "text-violet-600" : "text-yellow-500"
                     )}>{payment.status}</span>
                   </div>
                 </div>

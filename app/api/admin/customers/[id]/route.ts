@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { requireAdmin } from "@/lib/auth";
+import { requireAdmin, getSession } from "@/lib/auth";
+import { adminCustomerPatchSchema } from "@/lib/validators";
+import { ZodError } from "zod";
 
 export async function PATCH(
   req: NextRequest,
@@ -10,11 +12,24 @@ export async function PATCH(
     await requireAdmin();
     const { id } = await params;
     const body = await req.json();
-    const { firstName, lastName, phone, role } = body;
+    let data: ReturnType<typeof adminCustomerPatchSchema.parse>;
+    try {
+      data = adminCustomerPatchSchema.parse(body);
+    } catch (e) {
+      if (e instanceof ZodError) {
+        return NextResponse.json({ error: "Validation failed", details: e.issues }, { status: 400 });
+      }
+      throw e;
+    }
 
     const user = await db.user.update({
       where: { id },
-      data: { ...(firstName && { firstName }), ...(lastName && { lastName }), ...(phone !== undefined && { phone }), ...(role && { role }) },
+      data: {
+        ...(data.firstName && { firstName: data.firstName }),
+        ...(data.lastName && { lastName: data.lastName }),
+        ...(data.phone !== undefined && { phone: data.phone }),
+        ...(data.role && { role: data.role }),
+      },
       select: { id: true, email: true, firstName: true, lastName: true, phone: true, role: true, createdAt: true },
     });
 
@@ -29,8 +44,22 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await getSession();
     await requireAdmin();
     const { id } = await params;
+
+    if (session?.userId === id) {
+      return NextResponse.json({ error: "You cannot delete your own account while logged in" }, { status: 400 });
+    }
+
+    const target = await db.user.findUnique({ where: { id }, select: { role: true } });
+    if (target?.role === "ADMIN") {
+      const adminCount = await db.user.count({ where: { role: "ADMIN" } });
+      if (adminCount <= 1) {
+        return NextResponse.json({ error: "Cannot delete the last administrator account" }, { status: 400 });
+      }
+    }
+
     await db.user.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch {

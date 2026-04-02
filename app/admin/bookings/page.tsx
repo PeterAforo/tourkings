@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Search } from "lucide-react";
+import { Download } from "lucide-react";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
@@ -50,6 +50,15 @@ export default function AdminBookingsPage() {
 
   return (
     <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <a
+          href="/api/admin/export/bookings"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-surface-container-highest text-on-surface hover:bg-surface-container-highest/80 border border-outline-variant/15"
+        >
+          <Download size={18} />
+          Export CSV
+        </a>
+      </div>
       <div className="flex flex-wrap gap-2">
         {["ALL", "PENDING", "CONFIRMED", "COMPLETED", "CANCELLED"].map((s) => (
           <button key={s} onClick={() => setFilter(s)}

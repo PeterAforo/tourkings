@@ -22,6 +22,7 @@ enum PaymentStatus {
   PENDING
   SUCCESS
   FAILED
+  REFUNDED
 }
 
 enum PaymentType {
@@ -43,12 +44,14 @@ model User {
   phone         String?
   role          Role           @default(CUSTOMER)
   avatarUrl     String?
+  preferences   Json?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   wallet        Wallet?
   bookings      Booking[]
   payments      Payment[]
   notifications Notification[]
+  adminLogs     AdminActivityLog[] @relation("AdminActions")
 }
 
 model Wallet {
@@ -169,4 +172,25 @@ model SiteContent {
   updatedAt DateTime @updatedAt
 
   @@unique([section, key])
+}
+
+model ContactInquiry {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  emailSent Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AdminActivityLog {
+  id        String   @id @default(cuid())
+  adminId   String
+  action    String
+  entity    String?
+  entityId  String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+  admin     User     @relation("AdminActions", fields: [adminId], references: [id], onDelete: Cascade)
 }

@@ -54,6 +54,20 @@ export const contactSchema = z.object({
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
+export const userPreferencesSchema = z.object({
+  emailNotifications: z.boolean().optional(),
+  walletAlerts: z.boolean().optional(),
+  bookingUpdates: z.boolean().optional(),
+  preferredCurrency: z.enum(["GHS", "USD", "GBP", "EUR"]).optional(),
+});
+
+export const adminCustomerPatchSchema = z.object({
+  firstName: z.string().min(2).optional(),
+  lastName: z.string().min(2).optional(),
+  phone: z.string().optional().nullable(),
+  role: z.enum(["CUSTOMER", "ADMIN"]).optional(),
+});
+
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
 export type BookingInput = z.infer<typeof bookingSchema>;
@@ -61,3 +75,4 @@ export type WalletTopupInput = z.infer<typeof walletTopupSchema>;
 export type PackageInput = z.infer<typeof packageSchema>;
 export type DestinationInput = z.infer<typeof destinationSchema>;
 export type ContactInput = z.infer<typeof contactSchema>;
+export type UserPreferencesInput = z.infer<typeof userPreferencesSchema>;

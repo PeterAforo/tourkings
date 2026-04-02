@@ -1,15 +1,39 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import FadeIn from "@/components/animations/FadeIn";
-
-const stats = [
-  { value: "15+", label: "Years Experience" },
-  { value: "200+", label: "Curated Paths" },
-  { value: "5k+", label: "Happy Voyagers" },
-];
+import type { PublicSiteContent } from "@/lib/site-content-defaults";
+import { mergePublicSiteContent } from "@/lib/site-content-defaults";
 
 export default function Stats() {
+  const [content, setContent] = useState<PublicSiteContent | null>(null);
+
+  useEffect(() => {
+    fetch("/api/public/site-content")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.content) setContent(d.content as PublicSiteContent);
+        else setContent(mergePublicSiteContent({}));
+      })
+      .catch(() => setContent(mergePublicSiteContent({})));
+  }, []);
+
+  if (!content) {
+    return <section className="py-24 bg-surface-container-highest min-h-[200px]" aria-hidden />;
+  }
+
+  const { stats } = content;
+  const headingParts = stats.heading.split(",").map((s) => s.trim());
+  const line1 = headingParts[0] || stats.heading;
+  const line2 = headingParts.slice(1).join(", ");
+
+  const statBlocks = [
+    { value: stats.years, label: "Years Experience" },
+    { value: stats.paths, label: "Curated Paths" },
+    { value: stats.voyagers, label: "Happy Voyagers" },
+  ];
+
   return (
     <section className="py-24 bg-surface-container-highest overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -66,23 +90,21 @@ export default function Stats() {
                 Our Story
               </span>
               <h2 className="font-headline text-4xl md:text-5xl font-bold text-on-surface mb-8 leading-tight">
-                Ghanaian Owned, <br />
-                <span className="text-primary">Global Reach.</span>
+                {line2 ? (
+                  <>
+                    {line1}, <br />
+                    <span className="text-primary">{line2}</span>
+                  </>
+                ) : (
+                  stats.heading
+                )}
               </h2>
               <div className="space-y-6 text-on-surface-variant text-lg leading-relaxed">
-                <p>
-                  Founded on the principles of hospitality and cultural pride, TourKings is more than
-                  a travel agency. We are the custodians of your adventures, committed to showcasing
-                  the hidden gems of West Africa alongside the world&apos;s most iconic wonders.
-                </p>
-                <p>
-                  Our roots in Ghana define our service—warm, authentic, and regal. We believe every
-                  traveler should feel like a king, whether they are trekking through our ancestral
-                  forests or dining in the skyscrapers of the West.
-                </p>
+                <p>{stats.paragraph1}</p>
+                <p>{stats.paragraph2}</p>
               </div>
-              <div className="mt-12 flex items-center gap-10">
-                {stats.map((stat) => (
+              <div className="mt-12 flex flex-wrap items-center gap-10">
+                {statBlocks.map((stat) => (
                   <div key={stat.label}>
                     <div className="text-4xl font-extrabold text-primary mb-1 font-headline">{stat.value}</div>
                     <div className="text-sm font-bold text-on-surface-variant uppercase tracking-wider">

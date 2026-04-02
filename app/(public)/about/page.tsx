@@ -1,11 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer";
 import CountUp from "@/components/animations/CountUp";
 import { Shield, Heart, Globe, Award } from "lucide-react";
+import type { PublicSiteContent } from "@/lib/site-content-defaults";
+import { mergePublicSiteContent } from "@/lib/site-content-defaults";
 
 const values = [
   { icon: Shield, title: "Trust & Safety", description: "Your safety is our top priority. We ensure every tour meets the highest safety standards." },
@@ -21,7 +24,33 @@ const team = [
   { name: "Efua Owusu", role: "Customer Experience", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80" },
 ];
 
+function parseStatNum(s: string): number {
+  const n = parseInt(String(s).replace(/[^\d]/g, ""), 10);
+  return Number.isFinite(n) ? n : 0;
+}
+
 export default function AboutPage() {
+  const [about, setAbout] = useState<PublicSiteContent["about"] | null>(null);
+
+  useEffect(() => {
+    fetch("/api/public/site-content")
+      .then((r) => r.json())
+      .then((d) => {
+        const c = d.content
+          ? (d.content as PublicSiteContent)
+          : mergePublicSiteContent({});
+        setAbout(c.about);
+      })
+      .catch(() => setAbout(mergePublicSiteContent({}).about));
+  }, []);
+
+  if (!about) {
+    return <div className="pt-24 min-h-screen bg-surface" aria-hidden />;
+  }
+
+  const title = about.story_title || about.title;
+  const yearsBadge = `${parseStatNum(about.stat_years) || 10}+`;
+
   return (
     <div className="pt-24 pb-16 min-h-screen">
       <section className="relative py-20 overflow-hidden">
@@ -30,25 +59,39 @@ export default function AboutPage() {
             <FadeIn direction="right">
               <span className="text-primary text-sm font-medium tracking-widest uppercase">Our Story</span>
               <h1 className="text-4xl md:text-5xl font-headline font-bold text-on-surface mt-3 mb-6">
-                Crafting Unforgettable <span className="text-primary">Journeys</span> Since 2015
+                {(() => {
+                  const parts = title.split(/(Journeys)/i);
+                  if (parts.length === 3) {
+                    return (
+                      <>
+                        {parts[0]}
+                        <span className="text-primary">{parts[1]}</span>
+                        {parts[2]}
+                      </>
+                    );
+                  }
+                  return title;
+                })()}
               </h1>
-              <p className="text-on-surface-variant text-lg leading-relaxed mb-6">
-                TourKings was born from a simple dream: to share the beauty and richness of Ghana with the world. Founded in Accra, we started as a small team of passionate travelers who believed that everyone deserves to experience the magic of Africa.
-              </p>
-              <p className="text-on-surface-variant leading-relaxed mb-8">
-                Today, we&apos;ve grown into Ghana&apos;s premier tour company, serving thousands of travelers from across the globe. Our unique wallet savings feature allows customers to save towards their dream vacation at their own pace, making travel accessible to everyone.
-              </p>
+              <p className="text-on-surface-variant text-lg leading-relaxed mb-6">{about.story_p1}</p>
+              <p className="text-on-surface-variant leading-relaxed mb-8">{about.story_p2}</p>
               <div className="grid grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-headline font-bold text-primary"><CountUp end={5000} suffix="+" /></div>
+                  <div className="text-3xl font-headline font-bold text-primary">
+                    <CountUp end={parseStatNum(about.stat_travelers)} suffix="+" />
+                  </div>
                   <p className="text-on-surface-variant text-sm mt-1">Travelers</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-headline font-bold text-primary"><CountUp end={10} suffix="+" /></div>
+                  <div className="text-3xl font-headline font-bold text-primary">
+                    <CountUp end={parseStatNum(about.stat_years)} suffix="+" />
+                  </div>
                   <p className="text-on-surface-variant text-sm mt-1">Years</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-headline font-bold text-primary"><CountUp end={15} suffix="+" /></div>
+                  <div className="text-3xl font-headline font-bold text-primary">
+                    <CountUp end={parseStatNum(about.stat_countries)} suffix="+" />
+                  </div>
                   <p className="text-on-surface-variant text-sm mt-1">Countries</p>
                 </div>
               </div>
@@ -57,11 +100,17 @@ export default function AboutPage() {
             <FadeIn direction="left">
               <div className="relative">
                 <div className="relative h-[500px] rounded-2xl overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80" alt="TourKings Team" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+                  <Image
+                    src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80"
+                    alt="TourKings Team"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
                 </div>
                 <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-primary/10 rounded-2xl border border-primary/20 flex items-center justify-center">
                   <div className="text-center">
-                    <p className="text-3xl font-headline font-bold text-primary">10+</p>
+                    <p className="text-3xl font-headline font-bold text-primary">{yearsBadge}</p>
                     <p className="text-on-surface-variant text-xs">Years of Excellence</p>
                   </div>
                 </div>

@@ -1,31 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Card from "@/components/ui/Card";
+import type { PublicSiteContent } from "@/lib/site-content-defaults";
+import { mergePublicSiteContent } from "@/lib/site-content-defaults";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [feedback, setFeedback] = useState<string | null>(null);
+  const [contact, setContact] = useState<PublicSiteContent["contact"] | null>(null);
+
+  useEffect(() => {
+    fetch("/api/public/site-content")
+      .then((r) => r.json())
+      .then((d) => {
+        const c = d.content
+          ? (d.content as PublicSiteContent)
+          : mergePublicSiteContent({});
+        setContact(c.contact);
+      })
+      .catch(() => setContact(mergePublicSiteContent({}).contact));
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFeedback(null);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
         setSubmitted(true);
+        setFeedback(typeof data.message === "string" ? data.message : null);
       } else {
-        const data = await res.json();
         alert(data.error || "Failed to send message");
       }
     } catch {
@@ -35,11 +53,12 @@ export default function ContactPage() {
     }
   };
 
+  const cms = contact ?? mergePublicSiteContent({}).contact;
   const contactInfo = [
-    { icon: MapPin, title: "Visit Us", lines: ["15 Independence Ave", "Accra, Ghana"] },
-    { icon: Phone, title: "Call Us", lines: ["+233 20 123 4567", "+233 30 123 4567"] },
-    { icon: Mail, title: "Email Us", lines: ["info@tourkings.com", "bookings@tourkings.com"] },
-    { icon: Clock, title: "Working Hours", lines: ["Mon - Fri: 8AM - 6PM", "Sat: 9AM - 3PM"] },
+    { icon: MapPin, title: "Visit Us", lines: [cms.address_line1, cms.address_line2] },
+    { icon: Phone, title: "Call Us", lines: [cms.phone, cms.phone2].filter(Boolean) },
+    { icon: Mail, title: "Email Us", lines: [cms.email, cms.email_bookings].filter(Boolean) },
+    { icon: Clock, title: "Working Hours", lines: [cms.hours_weekday, cms.hours_sat].filter(Boolean) },
   ];
 
   return (
@@ -63,8 +82,11 @@ export default function ContactPage() {
                     <div className="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Send size={28} className="text-secondary" />
                     </div>
-                    <h3 className="text-2xl font-headline font-bold text-on-surface mb-2">Message Sent!</h3>
-                    <p className="text-on-surface-variant">We&apos;ll get back to you within 24 hours.</p>
+                    <h3 className="text-2xl font-headline font-bold text-on-surface mb-2">Message received</h3>
+                    <p className="text-on-surface-variant max-w-md mx-auto">
+                      {feedback ||
+                        "We&apos;ll get back to you within 24 hours."}
+                    </p>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">

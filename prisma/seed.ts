@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
 
@@ -574,6 +574,112 @@ async function main() {
   ]);
 
   console.log(`${packages.length} packages created`);
+
+  const siteDefaults: { section: string; key: string; value: string | object }[] = [
+    { section: "hero", key: "badge", value: "Experience Ghanaian Heritage" },
+    { section: "hero", key: "title", value: "Discovering Your Next Adventure." },
+    {
+      section: "hero",
+      key: "subtitle",
+      value:
+        "From the mist-covered canopies of Kakum to the vibrant rhythms of Accra, we craft premium journeys that bridge the gap between tradition and luxury.",
+    },
+    { section: "hero", key: "cta_text", value: "Start Your Journey" },
+    {
+      section: "hero",
+      key: "image_url",
+      value: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1920&q=80",
+    },
+    { section: "about", key: "title", value: "Crafting Unforgettable Journeys Since 2015" },
+    {
+      section: "about",
+      key: "story_title",
+      value: "Crafting Unforgettable Journeys Since 2015",
+    },
+    {
+      section: "about",
+      key: "story_p1",
+      value:
+        "TourKings was born from a simple dream: to share the beauty and richness of Ghana with the world. Founded in Accra, we started as a small team of passionate travelers who believed that everyone deserves to experience the magic of Africa.",
+    },
+    {
+      section: "about",
+      key: "story_p2",
+      value:
+        "Today, we've grown into Ghana's premier tour company, serving thousands of travelers from across the globe. Our unique wallet savings feature allows customers to save towards their dream vacation at their own pace, making travel accessible to everyone.",
+    },
+    { section: "about", key: "stat_travelers", value: "5000" },
+    { section: "about", key: "stat_years", value: "10" },
+    { section: "about", key: "stat_countries", value: "15" },
+    {
+      section: "about",
+      key: "description",
+      value:
+        "TourKings was born from a simple dream: to share the beauty and richness of Ghana with the world.",
+    },
+    { section: "contact", key: "email", value: "info@tourkings.com" },
+    { section: "contact", key: "email_bookings", value: "bookings@tourkings.com" },
+    { section: "contact", key: "phone", value: "+233 20 123 4567" },
+    { section: "contact", key: "phone2", value: "+233 30 123 4567" },
+    { section: "contact", key: "address_line1", value: "15 Independence Ave" },
+    { section: "contact", key: "address_line2", value: "Accra, Ghana" },
+    { section: "contact", key: "hours_weekday", value: "Mon - Fri: 8AM - 6PM" },
+    { section: "contact", key: "hours_sat", value: "Sat: 9AM - 3PM" },
+    { section: "stats", key: "years", value: "15+" },
+    { section: "stats", key: "paths", value: "200+" },
+    { section: "stats", key: "voyagers", value: "5k+" },
+    { section: "stats", key: "heading", value: "Ghanaian Owned, Global Reach." },
+    {
+      section: "stats",
+      key: "paragraph1",
+      value:
+        "Founded on the principles of hospitality and cultural pride, TourKings is more than a travel agency. We are the custodians of your adventures, committed to showcasing the hidden gems of West Africa alongside the world's most iconic wonders.",
+    },
+    {
+      section: "stats",
+      key: "paragraph2",
+      value:
+        "Our roots in Ghana define our service—warm, authentic, and regal. We believe every traveler should feel like a king, whether they are trekking through our ancestral forests or dining in the skyscrapers of the West.",
+    },
+    {
+      section: "testimonials",
+      key: "items",
+      value: [
+        {
+          name: "Kwame Asante",
+          location: "Accra, Ghana",
+          rating: 5,
+          image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
+          text: "TourKings made our family vacation absolutely unforgettable. The Cape Coast tour was perfectly organized, and our guide was incredibly knowledgeable about Ghana's history.",
+        },
+        {
+          name: "Sarah Johnson",
+          location: "London, UK",
+          rating: 5,
+          image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
+          text: "As a solo traveler, I felt completely safe and welcomed. The Volta Region adventure was the highlight of my Africa trip. TourKings is simply the best!",
+        },
+        {
+          name: "David Mensah",
+          location: "Kumasi, Ghana",
+          rating: 5,
+          image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
+          text: "The wallet savings feature is brilliant! I saved gradually and got to experience the premium Dubai package. The team is professional and truly cares about their customers.",
+        },
+      ],
+    },
+  ];
+
+  for (const row of siteDefaults) {
+    const v = row.value as Prisma.InputJsonValue;
+    await prisma.siteContent.upsert({
+      where: { section_key: { section: row.section, key: row.key } },
+      update: { value: v },
+      create: { section: row.section, key: row.key, value: v },
+    });
+  }
+  console.log("Site content seeded");
+
   console.log("\nSeed completed!");
   console.log("Admin login: admin@tourkings.com / admin123");
   console.log("Customer login: kofi@example.com / customer123");

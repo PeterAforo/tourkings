@@ -14,10 +14,31 @@ const manrope = Manrope({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") || "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "TourKings - Premium Tour Experiences in Ghana & Beyond",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "TourKings - Premium Tour Experiences in Ghana & Beyond",
+    template: "%s | TourKings",
+  },
   description:
     "Discover extraordinary travel experiences with TourKings. Customized tour packages across Ghana and the world. Save towards your dream vacation.",
+  keywords: ["Ghana tours", "travel", "TourKings", "vacation", "wallet savings", "West Africa"],
+  openGraph: {
+    type: "website",
+    locale: "en_GH",
+    url: siteUrl,
+    siteName: "TourKings",
+    title: "TourKings - Premium Tour Experiences in Ghana & Beyond",
+    description:
+      "Discover extraordinary travel experiences with TourKings. Customized tour packages across Ghana and the world.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TourKings - Premium Tour Experiences",
+    description: "Premium tours in Ghana and beyond. Save with your wallet toward your dream trip.",
+  },
   icons: {
     icon: "/favicon.png",
     apple: "/favicon.png",

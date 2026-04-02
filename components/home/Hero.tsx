@@ -1,25 +1,36 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import type { PublicSiteContent } from "@/lib/site-content-defaults";
+import { mergePublicSiteContent } from "@/lib/site-content-defaults";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const [content, setContent] = useState<PublicSiteContent | null>(null);
 
   useEffect(() => {
+    fetch("/api/public/site-content")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.content) setContent(d.content as PublicSiteContent);
+        else setContent(mergePublicSiteContent({}));
+      })
+      .catch(() => setContent(mergePublicSiteContent({})));
+  }, []);
+
+  const hero = content?.hero;
+
+  useEffect(() => {
+    if (!heroRef.current || !hero) return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
-
-      tl.fromTo(
-        ".hero-overlay",
-        { opacity: 0 },
-        { opacity: 1, duration: 1.5 }
-      )
+      tl.fromTo(".hero-overlay", { opacity: 0 }, { opacity: 1, duration: 1.5 })
         .fromTo(
           titleRef.current,
           { opacity: 0, y: 80, clipPath: "inset(100% 0 0 0)" },
@@ -39,9 +50,21 @@ export default function Hero() {
           "-=0.3"
         );
     }, heroRef);
-
     return () => ctx.revert();
-  }, []);
+  }, [hero]);
+
+  if (!hero) {
+    return <section className="relative min-h-[50vh] bg-surface" aria-hidden />;
+  }
+
+  const title = hero.title;
+  const adventureIdx = title.toLowerCase().indexOf("adventure");
+  const titleBefore =
+    adventureIdx >= 0 ? title.slice(0, adventureIdx) : title;
+  const titleAdventure =
+    adventureIdx >= 0 ? title.slice(adventureIdx, adventureIdx + "Adventure".length) : "";
+  const titleAfter =
+    adventureIdx >= 0 ? title.slice(adventureIdx + "Adventure".length) : "";
 
   return (
     <section
@@ -50,8 +73,8 @@ export default function Hero() {
     >
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1920&q=80"
-          alt="Stunning coastline in Ghana"
+          src={hero.image_url}
+          alt=""
           fill
           sizes="100vw"
           priority
@@ -63,34 +86,46 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="max-w-2xl">
           <span className="inline-block text-secondary font-bold tracking-widest text-sm mb-4 uppercase font-headline">
-            Experience Ghanaian Heritage
+            {hero.badge}
           </span>
 
           <h1
             ref={titleRef}
             className="font-headline text-5xl md:text-7xl font-extrabold text-white leading-tight mb-8 tracking-tighter"
           >
-            Discovering Your Next{" "}
-            <span className="text-secondary-fixed">Adventure</span>.
+            {adventureIdx >= 0 ? (
+              <>
+                {titleBefore}
+                <span className="text-secondary-fixed">{titleAdventure}</span>
+                {titleAfter}
+              </>
+            ) : (
+              title
+            )}
           </h1>
 
           <p
             ref={subtitleRef}
             className="text-lg md:text-xl text-white/90 font-medium mb-12 leading-relaxed"
           >
-            From the mist-covered canopies of Kakum to the vibrant rhythms of Accra,
-            we craft premium journeys that bridge the gap between tradition and luxury.
+            {hero.subtitle}
           </p>
 
           <div className="hero-cta flex flex-col sm:flex-row gap-6">
             <Link href="/packages">
-              <button className="hero-gradient text-on-primary px-10 py-5 rounded-lg font-bold text-lg shadow-xl hover:scale-105 transition-transform flex items-center gap-3 font-headline">
-                Start Your Journey
+              <button
+                type="button"
+                className="hero-gradient text-on-primary px-10 py-5 rounded-lg font-bold text-lg shadow-xl hover:scale-105 transition-transform flex items-center gap-3 font-headline"
+              >
+                {hero.cta_text}
                 <ArrowRight size={20} />
               </button>
             </Link>
             <Link href="/destinations">
-              <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/20 transition-all font-headline">
+              <button
+                type="button"
+                className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/20 transition-all font-headline"
+              >
                 Explore Destinations
               </button>
             </Link>

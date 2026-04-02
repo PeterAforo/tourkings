@@ -57,3 +57,19 @@ export function verifyWebhookSignature(signature: string): boolean {
   const webhookHash = process.env.FLUTTERWAVE_WEBHOOK_HASH;
   return signature === webhookHash;
 }
+
+export async function refundTransaction(transactionId: string, amount?: number) {
+  const body: Record<string, number> = {};
+  if (amount != null && amount > 0) body.amount = amount;
+
+  const response = await fetch(`${FLW_BASE_URL}/transactions/${transactionId}/refund`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${FLW_SECRET_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  return response.json();
+}
