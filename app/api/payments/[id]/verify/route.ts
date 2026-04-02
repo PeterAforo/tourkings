@@ -1,12 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { verifyTransaction } from "@/lib/flutterwave";
+import { verifyCharge } from "@/lib/flutterwave";
 import { finalizePaymentSuccess } from "@/lib/finalize-payment";
 
+type PaymentMeta = { txRef?: string; chargeId?: string; flw?: string };
+
+function isFlwConfigured(): boolean {
+  return !!(
+    process.env.FLUTTERWAVE_CLIENT_ID && process.env.FLUTTERWAVE_CLIENT_SECRET
+  );
+}
+
 /**
- * GET /api/payments/[id]/verify?transaction_id=FLW_ID
- * Confirms payment for the logged-in owner; optionally verifies with Flutterwave when still PENDING.
+ * GET /api/payments/[id]/verify?transaction_id= (legacy) or uses stored v4 chargeId
  */
 export async function GET(
   req: NextRequest,
@@ -47,16 +54,22 @@ export async function GET(
       });
     }
 
-    if (transactionId && process.env.FLUTTERWAVE_SECRET_KEY) {
-      const flw = await verifyTransaction(transactionId);
-      const flwData = flw?.data;
+    const meta = payment.metadata as PaymentMeta | null;
+    const chargeId = meta?.chargeId || transactionId || undefined;
+
+    if (chargeId && isFlwConfigured()) {
+      const flw = (await verifyCharge(chargeId)) as {
+        status?: string;
+        data?: { status?: string; id?: string };
+      };
+      const d = flw?.data;
       const ok =
         flw?.status === "success" &&
-        flwData &&
-        (flwData.status === "successful" || flwData.status === "success");
+        d &&
+        (d.status === "succeeded" || d.status === "successful");
 
       if (ok) {
-        const ref = String(flwData.id ?? transactionId);
+        const ref = String(d.id ?? chargeId);
         await finalizePaymentSuccess(payment.id, ref);
         const updated = await db.payment.findUnique({ where: { id: payment.id } });
         return NextResponse.json({
@@ -74,8 +87,8 @@ export async function GET(
       amount: payment.amount,
       currency: payment.currency,
       message:
-        transactionId == null
-          ? "Waiting for payment confirmation. If you completed payment, open the link from your email or wait a moment and refresh."
+        chargeId == null
+          ? "Waiting for payment confirmation. If you completed payment, wait a moment and refresh."
           : "Could not verify with payment provider yet.",
     });
   } catch {

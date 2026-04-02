@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { initializePayment } from "@/lib/flutterwave";
+import { finalizePaymentSuccess } from "@/lib/finalize-payment";
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,7 +32,7 @@ export async function POST(req: NextRequest) {
         type,
         bookingId: bookingId || null,
         status: "PENDING",
-        metadata: { txRef },
+        metadata: { txRef, flw: "v4" },
       },
     });
 
@@ -50,12 +51,63 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    if (result.status === "success") {
-      return NextResponse.json({ paymentLink: result.data.link, paymentId: payment.id });
+    if (!result.ok) {
+      await db.payment.update({
+        where: { id: payment.id },
+        data: { status: "FAILED", metadata: { txRef, flw: "v4", error: result.error } },
+      });
+      return NextResponse.json(
+        { error: result.error || "Failed to initialize payment" },
+        { status: 400 }
+      );
     }
 
-    return NextResponse.json({ error: "Failed to initialize payment" }, { status: 500 });
-  } catch {
+    const chargeId = result.chargeId;
+    await db.payment.update({
+      where: { id: payment.id },
+      data: {
+        metadata: {
+          txRef,
+          flw: "v4",
+          ...(chargeId ? { chargeId } : {}),
+        },
+      },
+    });
+
+    const raw = result.raw as { data?: { status?: string; id?: string } } | undefined;
+    const immediateStatus = raw?.data?.status;
+    if (immediateStatus === "succeeded" && chargeId) {
+      await finalizePaymentSuccess(payment.id, chargeId);
+      return NextResponse.json({
+        paymentId: payment.id,
+        completed: true,
+      });
+    }
+
+    if (result.paymentLink) {
+      return NextResponse.json({
+        paymentLink: result.paymentLink,
+        paymentId: payment.id,
+      });
+    }
+
+    if (result.paymentInstruction) {
+      return NextResponse.json({
+        paymentInstruction: result.paymentInstruction,
+        paymentId: payment.id,
+        chargeId,
+      });
+    }
+
+    return NextResponse.json({
+      paymentId: payment.id,
+      chargeId,
+      pending: true,
+      message:
+        "Payment started. Complete authorization on your phone or wait for confirmation.",
+    });
+  } catch (e) {
+    console.error("Payment initialize:", e);
     return NextResponse.json({ error: "Payment initialization failed" }, { status: 500 });
   }
 }

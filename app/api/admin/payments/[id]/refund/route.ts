@@ -28,19 +28,26 @@ export async function POST(
       return NextResponse.json({ error: "No provider reference for this payment" }, { status: 400 });
     }
 
-    if (!process.env.FLUTTERWAVE_SECRET_KEY) {
+    if (!process.env.FLUTTERWAVE_CLIENT_ID || !process.env.FLUTTERWAVE_CLIENT_SECRET) {
       return NextResponse.json({ error: "Flutterwave is not configured" }, { status: 503 });
     }
 
     const body = await req.json().catch(() => ({}));
     const amount = typeof body.amount === "number" ? body.amount : undefined;
 
-    const flw = await refundTransaction(payment.providerRef, amount);
-    const ok = flw?.status === "success" || flw?.data?.status === "success";
+    const flw = (await refundTransaction(payment.providerRef, amount)) as {
+      status?: string;
+      message?: string;
+      data?: { status?: string };
+    };
+    const ok =
+      flw?.status === "success" ||
+      flw?.data?.status === "success" ||
+      flw?.data?.status === "succeeded";
 
     if (!ok) {
       return NextResponse.json(
-        { error: flw?.message || "Refund failed", details: flw },
+        { error: (flw?.message as string) || "Refund failed", details: flw },
         { status: 400 }
       );
     }

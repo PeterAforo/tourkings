@@ -46,9 +46,25 @@ export default function WalletPage() {
         body: JSON.stringify({ amount: parseFloat(amount), type: "WALLET_TOPUP" }),
       });
       const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || "Payment failed");
+        return;
+      }
+      const verifyUrl = `/dashboard/payments/verify?paymentId=${data.paymentId}`;
+      if (data.completed) {
+        window.location.href = verifyUrl;
+        return;
+      }
       if (data.paymentLink) {
         window.location.href = data.paymentLink;
+        return;
       }
+      if (data.paymentInstruction) {
+        alert(data.paymentInstruction);
+        window.location.href = verifyUrl;
+        return;
+      }
+      window.location.href = verifyUrl;
     } catch (err) {
       console.error("Topup failed:", err);
     } finally {

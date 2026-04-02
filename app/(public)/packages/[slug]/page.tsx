@@ -160,11 +160,25 @@ export default function PackageDetailPage() {
         body: JSON.stringify({ amount: pkg.price * travelers, type: "BOOKING", bookingId: bookingData.booking.id }),
       });
       const payData = await payRes.json();
+      if (!payRes.ok) {
+        alert(payData.error || "Payment initialization failed.");
+        return;
+      }
+      const verifyUrl = `/dashboard/payments/verify?paymentId=${payData.paymentId}`;
+      if (payData.completed) {
+        window.location.href = verifyUrl;
+        return;
+      }
       if (payData.paymentLink) {
         window.location.href = payData.paymentLink;
-      } else {
-        alert("Payment initialization failed. Please try again.");
+        return;
       }
+      if (payData.paymentInstruction) {
+        alert(payData.paymentInstruction);
+        window.location.href = verifyUrl;
+        return;
+      }
+      window.location.href = verifyUrl;
     } catch {
       alert("Something went wrong. Please try again.");
     } finally {
