@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { LayoutDashboard, Wallet, Calendar, User, LogOut, Menu, X, ChevronRight } from "lucide-react";
+import { LayoutDashboard, Wallet, Calendar, User, LogOut, Menu, X, ChevronRight, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/lib/store";
 
@@ -13,6 +13,7 @@ const sidebarLinks = [
   { href: "/dashboard/wallet", label: "My Wallet", icon: Wallet },
   { href: "/dashboard/bookings", label: "My Bookings", icon: Calendar },
   { href: "/dashboard/profile", label: "Profile", icon: User },
+  { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

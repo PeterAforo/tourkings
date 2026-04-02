@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { ZodError } from "zod";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { slugify } from "@/lib/utils";
+import { packageSchema } from "@/lib/validators";
 
 export async function GET() {
   try {
@@ -20,22 +22,36 @@ export async function POST(req: NextRequest) {
   try {
     await requireAdmin();
     const body = await req.json();
-    const slug = slugify(body.title);
+    let data;
+    try {
+      data = packageSchema.parse(body);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return NextResponse.json(
+          { error: "Validation failed", details: error.issues },
+          { status: 400 }
+        );
+      }
+      throw error;
+    }
+
+    const slug = slugify(data.title);
 
     const pkg = await db.package.create({
       data: {
-        title: body.title,
+        title: data.title,
         slug,
-        description: body.description,
-        destinationId: body.destinationId,
-        price: body.price,
-        currency: body.currency || "GHS",
-        duration: body.duration,
-        groupSize: body.groupSize || 10,
-        included: body.included || [],
-        excluded: body.excluded || [],
-        images: body.images || [],
-        featured: body.featured || false,
+        description: data.description,
+        destinationId: data.destinationId,
+        price: data.price,
+        currency: data.currency,
+        duration: data.duration,
+        groupSize: data.groupSize,
+        included: data.included,
+        excluded: data.excluded,
+        images: data.images,
+        featured: data.featured,
+        active: data.active,
       },
     });
 

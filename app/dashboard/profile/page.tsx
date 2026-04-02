@@ -9,14 +9,23 @@ import Input from "@/components/ui/Input";
 import { useAppStore } from "@/lib/store";
 
 export default function ProfilePage() {
-  const { user } = useAppStore();
+  const { user, setUser } = useAppStore();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
   });
-  const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  });
+  const [passwordSaving, setPasswordSaving] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -31,8 +40,63 @@ export default function ProfilePage() {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    setSaving(true);
+    setMessage(null);
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setMessage({ type: "success", text: "Profile updated successfully!" });
+        if (data.user) setUser(data.user);
+      } else {
+        setMessage({ type: "error", text: data.error || "Failed to update profile" });
+      }
+    } catch {
+      setMessage({ type: "error", text: "Something went wrong. Please try again." });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordMessage(null);
+
+    if (passwordData.newPassword !== passwordData.confirmNewPassword) {
+      setPasswordMessage({ type: "error", text: "New passwords do not match" });
+      return;
+    }
+    if (passwordData.newPassword.length < 8) {
+      setPasswordMessage({ type: "error", text: "New password must be at least 8 characters" });
+      return;
+    }
+
+    setPasswordSaving(true);
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setPasswordMessage({ type: "success", text: "Password updated successfully!" });
+        setPasswordData({ currentPassword: "", newPassword: "", confirmNewPassword: "" });
+      } else {
+        setPasswordMessage({ type: "error", text: data.error || "Failed to update password" });
+      }
+    } catch {
+      setPasswordMessage({ type: "error", text: "Something went wrong. Please try again." });
+    } finally {
+      setPasswordSaving(false);
+    }
   };
 
   return (
@@ -60,12 +124,16 @@ export default function ProfilePage() {
             <Input label="Phone" id="phone" type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
 
             <div className="flex items-center gap-3">
-              <Button type="submit" variant="primary">
+              <Button type="submit" variant="primary" isLoading={saving}>
                 <Save size={16} className="mr-2" /> Save Changes
               </Button>
-              {saved && (
-                <motion.span initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="text-emerald-500 text-sm">
-                  Changes saved!
+              {message && (
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className={message.type === "success" ? "text-emerald-500 text-sm" : "text-red-500 text-sm"}
+                >
+                  {message.text}
                 </motion.span>
               )}
             </div>
@@ -78,11 +146,22 @@ export default function ProfilePage() {
           <h3 className="text-lg font-headline font-bold text-on-surface mb-4 flex items-center gap-2">
             <Lock size={18} /> Change Password
           </h3>
-          <form className="space-y-4">
-            <Input label="Current Password" id="currentPassword" type="password" placeholder="••••••••" />
-            <Input label="New Password" id="newPassword" type="password" placeholder="Min. 8 characters" />
-            <Input label="Confirm New Password" id="confirmNewPassword" type="password" placeholder="••••••••" />
-            <Button type="submit" variant="outline">Update Password</Button>
+          <form onSubmit={handlePasswordChange} className="space-y-4">
+            <Input label="Current Password" id="currentPassword" type="password" placeholder="••••••••" value={passwordData.currentPassword} onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })} required />
+            <Input label="New Password" id="newPassword" type="password" placeholder="Min. 8 characters" value={passwordData.newPassword} onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })} required />
+            <Input label="Confirm New Password" id="confirmNewPassword" type="password" placeholder="••••••••" value={passwordData.confirmNewPassword} onChange={(e) => setPasswordData({ ...passwordData, confirmNewPassword: e.target.value })} required />
+            <div className="flex items-center gap-3">
+              <Button type="submit" variant="outline" isLoading={passwordSaving}>Update Password</Button>
+              {passwordMessage && (
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className={passwordMessage.type === "success" ? "text-emerald-500 text-sm" : "text-red-500 text-sm"}
+                >
+                  {passwordMessage.text}
+                </motion.span>
+              )}
+            </div>
           </form>
         </Card>
       </motion.div>

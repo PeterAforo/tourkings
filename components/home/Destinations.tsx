@@ -1,43 +1,46 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 import FadeIn from "@/components/animations/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer";
 
-const destinations = [
-  {
-    name: "Accra",
-    slug: "accra",
-    country: "Ghana",
-    image: "https://images.unsplash.com/photo-1596005554384-d293674c91d7?w=600&q=80",
-    packages: 8,
-  },
-  {
-    name: "Cape Coast",
-    slug: "cape-coast",
-    country: "Ghana",
-    image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600&q=80",
-    packages: 5,
-  },
-  {
-    name: "Kumasi",
-    slug: "kumasi",
-    country: "Ghana",
-    image: "https://images.unsplash.com/photo-1504736038806-94bd1115084e?w=600&q=80",
-    packages: 4,
-  },
-  {
-    name: "Volta Region",
-    slug: "volta-region",
-    country: "Ghana",
-    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80",
-    packages: 6,
-  },
-];
+interface Destination {
+  id: string;
+  name: string;
+  slug: string;
+  country: string;
+  imageUrl: string | null;
+  packages: { id: string }[];
+}
+
+const fallbackImage = "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600&q=80";
 
 export default function Destinations() {
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/destinations")
+      .then((r) => r.json())
+      .then((d) => setDestinations((d.destinations || []).slice(0, 4)))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-24 bg-surface-container-low">
+        <div className="flex justify-center"><Loader2 className="animate-spin text-primary" size={32} /></div>
+      </section>
+    );
+  }
+
+  if (destinations.length === 0) return null;
+
   return (
     <section className="py-24 bg-surface-container-low">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,14 +58,14 @@ export default function Destinations() {
 
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {destinations.map((dest) => (
-            <StaggerItem key={dest.slug}>
+            <StaggerItem key={dest.id}>
               <Link href={`/destinations/${dest.slug}`}>
                 <motion.div
                   whileHover={{ y: -8 }}
                   className="relative h-80 rounded-2xl overflow-hidden group cursor-pointer"
                 >
                   <Image
-                    src={dest.image}
+                    src={dest.imageUrl || fallbackImage}
                     alt={dest.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -74,7 +77,7 @@ export default function Destinations() {
                       {dest.name}
                     </h3>
                     <p className="text-secondary-fixed text-sm font-medium">
-                      {dest.packages} packages available
+                      {dest.packages.length} package{dest.packages.length !== 1 ? "s" : ""} available
                     </p>
                   </div>
                 </motion.div>

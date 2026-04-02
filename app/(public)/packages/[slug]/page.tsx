@@ -97,6 +97,10 @@ export default function PackageDetailPage() {
   const [pkg, setPkg] = useState<PackageData | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAllDays, setShowAllDays] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
+  const [travelDate, setTravelDate] = useState("");
+  const [travelers, setTravelers] = useState(1);
+  const [bookingLoading, setBookingLoading] = useState(false);
 
   useEffect(() => {
     fetch(`/api/packages/${slug}`)
@@ -131,6 +135,52 @@ export default function PackageDetailPage() {
   const transport = pkg.transportation as TransportInfo | null;
   const amenityGroups = (pkg.amenities || []) as AmenityGroup[];
   const visibleDays = showAllDays ? itinerary : itinerary.slice(0, 3);
+
+  const handleBookNow = async () => {
+    setBookingLoading(true);
+    try {
+      const authRes = await fetch("/api/auth/me");
+      const authData = await authRes.json();
+      if (!authData?.user) {
+        router.push("/login");
+        return;
+      }
+
+      const bookingRes = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ packageId: pkg.id, travelDate: travelDate || undefined, travelers }),
+      });
+      const bookingData = await bookingRes.json();
+      if (!bookingData.booking) throw new Error("Booking failed");
+
+      const payRes = await fetch("/api/payments/initialize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: pkg.price * travelers, type: "BOOKING", bookingId: bookingData.booking.id }),
+      });
+      const payData = await payRes.json();
+      if (payData.paymentLink) {
+        window.location.href = payData.paymentLink;
+      } else {
+        alert("Payment initialization failed. Please try again.");
+      }
+    } catch {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setBookingLoading(false);
+    }
+  };
+
+  const handleVaultSave = async () => {
+    const authRes = await fetch("/api/auth/me");
+    const authData = await authRes.json();
+    if (authData?.user) {
+      router.push("/dashboard/wallet");
+    } else {
+      router.push("/register");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-surface font-body text-on-surface">
@@ -209,9 +259,7 @@ export default function PackageDetailPage() {
               {formatCurrency(pkg.price, pkg.currency)}
             </span>
           </div>
-          <Link href="/register">
-            <Button variant="primary" size="md">Book Now</Button>
-          </Link>
+          <Button variant="primary" size="md" onClick={() => setShowBooking(true)}>Book Now</Button>
         </div>
       </div>
 
@@ -529,16 +577,12 @@ export default function PackageDetailPage() {
                   </div>
 
                   <div className="space-y-4">
-                    <Link href="/register" className="block">
-                      <Button variant="primary" size="lg" className="w-full">
-                        Book Now
-                      </Button>
-                    </Link>
-                    <Link href="/register" className="block">
-                      <Button variant="tonal" size="lg" className="w-full">
-                        <Wallet size={18} className="mr-2" /> Add to The Vault
-                      </Button>
-                    </Link>
+                    <Button variant="primary" size="lg" className="w-full" onClick={() => setShowBooking(true)}>
+                      Book Now
+                    </Button>
+                    <Button variant="tonal" size="lg" className="w-full" onClick={handleVaultSave}>
+                      <Wallet size={18} className="mr-2" /> Add to The Vault
+                    </Button>
                   </div>
 
                   {/* Quick Info */}
@@ -597,13 +641,13 @@ export default function PackageDetailPage() {
                   <p className="text-on-primary-container text-sm leading-relaxed mb-6">
                     Not ready to pay in full? Secure this package price today by starting a savings goal in your Vault.
                   </p>
-                  <Link
-                    href="/register"
+                  <button
+                    onClick={handleVaultSave}
                     className="text-secondary-container font-bold text-sm inline-flex items-center gap-1 group"
                   >
                     Start Saving
                     <ChevronDown size={14} className="rotate-[-90deg] group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                  </button>
                 </div>
               </div>
             </FadeIn>
@@ -625,20 +669,70 @@ export default function PackageDetailPage() {
               Book now or start saving towards this package with your TourKings Vault.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/register">
-                <Button variant="primary" size="lg">
-                  Book Now &mdash; {formatCurrency(pkg.price, pkg.currency)}
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button variant="tonal" size="lg">
-                  <Wallet size={18} className="mr-2" /> Add to The Vault
-                </Button>
-              </Link>
+              <Button variant="primary" size="lg" onClick={() => setShowBooking(true)}>
+                Book Now &mdash; {formatCurrency(pkg.price, pkg.currency)}
+              </Button>
+              <Button variant="tonal" size="lg" onClick={handleVaultSave}>
+                <Wallet size={18} className="mr-2" /> Add to The Vault
+              </Button>
             </div>
           </div>
         </section>
       </FadeIn>
+
+      {showBooking && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-headline font-bold text-on-surface">Book This Package</h3>
+              <button onClick={() => setShowBooking(false)} className="text-on-surface-variant hover:text-on-surface">
+                <X size={24} />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-on-surface-variant mb-1.5">Travel Date</label>
+                <input
+                  type="date"
+                  value={travelDate}
+                  onChange={(e) => setTravelDate(e.target.value)}
+                  min={new Date(Date.now() + 7 * 86400000).toISOString().split("T")[0]}
+                  className="w-full px-4 py-2.5 bg-surface-container-low border border-outline-variant/15 rounded-lg text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-on-surface-variant mb-1.5">Number of Travelers</label>
+                <input
+                  type="number"
+                  value={travelers}
+                  onChange={(e) => setTravelers(Math.max(1, Math.min(pkg.groupSize, parseInt(e.target.value) || 1)))}
+                  min={1}
+                  max={pkg.groupSize}
+                  className="w-full px-4 py-2.5 bg-surface-container-low border border-outline-variant/15 rounded-lg text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div className="bg-surface-container-low rounded-xl p-4">
+                <div className="flex justify-between text-sm mb-2">
+                  <span className="text-on-surface-variant">{formatCurrency(pkg.price, pkg.currency)} x {travelers} traveler{travelers > 1 ? "s" : ""}</span>
+                  <span className="font-bold text-on-surface">{formatCurrency(pkg.price * travelers, pkg.currency)}</span>
+                </div>
+                <div className="border-t border-outline-variant/15 pt-2 flex justify-between">
+                  <span className="font-bold text-on-surface">Total</span>
+                  <span className="text-xl font-headline font-extrabold text-primary">{formatCurrency(pkg.price * travelers, pkg.currency)}</span>
+                </div>
+              </div>
+              <Button variant="primary" size="lg" className="w-full" onClick={handleBookNow} isLoading={bookingLoading}>
+                Proceed to Payment
+              </Button>
+              <p className="text-xs text-center text-on-surface-variant">You will be redirected to our secure payment partner</p>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }

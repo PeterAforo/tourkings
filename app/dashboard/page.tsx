@@ -23,20 +23,32 @@ interface Booking {
   package: { title: string; destination: { name: string } };
 }
 
-const suggestedPackages = [
-  { title: "Accra City Experience", price: 800, slug: "accra-city-experience" },
-  { title: "Cape Coast Heritage Tour", price: 1500, slug: "cape-coast-heritage-tour" },
-  { title: "Volta Region Adventure", price: 2200, slug: "volta-region-adventure" },
-  { title: "Kumasi Cultural Immersion", price: 1800, slug: "kumasi-cultural-immersion" },
-];
-
 export default function DashboardPage() {
   const [wallet, setWallet] = useState<WalletData | null>(null);
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [suggestedPackages, setSuggestedPackages] = useState<{title: string; price: number; slug: string; currency: string}[]>([]);
 
   useEffect(() => {
-    fetch("/api/wallet").then((r) => r.json()).then((d) => setWallet(d.wallet)).catch(() => {});
+    fetch("/api/wallet")
+      .then((r) => r.json())
+      .then((d) => {
+        setWallet(d.wallet);
+        fetch("/api/wallet/check-packages", { method: "POST" }).catch(() => {});
+      })
+      .catch(() => {});
     fetch("/api/bookings").then((r) => r.json()).then((d) => setBookings(d.bookings || [])).catch(() => {});
+    fetch("/api/packages?limit=4")
+      .then((r) => r.json())
+      .then((d) => {
+        const pkgs = (d.packages || []).map((p: { title: string; price: number; slug: string; currency?: string }) => ({
+          title: p.title,
+          price: p.price,
+          slug: p.slug,
+          currency: p.currency || "GHS",
+        }));
+        setSuggestedPackages(pkgs);
+      })
+      .catch(() => {});
   }, []);
 
   const balance = wallet?.balance || 0;
@@ -99,7 +111,7 @@ export default function DashboardPage() {
               <div key={pkg.slug}>
                 <div className="flex justify-between text-sm mb-1">
                   <Link href={`/packages/${pkg.slug}`} className="text-on-surface hover:text-primary transition-colors">{pkg.title}</Link>
-                  <span className="text-on-surface-variant">{formatCurrency(balance, currency)} / {formatCurrency(pkg.price, currency)}</span>
+                  <span className="text-on-surface-variant">{formatCurrency(balance, currency)} / {formatCurrency(pkg.price, pkg.currency || currency)}</span>
                 </div>
                 <div className="h-2 bg-surface-container-highest rounded-full overflow-hidden">
                   <motion.div

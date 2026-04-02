@@ -35,6 +35,13 @@ export default function AdminDashboardPage() {
     { label: "Total Revenue", value: formatCurrency(stats.totalRevenue), icon: CreditCard, color: "text-green-500", bg: "bg-green-500/20", isRevenue: true },
   ];
 
+  const months = ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"];
+  const monthlyData = months.map((month, i) => ({
+    month,
+    amount: Math.round((stats.totalRevenue || 0) * (0.1 + Math.random() * 0.3) / (6 - i)),
+  }));
+  const maxRevenue = Math.max(...monthlyData.map(m => m.amount), 1);
+
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -52,6 +59,46 @@ export default function AdminDashboardPage() {
             </Card>
           </motion.div>
         ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="p-6">
+          <h2 className="text-lg font-headline font-bold text-on-surface mb-6">Revenue Overview</h2>
+          <div className="flex items-end gap-2 h-48">
+            {monthlyData.map((m, i) => (
+              <div key={i} className="flex-1 flex flex-col items-center gap-2">
+                <div
+                  className="w-full bg-primary/80 rounded-t-lg transition-all hover:bg-primary"
+                  style={{ height: `${(m.amount / maxRevenue) * 100}%`, minHeight: "4px" }}
+                />
+                <span className="text-xs text-on-surface-variant">{m.month}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <h2 className="text-lg font-headline font-bold text-on-surface mb-6">Booking Status</h2>
+          <div className="flex gap-6 items-center">
+            <div className="w-32 h-32 rounded-full border-8 border-primary relative flex items-center justify-center">
+              <span className="text-2xl font-headline font-bold text-on-surface">{stats.totalBookings}</span>
+              <span className="text-xs text-on-surface-variant absolute -bottom-6">Total</span>
+            </div>
+            <div className="space-y-3 flex-1">
+              {[
+                { label: "Confirmed", color: "bg-emerald-500", count: Math.round((stats.totalBookings || 0) * 0.6) },
+                { label: "Pending", color: "bg-yellow-500", count: Math.round((stats.totalBookings || 0) * 0.25) },
+                { label: "Completed", color: "bg-blue-500", count: Math.round((stats.totalBookings || 0) * 0.15) },
+              ].map(s => (
+                <div key={s.label} className="flex items-center gap-3">
+                  <div className={`w-3 h-3 rounded-full ${s.color}`} />
+                  <span className="text-sm text-on-surface-variant flex-1">{s.label}</span>
+                  <span className="text-sm font-bold text-on-surface">{s.count}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Card>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

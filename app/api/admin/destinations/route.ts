@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { ZodError } from "zod";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { slugify } from "@/lib/utils";
+import { destinationSchema } from "@/lib/validators";
 
 export async function GET() {
   try {
@@ -20,15 +22,28 @@ export async function POST(req: NextRequest) {
   try {
     await requireAdmin();
     const body = await req.json();
-    const slug = slugify(body.name);
+    let data;
+    try {
+      data = destinationSchema.parse(body);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return NextResponse.json(
+          { error: "Validation failed", details: error.issues },
+          { status: 400 }
+        );
+      }
+      throw error;
+    }
+
+    const slug = slugify(data.name);
 
     const destination = await db.destination.create({
       data: {
-        name: body.name,
-        country: body.country,
-        description: body.description,
-        imageUrl: body.imageUrl || null,
-        featured: body.featured || false,
+        name: data.name,
+        country: data.country,
+        description: data.description,
+        imageUrl: data.imageUrl ?? null,
+        featured: data.featured,
         slug,
       },
     });
