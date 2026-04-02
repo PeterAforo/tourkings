@@ -117,6 +117,18 @@ const DEFAULTS: PublicSiteContent = {
 /** Default hero photo when CMS `hero.image_url` is missing or returns 404 (removed Unsplash asset). */
 export const FALLBACK_HERO_IMAGE_URL = DEFAULTS.hero.image_url;
 
+/** Unsplash photo IDs that return 404 from images.unsplash.com (removed or invalid). */
+const DEAD_UNSPLASH_IDS = ["photo-1569949381669-ecf31ae8f613"] as const;
+
+/** Swap known-dead Unsplash URLs so Next/Image does not 404 (CMS may still store old links). */
+function replaceDeadUnsplashUrl(url: string, fallback: string): string {
+  if (!url || !url.includes("unsplash.com")) return url || fallback;
+  for (const id of DEAD_UNSPLASH_IDS) {
+    if (url.includes(id)) return fallback;
+  }
+  return url;
+}
+
 function asString(v: unknown, fallback: string): string {
   if (typeof v === "string") return v;
   if (v != null && typeof v === "object" && "toString" in v) return String(v);
@@ -144,13 +156,22 @@ export function mergePublicSiteContent(
     }
   }
 
+  const avatarFallback = DEFAULTS.testimonials.items[0]?.image ?? FALLBACK_HERO_IMAGE_URL;
+  testimonialItems = testimonialItems.map((item) => ({
+    ...item,
+    image: replaceDeadUnsplashUrl(item.image, avatarFallback),
+  }));
+
   return {
     hero: {
       badge: asString(hero.badge, DEFAULTS.hero.badge),
       title: asString(hero.title, DEFAULTS.hero.title),
       subtitle: asString(hero.subtitle, DEFAULTS.hero.subtitle),
       cta_text: asString(hero.cta_text, DEFAULTS.hero.cta_text),
-      image_url: asString(hero.image_url, DEFAULTS.hero.image_url),
+      image_url: replaceDeadUnsplashUrl(
+        asString(hero.image_url, DEFAULTS.hero.image_url),
+        FALLBACK_HERO_IMAGE_URL
+      ),
     },
     about: {
       title: asString(about.title, DEFAULTS.about.title),
