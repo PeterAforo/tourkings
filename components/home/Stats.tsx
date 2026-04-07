@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import FadeIn from "@/components/animations/FadeIn";
@@ -10,7 +12,7 @@ export default function Stats() {
   const [content, setContent] = useState<PublicSiteContent | null>(null);
 
   useEffect(() => {
-    fetch("/api/public/site-content")
+    csrfFetch("/api/public/site-content")
       .then((r) => r.json())
       .then((d) => {
         if (d.content) setContent(d.content as PublicSiteContent);

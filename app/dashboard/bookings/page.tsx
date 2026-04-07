@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Clock, Users } from "lucide-react";
@@ -24,7 +26,7 @@ export default function BookingsPage() {
   const [filter, setFilter] = useState("ALL");
 
   useEffect(() => {
-    fetch("/api/bookings")
+    csrfFetch("/api/bookings")
       .then((r) => r.json())
       .then((d) => setBookings(d.bookings || []))
       .catch(() => {});

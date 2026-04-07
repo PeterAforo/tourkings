@@ -1,20 +1,51 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { LayoutDashboard, Wallet, Calendar, User, LogOut, Menu, X, ChevronRight, Settings } from "lucide-react";
+import {
+  LayoutDashboard,
+  Wallet,
+  Calendar,
+  User,
+  LogOut,
+  Menu,
+  X,
+  ChevronRight,
+  Settings,
+  Landmark,
+  History,
+  CreditCard,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/lib/store";
 
 const sidebarLinks = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-  { href: "/dashboard/wallet", label: "My Wallet", icon: Wallet },
+  { href: "/dashboard/wallet", label: "The Vault", icon: Wallet },
+  { href: "/dashboard/contribute", label: "Contribute", icon: CreditCard },
+  { href: "/dashboard/wallet/history", label: "Vault History", icon: History },
+  { href: "/dashboard/journey", label: "Heritage Path", icon: Landmark },
   { href: "/dashboard/bookings", label: "My Bookings", icon: Calendar },
   { href: "/dashboard/profile", label: "Profile", icon: User },
   { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ];
+
+function dashboardPageTitle(pathname: string): string {
+  const match = sidebarLinks.find((l) => pathname === l.href);
+  if (match) return match.label;
+  if (pathname.startsWith("/dashboard/contribute")) return "Contribute";
+  if (pathname.startsWith("/dashboard/payments")) return "Payments";
+  return "Dashboard";
+}
+
+function isSidebarActive(pathname: string, href: string): boolean {
+  if (href === "/dashboard") return pathname === "/dashboard";
+  return pathname === href;
+}
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -23,14 +54,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    fetch("/api/auth/me")
+    csrfFetch("/api/auth/me")
       .then((res) => { if (res.ok) return res.json(); return null; })
       .then((data) => { if (data?.user) setUser(data.user); })
       .catch(() => {});
   }, [setUser]);
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await csrfFetch("/api/auth/logout", { method: "POST" });
     setUser(null);
     router.push("/");
   };
@@ -71,14 +102,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               onClick={() => setSidebarOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all",
-                pathname === link.href
+                isSidebarActive(pathname, link.href)
                   ? "bg-primary/10 text-primary"
                   : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low"
               )}
             >
               <link.icon size={18} />
               {link.label}
-              {pathname === link.href && <ChevronRight size={14} className="ml-auto" />}
+              {isSidebarActive(pathname, link.href) && <ChevronRight size={14} className="ml-auto" />}
             </Link>
           ))}
         </nav>
@@ -103,9 +134,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-on-surface-variant">
             <Menu size={24} />
           </button>
-          <h1 className="text-lg font-headline font-semibold text-on-surface">
-            {sidebarLinks.find((l) => l.href === pathname)?.label || "Dashboard"}
-          </h1>
+          <h1 className="text-lg font-headline font-semibold text-on-surface">{dashboardPageTitle(pathname)}</h1>
           <Link href="/" className="text-on-surface-variant hover:text-primary text-sm transition-colors">
             Back to Site
           </Link>

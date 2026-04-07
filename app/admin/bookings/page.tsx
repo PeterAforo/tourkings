@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
@@ -24,7 +26,7 @@ export default function AdminBookingsPage() {
   const [filter, setFilter] = useState("ALL");
 
   useEffect(() => {
-    fetch("/api/admin/bookings")
+    csrfFetch("/api/admin/bookings")
       .then((r) => r.json())
       .then((d) => setBookings(d.bookings || []))
       .catch(() => {});
@@ -33,7 +35,7 @@ export default function AdminBookingsPage() {
   const filtered = filter === "ALL" ? bookings : bookings.filter((b) => b.status === filter);
 
   const updateStatus = async (id: string, status: string) => {
-    await fetch(`/api/admin/bookings/${id}`, {
+    await csrfFetch(`/api/admin/bookings/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),

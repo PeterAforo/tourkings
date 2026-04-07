@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import Link from "next/link";
@@ -20,7 +22,7 @@ export default function Hero() {
   const [heroImageFailed, setHeroImageFailed] = useState(false);
 
   useEffect(() => {
-    fetch("/api/public/site-content")
+    csrfFetch("/api/public/site-content")
       .then((r) => r.json())
       .then((d) => {
         if (d.content) setContent(d.content as PublicSiteContent);
@@ -78,7 +80,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-[90vh] flex items-center overflow-hidden bg-surface"
+      className="relative min-h-[90vh] lg:min-h-[921px] flex items-center overflow-hidden bg-surface"
     >
       <div className="absolute inset-0 z-0">
         <Image

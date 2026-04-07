@@ -12,7 +12,9 @@
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
-    "stitch:export": "node scripts/fetch-stitch-screens.mjs"
+    "stitch:export": "node scripts/fetch-stitch-screens.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.6.0",
@@ -35,6 +37,8 @@
   "devDependencies": {
     "@google/stitch-sdk": "^0.0.3",
     "@tailwindcss/postcss": "^4.2.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^25.5.0",
     "@types/nodemailer": "^7.0.11",
@@ -42,9 +46,11 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.1",
+    "jsdom": "^29.0.1",
     "prisma": "^7.6.0",
     "tailwindcss": "^4.2.2",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
   }
 }

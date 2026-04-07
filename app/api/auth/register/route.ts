@@ -2,10 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { hashPassword, signToken } from "@/lib/auth";
 import { registerSchema } from "@/lib/validators";
-import { sendEmail, welcomeEmailHtml } from "@/lib/email";
+import { sendEmail, welcomeEmailHtml, emailVerificationHtml } from "@/lib/email";
+import { checkRateLimit, getClientIp, AUTH_RATE_LIMIT } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIp(req.headers);
+    const rl = checkRateLimit(`register:${ip}`, AUTH_RATE_LIMIT);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: "Too many registration attempts. Please try again later." },
+        { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+      );
+    }
+
     const body = await req.json();
     const data = registerSchema.parse(body);
 
@@ -41,11 +52,30 @@ export async function POST(req: NextRequest) {
       role: user.role,
     });
 
+    // Send welcome email
     sendEmail({
       to: user.email,
       subject: "Welcome to TourKings!",
       html: welcomeEmailHtml(user.firstName),
-    }).catch(console.error);
+    }).catch((err) => logger.error("Failed to send welcome email", "register", err));
+
+    // Create email verification token and send verification email
+    const verifyBytes = new Uint8Array(32);
+    crypto.getRandomValues(verifyBytes);
+    const verifyToken = Array.from(verifyBytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    await db.emailVerificationToken.create({
+      data: {
+        email: user.email,
+        token: verifyToken,
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      },
+    });
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    sendEmail({
+      to: user.email,
+      subject: "Verify Your Email - TourKings",
+      html: emailVerificationHtml(user.firstName, `${baseUrl}/verify-email?token=${verifyToken}`),
+    }).catch((err) => logger.error("Failed to send verification email", "register", err));
 
     const response = NextResponse.json({
       user: {

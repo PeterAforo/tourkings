@@ -1,12 +1,14 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard, Package, MapPin, Calendar, Users, CreditCard,
-  FileText, Settings, LogOut, Menu, X, ChevronRight, Shield
+  FileText, Settings, LogOut, Menu, X, ChevronRight, Shield, Wallet, Medal,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/lib/store";
@@ -19,6 +21,8 @@ const adminLinks = [
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/payments", label: "Payments", icon: CreditCard },
   { href: "/admin/content", label: "Content", icon: FileText },
+  { href: "/admin/heritage", label: "Heritage Logic", icon: Medal },
+  { href: "/admin/vault", label: "Vault Manager", icon: Wallet },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
@@ -29,14 +33,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    fetch("/api/auth/me")
+    csrfFetch("/api/auth/me")
       .then((res) => { if (res.ok) return res.json(); return null; })
       .then((data) => { if (data?.user) setUser(data.user); })
       .catch(() => {});
   }, [setUser]);
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await csrfFetch("/api/auth/logout", { method: "POST" });
     setUser(null);
     router.push("/");
   };

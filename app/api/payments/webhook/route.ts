@@ -5,6 +5,7 @@ import {
   verifyWebhookSignatureV4,
 } from "@/lib/flutterwave";
 import { finalizePaymentSuccess } from "@/lib/finalize-payment";
+import { logger } from "@/lib/logger";
 
 /**
  * Flutterwave v4: `flutterwave-signature` header (HMAC-SHA256 of raw body, base64).
@@ -80,7 +81,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error("Webhook error:", error);
+    logger.error("Webhook processing failed", "webhook", error);
     return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
   }
 }

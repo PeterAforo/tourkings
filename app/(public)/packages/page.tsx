@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,7 +31,7 @@ export default function PackagesPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/packages")
+    csrfFetch("/api/packages")
       .then((r) => r.json())
       .then((d) => {
         setPackages(d.packages || []);

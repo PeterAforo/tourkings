@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, Suspense, useRef } from "react";
+import { csrfFetch } from "@/lib/fetch-csrf";
 import { useSearchParams, useRouter } from "next/navigation";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -29,7 +30,7 @@ function VerifyContent() {
 
     const verifyOnce = async () => {
       const q = transactionId ? `?transaction_id=${encodeURIComponent(transactionId)}` : "";
-      const res = await fetch(`/api/payments/${paymentId}/verify${q}`, { credentials: "include" });
+      const res = await csrfFetch(`/api/payments/${paymentId}/verify${q}`, { credentials: "include" });
       const data = await res.json().catch(() => ({}));
 
       if (cancelled) return;

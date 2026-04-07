@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -37,7 +39,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/auth/me")
+    csrfFetch("/api/auth/me")
       .then((res) => res.json())
       .then((data) => { if (data?.user) setUser(data.user); })
       .catch(() => {});
@@ -45,10 +47,13 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!user) return;
-    fetch("/api/notifications")
+    csrfFetch("/api/notifications")
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) {
+        if (data?.notifications && Array.isArray(data.notifications)) {
+          setNotifications(data.notifications);
+          setUnreadCount(data.unreadCount ?? data.notifications.filter((n: any) => !n.read).length);
+        } else if (Array.isArray(data)) {
           setNotifications(data);
           setUnreadCount(data.filter((n: any) => !n.read).length);
         }
@@ -64,8 +69,8 @@ export default function Navbar() {
     const timer = setTimeout(async () => {
       try {
         const [pkgRes, destRes] = await Promise.all([
-          fetch(`/api/packages?search=${encodeURIComponent(searchQuery)}`),
-          fetch("/api/destinations"),
+          csrfFetch(`/api/packages?search=${encodeURIComponent(searchQuery)}`),
+          csrfFetch("/api/destinations"),
         ]);
         const pkgData = await pkgRes.json();
         const destData = await destRes.json();
@@ -89,19 +94,19 @@ export default function Navbar() {
   }, [showSearch]);
 
   const markAllRead = async () => {
-    await fetch("/api/notifications", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ markAllRead: true }) });
+    await csrfFetch("/api/notifications", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ markAllRead: true }) });
     setNotifications(notifications.map(n => ({ ...n, read: true })));
     setUnreadCount(0);
   };
 
   const markAsRead = async (id: string) => {
-    await fetch("/api/notifications", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ notificationId: id }) });
+    await csrfFetch("/api/notifications", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ notificationId: id }) });
     setNotifications(notifications.map(n => n.id === id ? { ...n, read: true } : n));
     setUnreadCount(Math.max(0, unreadCount - 1));
   };
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await csrfFetch("/api/auth/logout", { method: "POST" });
     setUser(null);
     window.location.href = "/";
   };

@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { initializePayment } from "@/lib/flutterwave";
 import { finalizePaymentSuccess } from "@/lib/finalize-payment";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
   try {
@@ -107,7 +108,7 @@ export async function POST(req: NextRequest) {
         "Payment started. Complete authorization on your phone or wait for confirmation.",
     });
   } catch (e) {
-    console.error("Payment initialize:", e);
+    logger.error("Payment initialization failed", "payments", e);
     return NextResponse.json({ error: "Payment initialization failed" }, { status: 500 });
   }
 }

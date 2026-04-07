@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { slugify } from "@/lib/utils";
 import { destinationSchema } from "@/lib/validators";
+import { logger } from "@/lib/logger";
 
 export async function GET() {
   try {
@@ -50,7 +51,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ destination }, { status: 201 });
   } catch (error) {
-    console.error(error);
+    logger.error("Failed to create destination", "admin-destinations", error);
     return NextResponse.json({ error: "Failed to create destination" }, { status: 500 });
   }
 }

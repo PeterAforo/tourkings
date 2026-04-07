@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { csrfFetch } from "@/lib/fetch-csrf";
 import { Bell, Globe, Shield } from "lucide-react";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
@@ -21,7 +22,7 @@ export default function SettingsPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/user/preferences", { credentials: "include" })
+    csrfFetch("/api/user/preferences", { credentials: "include" })
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
@@ -41,7 +42,7 @@ export default function SettingsPage() {
     setError(null);
     setSaved(false);
     try {
-      const res = await fetch("/api/user/preferences", {
+      const res = await csrfFetch("/api/user/preferences", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -142,9 +143,11 @@ export default function SettingsPage() {
             Your data is protected and only used to improve your experience with TourKings.
             For more information, please read our privacy policy.
           </p>
-          <Button variant="outline" size="sm" type="button" disabled>
-            Download My Data
-          </Button>
+          <a href="/api/user/download-data" download>
+            <Button variant="outline" size="sm" type="button">
+              Download My Data
+            </Button>
+          </a>
         </div>
       </Card>
 

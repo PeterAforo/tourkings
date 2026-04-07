@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Users, Package, Calendar, CreditCard, ArrowUpRight } from "lucide-react";
@@ -43,7 +45,7 @@ export default function AdminDashboardPage() {
   });
 
   useEffect(() => {
-    fetch("/api/admin/stats")
+    csrfFetch("/api/admin/stats")
       .then((r) => r.json())
       .then((d) => { if (d.stats) setStats(d.stats); })
       .catch(() => {});

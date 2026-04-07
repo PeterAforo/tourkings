@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Akwaaba Heritage Tour | TourKings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#9b2900",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#ffb59f",
+              "on-primary-fixed-variant": "#05458c",
+              "secondary-fixed": "#ffddb9",
+              "tertiary-fixed": "#ffdbd1",
+              "secondary": "#865300",
+              "on-secondary-fixed": "#2b1700",
+              "on-secondary-fixed-variant": "#663e00",
+              "tertiary-fixed-dim": "#ffb59f",
+              "on-tertiary-fixed-variant": "#862200",
+              "secondary-fixed-dim": "#ffb963",
+              "on-background": "#1f1b18",
+              "on-primary-container": "#abc7ff",
+              "tertiary": "#731c00",
+              "outline-variant": "#c3c6d2",
+              "surface-bright": "#fff8f5",
+              "inverse-on-surface": "#f8efea",
+              "on-surface": "#1f1b18",
+              "on-tertiary-fixed": "#3a0a00",
+              "error-container": "#ffdad6",
+              "on-error-container": "#93000a",
+              "surface-variant": "#eae1db",
+              "error": "#ba1a1a",
+              "primary-container": "#1d5299",
+              "primary": "#003b7a",
+              "background": "#fff8f5",
+              "surface-tint": "#2d5ea5",
+              "surface-container": "#f6ece7",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#001b3e",
+              "on-primary": "#ffffff",
+              "surface-container-low": "#fbf2ec",
+              "primary-fixed-dim": "#aac7ff",
+              "on-secondary-container": "#694000",
+              "on-error": "#ffffff",
+              "inverse-primary": "#aac7ff",
+              "surface": "#fff8f5",
+              "primary-fixed": "#d6e3ff",
+              "outline": "#737782",
+              "inverse-surface": "#342f2c",
+              "surface-container-highest": "#eae1db",
+              "on-surface-variant": "#424751",
+              "surface-dim": "#e1d8d3",
+              "on-secondary": "#ffffff",
+              "secondary-container": "#ffa522",
+              "surface-container-high": "#f0e6e1"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #865300;
+        border-radius: 10px;
+      }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface selection:bg-secondary-fixed">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+<div class="text-2xl font-extrabold tracking-tighter text-blue-900 dark:text-blue-400 font-headline">TourKings</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-plus-jakarta text-sm font-semibold tracking-tight text-blue-900 dark:text-white border-b-2 border-amber-500 pb-1" href="#">Destinations</a>
+<a class="font-plus-jakarta text-sm font-semibold tracking-tight text-stone-600 dark:text-stone-400 hover:text-blue-900 dark:hover:text-white transition-colors" href="#">Packages</a>
+<a class="font-plus-jakarta text-sm font-semibold tracking-tight text-stone-600 dark:text-stone-400 hover:text-blue-900 dark:hover:text-white transition-colors" href="#">The Vault</a>
+<a class="font-plus-jakarta text-sm font-semibold tracking-tight text-stone-600 dark:text-stone-400 hover:text-blue-900 dark:hover:text-white transition-colors" href="#">About Us</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant scale-95 active:opacity-80 transition-transform">search</button>
+<button class="bg-primary-container text-on-primary font-headline font-semibold px-6 py-2.5 rounded-lg scale-95 active:opacity-80 transition-transform">Sign In</button>
+</div>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section: Editorial Asymmetry -->
+<section class="relative h-[870px] w-full overflow-hidden">
+<div class="absolute inset-0 grid grid-cols-12 h-full">
+<div class="col-span-12 lg:col-span-8 relative h-full">
+<img alt="" class="w-full h-full object-cover" data-alt="Stunning sunset view of the Elmina Castle coastline in Ghana, with palm trees silhouette and golden ocean waves crashing on rocks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwaW7i2f8VJqNM1Qfgv1NyP322m7vZBPMcwpxYkEVUpApxpPXou6sOiuoNKnAzNeT4BxQDhJQbh4RO_wiwgpOEatDVMdWVso9AXZYyHwwkwvTTBBVtv0ZQ3FU2p8IKx-GpwYoNlaP-dqRtEXs2iL_O0GETXglFQd1UF-u-4YYmMlz3Wk2cfaAetPX7a0ck_u2FpuJ2YOTTVh4L6KLY9BztfRCLjvpGkzbJNvj5EEJBQUX46gfL2POLIvZ6FKujhuq9USQ4ltZWuQ"/>
+<div class="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent"></div>
+</div>
+<div class="hidden lg:flex lg:col-span-4 bg-surface-container-low flex-col justify-center p-12 gap-6 relative">
+<div class="absolute top-0 right-0 p-8 opacity-5">
+<img alt="" class="w-32 h-32" data-alt="Subtle geometric Adinkra symbol pattern watermark in light bronze color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8siULkdbfmurQpfqMFAkhdETt82x-2Gv15E8DpPs7DD29KeMsZLrnF-6PWnwPJnM9BmnDkWphvFcow7OEIY65DslfjR6sK_XiXjahcH6GxIOFrXRFQ_7XlCcU2nqhZFMxnMRoKXaNanXFqs3VIfjqwVreJCFj9ZrzNpHHL26OpLJU_sMBlp8euZmH_oV5Fw6j058XYc2e5GrKU-oZSRvlAWPH0D77qrgdfrmmFf8xkWdmh6UVfIXV4KZuzQneo464cIxXnKJZ_Q"/>
+</div>
+<span class="text-secondary font-headline font-bold uppercase tracking-[0.2em] text-xs">Cultural Expedition</span>
+<h1 class="text-on-surface font-headline font-extrabold text-5xl leading-tight tracking-tighter">Akwaaba Heritage Tour</h1>
+<div class="flex items-center gap-4 mt-4">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-xs uppercase font-bold tracking-widest">Duration</span>
+<span class="text-lg font-bold">7 Days</span>
+</div>
+<div class="w-[1px] h-10 bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-xs uppercase font-bold tracking-widest">Type</span>
+<span class="text-lg font-bold">Group / Single</span>
+</div>
+</div>
+<div class="mt-8">
+<span class="text-on-surface-variant text-sm block mb-1">Starting from</span>
+<span class="text-4xl font-headline font-extrabold text-primary">$2,450 <span class="text-lg font-normal text-on-surface-variant">/ person</span></span>
+</div>
+</div>
+</div>
+<!-- Mobile Title Overlay -->
+<div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-background to-transparent lg:hidden">
+<h1 class="text-on-surface font-headline font-extrabold text-4xl">Akwaaba Heritage Tour</h1>
+<p class="text-on-surface-variant font-bold mt-2">7 Days Cultural Immersion</p>
+</div>
+</section>
+<!-- Key Information Grid -->
+<section class="max-w-7xl mx-auto px-8 py-20">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Column: Details & Itinerary -->
+<div class="lg:col-span-8 space-y-20">
+<!-- Overview -->
+<div class="space-y-6">
+<h2 class="text-3xl font-headline font-bold text-on-surface">Overview</h2>
+<p class="text-lg leading-relaxed text-on-surface-variant">
+                            Embark on a profound journey through the "Gateway to Africa." The Akwaaba Heritage Tour is meticulously designed to connect you with the vibrant traditions, poignant history, and lush landscapes of Ghana. From the bustling markets of Accra to the historical shores of Cape Coast and the royal palaces of Kumasi, experience luxury travel rooted in authentic heritage.
+                        </p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">hotel</span>
+<span class="text-xs uppercase font-bold text-on-surface-variant mb-1">Stays</span>
+<span class="font-bold">Luxury Resorts</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<span class="text-xs uppercase font-bold text-on-surface-variant mb-1">Meals</span>
+<span class="font-bold">Full Board</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">directions_car</span>
+<span class="text-xs uppercase font-bold text-on-surface-variant mb-1">Transport</span>
+<span class="font-bold">Private Chauffeur</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<span class="text-xs uppercase font-bold text-on-surface-variant mb-1">Guide</span>
+<span class="font-bold">Heritage Expert</span>
+</div>
+</div>
+</div>
+<!-- Day-by-Day Itinerary -->
+<div class="space-y-12">
+<h2 class="text-3xl font-headline font-bold text-on-surface">The Heritage Path</h2>
+<div class="relative border-l-2 border-secondary/20 ml-4 pl-12 space-y-16">
+<!-- Day 1 -->
+<div class="relative">
+<div class="absolute -left-[3.25rem] top-0 bg-secondary w-10 h-10 rounded-full flex items-center justify-center text-on-secondary shadow-lg">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">flight_land</span>
+</div>
+<span class="text-secondary font-headline font-bold text-sm uppercase tracking-widest">Day 1: Arrival &amp; Akwaaba</span>
+<h3 class="text-2xl font-bold mt-2">Welcome to Accra</h3>
+<p class="mt-4 text-on-surface-variant">Arrive at Kotoka International Airport where your private royal concierge awaits. Check into the Kempinski Hotel Gold Coast City for a welcome dinner featuring traditional Ghanaian fusion cuisine.</p>
+<div class="mt-6 rounded-xl overflow-hidden h-48">
+<img alt="" class="w-full h-full object-cover" data-alt="Night skyline of Accra, Ghana, showing modern architecture and warm city lights reflecting luxury hospitality" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtL7k2PeQGSRdWWTM0j5Yt-P625dCrNVW0_J1uK47O08EsUFEey4i4Fn44smimyDy5xgTFKs-XrUqOP8h7kXeHW9eT7eGoESPobXYhMHgsrcHSGFAVeunxoFEYypDnr640qOndAizcSfCCWDHTl_nV_0cLaSgzttVk5kPgkk5e2S3WdO63tdEXoW5ROoXtXpF5a7eesFvIKVgQcGDej86m6QtolSv79Jx_TMEBw20C6LNi4wjPUQOKKTf8SWNtV8rSTWo4bPhTow"/>
+</div>
+</div>
+<!-- Day 2 -->
+<div class="relative">
+<div class="absolute -left-[3.25rem] top-0 bg-secondary-container w-10 h-10 rounded-full flex items-center justify-center text-on-secondary shadow-lg">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">temple_buddhist</span>
+</div>
+<span class="text-secondary font-headline font-bold text-sm uppercase tracking-widest">Day 2: The Modern Kingdom</span>
+<h3 class="text-2xl font-bold mt-2">Accra City Discovery</h3>
+<p class="mt-4 text-on-surface-variant">Explore the Black Star Square, Kwame Nkrumah Memorial Park, and the bustling Makola Market. Afternoon visit to an artisan Kente weaving workshop.</p>
+</div>
+<!-- Day 3-4 Preview -->
+<div class="relative">
+<div class="absolute -left-[3.25rem] top-0 bg-surface-container-highest border-2 border-secondary/30 w-10 h-10 rounded-full flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-xl">castle</span>
+</div>
+<span class="text-on-surface-variant font-headline font-bold text-sm uppercase tracking-widest">Day 3 &amp; 4: Echoes of the Coast</span>
+<h3 class="text-2xl font-bold mt-2">Cape Coast &amp; Elmina</h3>
+<p class="mt-4 text-on-surface-variant">A deeply spiritual journey through the historic castles. Walking through the 'Door of No Return' and participating in a traditional naming ceremony.</p>
+</div>
+<!-- View More Trigger -->
+<button class="text-primary font-headline font-bold flex items-center gap-2 hover:translate-x-2 transition-transform">
+                                View Full 7-Day Itinerary
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- What's Included Section -->
+<div class="bg-surface-container-low p-12 rounded-2xl">
+<h2 class="text-3xl font-headline font-bold text-on-surface mb-8 text-center">Luxury Standard: What's Included</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="text-on-surface-variant font-medium">All 5-Star Accommodations (Accra, Elmina, Kumasi)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="text-on-surface-variant font-medium">Full Board Meal Plan (Breakfast, Lunch, Gourmet Dinner)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="text-on-surface-variant font-medium">Private 4x4 Transportation with Chauffeur</span>
+</li>
+</ul>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="text-on-surface-variant font-medium">All Heritage Site Entry Fees &amp; Private Tours</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="text-on-surface-variant font-medium">Traditional Naming Ceremony &amp; Cultural Performances</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="text-on-surface-variant font-medium">24/7 Travel Concierge Support</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Right Column: Booking & Vault -->
+<div class="lg:col-span-4 lg:sticky lg:top-28 h-fit space-y-8">
+<!-- Pricing Card -->
+<div class="bg-white p-8 rounded-2xl shadow-xl shadow-on-surface/5 flex flex-col gap-6">
+<div class="flex justify-between items-end">
+<div>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Total Investment</span>
+<div class="text-4xl font-headline font-extrabold text-primary">$2,450</div>
+</div>
+<span class="text-secondary font-bold text-sm bg-secondary-fixed px-3 py-1 rounded-full">Best Value</span>
+</div>
+<div class="space-y-4">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-white font-headline font-bold py-4 rounded-xl shadow-lg shadow-primary/20 scale-95 active:opacity-90 transition-all">
+                                Book Now (Pay Outright)
+                            </button>
+<button class="w-full bg-surface-container-highest text-primary font-headline font-bold py-4 rounded-xl scale-95 active:opacity-90 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+                                Add to The Vault
+                            </button>
+</div>
+<div class="pt-6 border-t border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="Portrait of a professional travel concierge in a navy blue blazer, warm and welcoming expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxXD9YlOfCoCE5bTI_YKeMmctkvn3QFZWLY2zmraP1K1jS1EZdDehnyuX_fo30WInyXAevqy_w8cNakdYxm6SpahMIIKeELBaIeUhw-6WbOvxW8gs6H52HKyalnX5RMEBIulvSTZra8r439xu-M5xIw7567nHyTZcMI4yxN8xeNfGT4w_OiKGbLOiZjL57BgyZ08hdAnU_OEAnXJohaVZd3VzmK_EX88pIq17mfO3xK2ytFiF3PSgt-Q7Me6aNw996NZP317X1lg"/>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-bold uppercase tracking-widest">Questions?</p>
+<p class="text-sm font-bold text-primary underline">Speak to a Royal Navigator</p>
+</div>
+</div>
+</div>
+</div>
+<!-- The Vault (Savings Goal Section) -->
+<div class="bg-primary text-white p-8 rounded-2xl relative overflow-hidden">
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[10rem]">savings</span>
+</div>
+<h3 class="text-xl font-headline font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container">stars</span>
+                            Vault Your Dream
+                        </h3>
+<p class="text-on-primary-container text-sm leading-relaxed mb-6">
+                            Not ready to pay in full? Secure this package price today by starting a savings goal in your Vault. 
+                        </p>
+<div class="space-y-4 relative z-10">
+<div class="flex justify-between items-end">
+<span class="text-xs uppercase font-bold tracking-widest text-on-primary-container">Goal Progress</span>
+<span class="text-sm font-bold">$600 / $2,450</span>
+</div>
+<div class="w-full h-3 bg-primary-container rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full w-1/4 rounded-full"></div>
+</div>
+<p class="text-[11px] text-on-primary-container italic">Save $300/month to depart by December 2024</p>
+<a class="text-secondary-container font-bold text-sm inline-flex items-center gap-1 group" href="#">
+                                Manage Savings Plan
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- More Like This / Recommendations -->
+<section class="bg-surface-container-low py-24">
+<div class="max-w-7xl mx-auto px-8">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div>
+<span class="text-secondary font-headline font-bold uppercase tracking-[0.2em] text-xs">Explore Further</span>
+<h2 class="text-4xl font-headline font-extrabold text-on-surface mt-2 tracking-tighter">Similar Royal Expeditions</h2>
+</div>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">View All Packages</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow duration-500">
+<div class="h-64 relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Traditional Ashanti palace architecture with colorful umbrellas and chiefs in royal regalia during an outdoor ceremony" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW_BCw8Jt82VQP5FvBuVYRV1lOJxgM4JuKSPzwJnJDxosU0ySUAiP7qRHnEXyffvnc_VI9ydfhXujFYkuJNHo3w2QCxyLAbZkSDBJ2AERs1jZfwMFWNeIhPOEnlWT0hhRvyRN4th6FUtiSQvNyIn2Ju3nEuYbIsBpKdBlaOK_6RDU9xxo6xPzq_U51LqcTcbqPsX2lAx8_plog9io_xVdfuvNaPYX1UtOtWNtu4OMWnHoq21naNH-uSkKURUKXfC1BjZLYTh8lzw"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-widest text-secondary">Cultural</div>
+</div>
+<div class="p-8">
+<h3 class="text-xl font-headline font-bold mb-2">The Ashanti Kingdom Trial</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Deep dive into the Asante history, crafts, and the majestic Golden Stool legacy in Kumasi.</p>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold">$1,850</span>
+<button class="text-secondary font-bold text-sm flex items-center gap-1">Details <span class="material-symbols-outlined text-sm">east</span></button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow duration-500">
+<div class="h-64 relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Wide landscape of Mole National Park in Ghana at sunrise, with elephants walking across a grassy plain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIFd8mf637c_ZVg7mypdA4lvhu_AQ513sCEsm-6GuEJZ8D02HDrZTeRhRmmPlHp2-ki-TAk-IBf6n2O91qsDb3lcH8e1vXYzfok4MKGqI1xQvhB9o7bnQnXXdsbCqPvUmao2gikFvRSlahayYf1bDHk-N1HiFmZANvm3BNrtfWdJERxdcuP6mh-wOr-MBk92LyUrpcZbMFoBMWh3lO1Cy1f77cc-62yU5w0YJaMsoDEeZjRK5ko2HagSz_Kml3tvcOA0-7-XEHSA"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-widest text-secondary">Wildlife</div>
+</div>
+<div class="p-8">
+<h3 class="text-xl font-headline font-bold mb-2">Northern Savannah Safari</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Experience the wild side of Ghana at Mole National Park and the ancient Larabanga Mosque.</p>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold">$2,100</span>
+<button class="text-secondary font-bold text-sm flex items-center gap-1">Details <span class="material-symbols-outlined text-sm">east</span></button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow duration-500">
+<div class="h-64 relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Aerial view of a luxury beachfront resort in Ada, Ghana, with white sand beach and turquoise Volta River meeting the sea" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqtihtM-EgCVX1DDNDupy3JdptZiXXR4tZhHhJ7wER6wanBaI4Y-se2Sr8BktTZdC4oVlQwD5IpVJCdETEE3bhZEB7KrkVOegf7ovEmp7s4DF84sy8oDkUfuzdT52-GM0KZJAdXF7xe1c7ev5ZJ1Az8JsywZOc22lBl3Ktvfhd7S_mxbnpI63nKv63pfMMCyfF4uoW5JAU-Y3idjNSGrzRMrdsCke0dEteayy5Jw70jrsZmHuF8qJaSFb8Yr3dEkT7yx_Qh4_Igw"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-widest text-secondary">Relaxation</div>
+</div>
+<div class="p-8">
+<h3 class="text-xl font-headline font-bold mb-2">Aqua Luxury: Volta Estuary</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">A curated escape to the tranquil waters of Ada, focused on luxury wellness and water sports.</p>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold">$1,550</span>
+<button class="text-secondary font-bold text-sm flex items-center gap-1">Details <span class="material-symbols-outlined text-sm">east</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-stone-50 dark:bg-stone-950">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto px-8 py-20">
+<div class="space-y-6">
+<div class="text-xl font-bold text-amber-600 font-headline">TourKings</div>
+<p class="text-stone-500 dark:text-stone-400 font-manrope text-base leading-relaxed">
+                    Crafting bespoke heritage journeys for the discerning traveler. Ghana's premier luxury travel concierge.
+                </p>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined text-lg">public</span></button>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined text-lg">camera</span></button>
+</div>
+</div>
+<div class="space-y-6">
+<h4 class="font-headline font-bold text-on-surface">Explore</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-4 transition-all" href="#">Heritage</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-4 transition-all" href="#">Sustainability</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-4 transition-all" href="#">Careers</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h4 class="font-headline font-bold text-on-surface">Legal</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-4 transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-4 transition-all" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h4 class="font-headline font-bold text-on-surface">Newsletter</h4>
+<p class="text-xs font-bold text-secondary uppercase tracking-[0.2em]">Join the Royal Court</p>
+<div class="flex">
+<input class="bg-surface-container-low border-none rounded-l-lg focus:ring-1 focus:ring-primary w-full" placeholder="Email Address" type="email"/>
+<button class="bg-primary text-white px-4 rounded-r-lg"><span class="material-symbols-outlined">send</span></button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 py-10 border-t border-outline-variant/10 text-center">
+<p class="text-stone-500 dark:text-stone-400 font-manrope text-sm">© 2024 TourKings. Ghanaian Heritage, Global Luxury.</p>
+</div>
+</footer>
+</body></html>

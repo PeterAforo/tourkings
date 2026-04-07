@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { sendEmail, walletThresholdHtml } from "@/lib/email";
+import { logger } from "@/lib/logger";
 
 export async function POST() {
   try {
@@ -60,7 +61,7 @@ export async function POST() {
             user.wallet.balance,
             user.wallet.currency
           ),
-        }).catch(console.error);
+        }).catch((e) => logger.error("Wallet threshold email failed", "wallet", e));
       }
 
       return NextResponse.json({

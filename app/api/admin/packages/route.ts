@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { slugify } from "@/lib/utils";
 import { packageSchema } from "@/lib/validators";
+import { logger } from "@/lib/logger";
 
 export async function GET() {
   try {
@@ -57,7 +58,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ package: pkg }, { status: 201 });
   } catch (error) {
-    console.error(error);
+    logger.error("Failed to create package", "admin-packages", error);
     return NextResponse.json({ error: "Failed to create package" }, { status: 500 });
   }
 }

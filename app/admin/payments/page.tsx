@@ -1,8 +1,11 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
+import { useToast } from "@/components/ui/Toast";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 
 interface PaymentItem {
@@ -19,12 +22,13 @@ interface PaymentItem {
 const FILTERS = ["ALL", "PENDING", "SUCCESS", "FAILED", "REFUNDED"] as const;
 
 export default function AdminPaymentsPage() {
+  const { toast } = useToast();
   const [payments, setPayments] = useState<PaymentItem[]>([]);
   const [filter, setFilter] = useState<string>("ALL");
   const [refundingId, setRefundingId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/admin/payments")
+    csrfFetch("/api/admin/payments")
       .then((r) => r.json())
       .then((d) => setPayments(d.payments || []))
       .catch(() => {});
@@ -36,14 +40,14 @@ export default function AdminPaymentsPage() {
     if (!confirm("Issue a refund for this payment via Flutterwave?")) return;
     setRefundingId(id);
     try {
-      const res = await fetch(`/api/admin/payments/${id}/refund`, {
+      const res = await csrfFetch(`/api/admin/payments/${id}/refund`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({}),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        alert(data.error || "Refund failed");
+        toast(data.error || "Refund failed", "error");
         return;
       }
       setPayments((prev) =>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout | TourKings Ghanaian Heritage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error-container": "#ffdad6",
+              "primary-fixed-dim": "#aac7ff",
+              "on-surface": "#1f1b18",
+              "primary-fixed": "#d6e3ff",
+              "tertiary-fixed": "#ffdbd1",
+              "outline": "#737782",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#f8efea",
+              "secondary-fixed": "#ffddb9",
+              "primary-container": "#1d5299",
+              "on-secondary-fixed-variant": "#663e00",
+              "on-primary-container": "#abc7ff",
+              "tertiary-container": "#9b2900",
+              "surface-bright": "#fff8f5",
+              "inverse-primary": "#aac7ff",
+              "surface-container-highest": "#eae1db",
+              "on-tertiary-fixed": "#3a0a00",
+              "inverse-surface": "#342f2c",
+              "tertiary-fixed-dim": "#ffb59f",
+              "secondary": "#865300",
+              "secondary-container": "#ffa522",
+              "on-background": "#1f1b18",
+              "on-secondary": "#ffffff",
+              "on-error": "#ffffff",
+              "tertiary": "#731c00",
+              "primary": "#003b7a",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#001b3e",
+              "on-tertiary-fixed-variant": "#862200",
+              "on-secondary-container": "#694000",
+              "on-surface-variant": "#424751",
+              "surface-container-high": "#f0e6e1",
+              "surface-container": "#f6ece7",
+              "surface-tint": "#2d5ea5",
+              "on-secondary-fixed": "#2b1700",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#ffb59f",
+              "surface-variant": "#eae1db",
+              "secondary-fixed-dim": "#ffb963",
+              "outline-variant": "#c3c6d2",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-low": "#fbf2ec",
+              "surface-dim": "#e1d8d3",
+              "on-error-container": "#93000a",
+              "background": "#fff8f5",
+              "on-primary-fixed-variant": "#05458c",
+              "surface": "#fff8f5"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .kente-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h10v60H0V0zm20 0h10v60H20V0zm20 0h10v60H40V0z' fill='%23865300' fill-opacity='0.03'/%3E%3Cpath d='M0 0v10h60V0H0zm0 20v10h60V20H0zm0 40v10h60V40H0z' fill='%23003b7a' fill-opacity='0.03'/%3E%3C/svg%3E");
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 glass-nav shadow-sm">
+<div class="flex justify-between items-center h-20 px-8 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter bg-gradient-to-br from-[#003b7a] to-[#1d5299] bg-clip-text text-transparent font-headline">TourKings</span>
+<div class="hidden md:flex gap-8">
+<a class="text-slate-600 font-medium hover:text-[#003b7a] transition-colors" href="#">Destinations</a>
+<a class="text-slate-600 font-medium hover:text-[#003b7a] transition-colors" href="#">Itineraries</a>
+<a class="text-slate-600 font-medium hover:text-[#003b7a] transition-colors" href="#">Heritage</a>
+<a class="text-[#003b7a] border-b-2 border-[#865300] pb-1 font-semibold" href="#">My Vault</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-slate-100/50 p-2 rounded-full transition-all">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-slate-100/50 p-2 rounded-full transition-all">account_circle</span>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-lg font-bold tracking-tight shadow-md hover:opacity-90 active:scale-[0.99] transition-all">Plan Tour</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-8 max-w-screen-2xl mx-auto">
+<!-- Progress Stepper -->
+<div class="flex justify-center mb-16">
+<div class="flex items-center w-full max-w-2xl">
+<div class="flex flex-col items-center flex-1">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold mb-2 shadow-lg ring-4 ring-secondary-fixed">1</div>
+<span class="text-xs font-bold uppercase tracking-widest text-secondary">Review</span>
+</div>
+<div class="h-0.5 bg-secondary-fixed flex-1 -mt-6"></div>
+<div class="flex flex-col items-center flex-1">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold mb-2 shadow-lg">2</div>
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Payment</span>
+</div>
+<div class="h-0.5 bg-surface-container-highest flex-1 -mt-6"></div>
+<div class="flex flex-col items-center flex-1 opacity-40">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold mb-2">3</div>
+<span class="text-xs font-bold uppercase tracking-widest">Confirm</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- Left: Payment Selection & Forms (8 cols) -->
+<div class="lg:col-span-7 space-y-8">
+<header>
+<h1 class="text-4xl font-extrabold font-headline tracking-tighter text-on-surface mb-2">Finalize Your Journey</h1>
+<p class="text-on-surface-variant text-lg">Choose to complete your booking or contribute to your future heritage fund.</p>
+</header>
+<!-- Status Banner: Royal Navigator -->
+<div class="bg-primary-container/10 p-6 rounded-xl flex items-start gap-4 border-l-4 border-secondary">
+<span class="material-symbols-outlined text-secondary text-3xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<div>
+<h4 class="font-headline font-bold text-primary">Royal Navigator Status</h4>
+<p class="text-on-surface-variant text-sm">As a returning King, you've unlocked <span class="font-bold text-secondary">Elite Concierge</span> access for the 'Akwaaba Heritage Tour'. $120 credit applied from previous points.</p>
+</div>
+</div>
+<!-- Payment Options Tabs -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex flex-col items-start p-6 rounded-xl border-2 border-primary bg-surface-container-lowest shadow-sm text-left transition-all">
+<span class="bg-primary-container text-white text-[10px] font-black px-2 py-0.5 rounded-full mb-3 uppercase tracking-tighter">Recommended</span>
+<h3 class="font-bold text-xl mb-1 font-headline">Pay Outright</h3>
+<p class="text-on-surface-variant text-sm">Full booking confirmation for $2,450</p>
+</button>
+<button class="flex flex-col items-start p-6 rounded-xl border-2 border-transparent bg-surface-container-low hover:bg-surface-container-highest transition-all text-left">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-black px-2 py-0.5 rounded-full mb-3 uppercase tracking-tighter">Flexibility</span>
+<h3 class="font-bold text-xl mb-1 font-headline">Save to The Vault</h3>
+<p class="text-on-surface-variant text-sm">Custom contribution toward goal</p>
+</button>
+</div>
+<!-- Secure Form -->
+<div class="bg-surface-container-low p-8 rounded-xl kente-pattern">
+<h3 class="font-headline font-bold text-2xl mb-6">Payment Details</h3>
+<form class="space-y-6">
+<div class="space-y-4">
+<label class="block">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">Cardholder Name</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg focus:ring-0 focus:border-b-2 focus:border-primary px-4 py-3 transition-all" placeholder="Nana Kofi Mensah" type="text"/>
+</label>
+<label class="block">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">Card Number</span>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-none rounded-lg focus:ring-0 focus:border-b-2 focus:border-primary px-4 py-3 pr-12 transition-all" placeholder="0000 0000 0000 0000" type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-3 text-on-surface-variant">credit_card</span>
+</div>
+</label>
+<div class="grid grid-cols-2 gap-4">
+<label class="block">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">Expiry Date</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg focus:ring-0 focus:border-b-2 focus:border-primary px-4 py-3 transition-all" placeholder="MM/YY" type="text"/>
+</label>
+<label class="block">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">CVV</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg focus:ring-0 focus:border-b-2 focus:border-primary px-4 py-3 transition-all" placeholder="***" type="password"/>
+</label>
+</div>
+</div>
+<div class="pt-4 space-y-4">
+<h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Trusted Payment Partners</h4>
+<div class="flex flex-wrap gap-6 items-center opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+<div class="h-8 w-12 bg-slate-200 rounded flex items-center justify-center font-black italic text-slate-600">VISA</div>
+<div class="h-8 w-12 bg-slate-200 rounded flex items-center justify-center font-black italic text-slate-600">MC</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-slate-200 rounded text-[10px] font-bold">
+<span class="material-symbols-outlined text-sm">smartphone</span>
+                                    MOBILE MONEY
+                                </div>
+</div>
+</div>
+<div class="pt-8 flex flex-col sm:flex-row gap-4">
+<button class="flex-1 bg-gradient-to-br from-primary to-primary-container text-on-primary py-4 rounded-xl font-bold font-headline text-lg shadow-xl hover:translate-y-[-2px] transition-all" type="button">
+                                Confirm $2,450 Payment
+                            </button>
+<button class="flex-1 bg-surface-container-highest text-primary py-4 rounded-xl font-bold font-headline text-lg border border-primary/10 hover:bg-white transition-all" type="button">
+                                Save $500 to Vault
+                            </button>
+</div>
+</form>
+</div>
+</div>
+<!-- Right: Order Summary (4 cols) -->
+<div class="lg:col-span-5 sticky top-28">
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
+<div class="h-56 w-full relative">
+<img alt="Ghanaian Heritage Landscape" class="w-full h-full object-cover" data-alt="wide shot of cape coast castle at sunset with crashing waves against stone walls and dramatic warm orange light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwAcpEd6kcJSzhJPzeAwg6il3VRGvXknr19bAJ8uy4vOix0T0fNEwIF9miapX6ff_LbJxhiuyP-zZn_WlTMZu6ZccDOx7DJdZO7iRRyxXraxacVUZLop0aNiIQvN01_qKwidev5QD7FqfzuzWiCHBXP6q_vFw3wqGo_YBYgYo4B4QkX6KHsVgSgLnlOo3sVCs35vNxS0F8jBqNgYatMrNXLM5CWzF3PE-e1WTfZWrXA_96lhYY5iPUIjTcPGR6rUZ45yc9WsJ9cw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
+<div>
+<h2 class="text-white font-headline font-bold text-2xl">Akwaaba Heritage Tour</h2>
+<p class="text-white/80 text-sm">12 Days • 3 Regions • Luxury Concierge</p>
+</div>
+</div>
+</div>
+<div class="p-8 space-y-8">
+<div class="space-y-4">
+<div class="flex justify-between items-center pb-4 border-b border-outline-variant/20">
+<span class="text-on-surface-variant">Travel Dates</span>
+<span class="font-bold text-on-surface">Oct 12 - Oct 24, 2024</span>
+</div>
+<div class="flex justify-between items-center pb-4 border-b border-outline-variant/20">
+<span class="text-on-surface-variant">Travelers</span>
+<span class="font-bold text-on-surface">2 Adults</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Heritage Credit</span>
+<span class="font-bold text-secondary">-$120.00</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg space-y-3">
+<h4 class="text-xs font-black uppercase tracking-widest text-secondary mb-2">Inclusions</h4>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Private Chauffeur &amp; Luxury SUV
+                            </div>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                5-Star Heritage Lodges
+                            </div>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Ancestral Naming Ceremony
+                            </div>
+</div>
+<div class="pt-4 border-t-2 border-dashed border-outline-variant/30">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Total Investment</p>
+<h3 class="text-4xl font-headline font-extrabold text-primary">$2,450.00</h3>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-on-surface-variant uppercase">VAT Included</p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 p-4 bg-secondary-fixed/30 rounded-lg">
+<span class="material-symbols-outlined text-secondary">security</span>
+<p class="text-[11px] text-secondary leading-tight font-bold uppercase tracking-wider">
+                                SSL SECURE PAYMENT PORTAL • NO SURCHARGE • 24H CANCELLATION
+                            </p>
+</div>
+</div>
+</div>
+<!-- Secondary Asymmetric Element -->
+<div class="mt-8 p-6 bg-primary text-on-primary rounded-xl relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-10 rotate-12 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-9xl">savings</span>
+</div>
+<h4 class="font-headline font-bold text-lg mb-2 relative z-10">Why use the Vault?</h4>
+<p class="text-sm text-blue-100/80 mb-4 relative z-10">Lock in today's rates and pay at your own pace. All Vault members get exclusive access to our annual 'Return to the Roots' Gala.</p>
+<a class="text-secondary-fixed font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all relative z-10" href="#">
+                        Learn about Vault Benefits
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-[#fbf2ec] w-full py-12 mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-12 max-w-screen-2xl mx-auto items-center">
+<div class="space-y-4">
+<span class="text-lg font-black text-[#1f1b18] font-headline">TourKings</span>
+<p class="text-slate-500 font-label text-sm uppercase tracking-widest leading-relaxed">© 2024 TourKings. Ghanaian Heritage, Global Luxury.</p>
+</div>
+<div class="flex flex-wrap gap-x-8 gap-y-2 justify-start md:justify-end">
+<a class="text-slate-500 font-label text-sm uppercase tracking-widest hover:text-[#003b7a] transition-transform duration-300 hover:translate-x-1" href="#">Terms of Service</a>
+<a class="text-slate-500 font-label text-sm uppercase tracking-widest hover:text-[#003b7a] transition-transform duration-300 hover:translate-x-1" href="#">Privacy Policy</a>
+<a class="text-slate-500 font-label text-sm uppercase tracking-widest hover:text-[#003b7a] transition-transform duration-300 hover:translate-x-1" href="#">Secure Payments</a>
+<a class="text-slate-500 font-label text-sm uppercase tracking-widest hover:text-[#003b7a] transition-transform duration-300 hover:translate-x-1" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</body></html>

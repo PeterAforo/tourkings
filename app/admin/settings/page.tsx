@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useEffect, useState, useCallback } from "react";
 import { Settings, Mail, Globe, Save, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
 import Card from "@/components/ui/Card";
@@ -43,7 +45,7 @@ export default function AdminSettingsPage() {
   const fetchSettings = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/settings");
+      const res = await csrfFetch("/api/admin/settings");
       if (!res.ok) throw new Error("Failed to load settings");
       const { settings: data } = await res.json();
 
@@ -74,7 +76,7 @@ export default function AdminSettingsPage() {
     setStatus(null);
 
     try {
-      const res = await fetch("/api/admin/settings", {
+      const res = await csrfFetch("/api/admin/settings", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(settings),

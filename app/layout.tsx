@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Manrope } from "next/font/google";
+import Providers from "@/components/Providers";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -53,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${plusJakarta.variable} ${manrope.variable}`}>
       <body className="font-body bg-surface text-on-surface antialiased">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

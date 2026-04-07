@@ -43,6 +43,7 @@ model User {
   lastName      String
   phone         String?
   role          Role           @default(CUSTOMER)
+  emailVerified Boolean        @default(false)
   avatarUrl     String?
   preferences   Json?
   createdAt     DateTime       @default(now())
@@ -193,4 +194,26 @@ model AdminActivityLog {
   metadata  Json?
   createdAt DateTime @default(now())
   admin     User     @relation("AdminActions", fields: [adminId], references: [id], onDelete: Cascade)
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email])
 }

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { contactSchema } from "@/lib/validators";
 import { sendEmail } from "@/lib/email";
 import { db } from "@/lib/db";
+import { escapeHtml } from "@/lib/sanitize";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
   try {
@@ -25,11 +27,11 @@ export async function POST(req: NextRequest) {
         subject: `Contact Form: ${data.subject}`,
         html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${data.name}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Subject:</strong> ${data.subject}</p>
+        <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+        <p><strong>Subject:</strong> ${escapeHtml(data.subject)}</p>
         <p><strong>Message:</strong></p>
-        <p>${data.message.replace(/\n/g, "<br>")}</p>
+        <p>${escapeHtml(data.message).replace(/\n/g, "<br>")}</p>
       `,
       });
       emailSent = true;
@@ -38,7 +40,7 @@ export async function POST(req: NextRequest) {
         data: { emailSent: true },
       });
     } catch (e) {
-      console.error("Contact email failed:", e);
+      logger.error("Contact email failed", "contact", e);
     }
 
     return NextResponse.json({

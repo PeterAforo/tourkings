@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import { Plus, Trash2, Search, Star, Edit } from "lucide-react";
 import Card from "@/components/ui/Card";
@@ -34,7 +36,7 @@ export default function AdminDestinationsPage() {
   useEffect(() => { fetchDestinations(); }, []);
 
   const fetchDestinations = () => {
-    fetch("/api/admin/destinations")
+    csrfFetch("/api/admin/destinations")
       .then((r) => r.json())
       .then((d) => setDestinations(d.destinations || []))
       .catch(() => {});
@@ -44,7 +46,7 @@ export default function AdminDestinationsPage() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await fetch("/api/admin/destinations", {
+      await csrfFetch("/api/admin/destinations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -57,7 +59,7 @@ export default function AdminDestinationsPage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this destination?")) return;
-    await fetch(`/api/admin/destinations/${id}`, { method: "DELETE" });
+    await csrfFetch(`/api/admin/destinations/${id}`, { method: "DELETE" });
     fetchDestinations();
   };
 
@@ -77,7 +79,7 @@ export default function AdminDestinationsPage() {
     if (!editingDest) return;
     setIsEditLoading(true);
     try {
-      const res = await fetch(`/api/admin/destinations/${editingDest.id}`, {
+      const res = await csrfFetch(`/api/admin/destinations/${editingDest.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editFormData),

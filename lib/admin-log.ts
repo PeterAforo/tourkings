@@ -1,5 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
+import { logger } from "@/lib/logger";
 
 export async function logAdminAction(
   adminId: string,
@@ -19,6 +20,6 @@ export async function logAdminAction(
       },
     });
   } catch (e) {
-    console.error("Admin activity log failed:", e);
+    logger.error("Admin activity log failed", "admin-log", e);
   }
 }

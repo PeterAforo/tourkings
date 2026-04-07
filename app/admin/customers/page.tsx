@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import { Users, Search, Wallet, Edit, Trash2 } from "lucide-react";
 import Card from "@/components/ui/Card";
@@ -29,7 +31,7 @@ export default function AdminCustomersPage() {
   const [isEditLoading, setIsEditLoading] = useState(false);
 
   const fetchCustomers = () => {
-    fetch("/api/admin/customers")
+    csrfFetch("/api/admin/customers")
       .then((r) => r.json())
       .then((d) => setCustomers(d.customers || []))
       .catch(() => {});
@@ -56,7 +58,7 @@ export default function AdminCustomersPage() {
     if (!editingCustomer) return;
     setIsEditLoading(true);
     try {
-      const res = await fetch(`/api/admin/customers/${editingCustomer.id}`, {
+      const res = await csrfFetch(`/api/admin/customers/${editingCustomer.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editForm),
@@ -70,7 +72,7 @@ export default function AdminCustomersPage() {
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this customer? This action cannot be undone.")) return;
     try {
-      await fetch(`/api/admin/customers/${id}`, { method: "DELETE" });
+      await csrfFetch(`/api/admin/customers/${id}`, { method: "DELETE" });
       fetchCustomers();
     } catch (err) { console.error(err); }
   };

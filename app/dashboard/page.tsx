@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { csrfFetch } from "@/lib/fetch-csrf";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Wallet, Calendar, TrendingUp, ArrowRight } from "lucide-react";
@@ -29,15 +30,15 @@ export default function DashboardPage() {
   const [suggestedPackages, setSuggestedPackages] = useState<{title: string; price: number; slug: string; currency: string}[]>([]);
 
   useEffect(() => {
-    fetch("/api/wallet")
+    csrfFetch("/api/wallet")
       .then((r) => r.json())
       .then((d) => {
         setWallet(d.wallet);
-        fetch("/api/wallet/check-packages", { method: "POST" }).catch(() => {});
+        csrfFetch("/api/wallet/check-packages", { method: "POST" }).catch(() => {});
       })
       .catch(() => {});
-    fetch("/api/bookings").then((r) => r.json()).then((d) => setBookings(d.bookings || [])).catch(() => {});
-    fetch("/api/packages?limit=4")
+    csrfFetch("/api/bookings").then((r) => r.json()).then((d) => setBookings(d.bookings || [])).catch(() => {});
+    csrfFetch("/api/packages?limit=4")
       .then((r) => r.json())
       .then((d) => {
         const pkgs = (d.packages || []).map((p: { title: string; price: number; slug: string; currency?: string }) => ({

@@ -79,10 +79,11 @@ export default function HowItWorks() {
                     Flexible Monthly Contributions
                   </li>
                 </ul>
-                <Link href="/register">
-                  <button className="bg-secondary text-white px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-secondary-container transition-colors font-headline">
-                    Open Your Vault
-                  </button>
+                <Link
+                  href="/login?next=/dashboard/contribute"
+                  className="inline-block bg-secondary text-white px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-secondary-container transition-colors font-headline text-center"
+                >
+                  Open Your Vault
                 </Link>
               </div>
             </motion.div>

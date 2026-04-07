@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
@@ -7,10 +9,12 @@ import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Card from "@/components/ui/Card";
+import { useToast } from "@/components/ui/Toast";
 import type { PublicSiteContent } from "@/lib/site-content-defaults";
 import { mergePublicSiteContent } from "@/lib/site-content-defaults";
 
 export default function ContactPage() {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -18,7 +22,7 @@ export default function ContactPage() {
   const [contact, setContact] = useState<PublicSiteContent["contact"] | null>(null);
 
   useEffect(() => {
-    fetch("/api/public/site-content")
+    csrfFetch("/api/public/site-content")
       .then((r) => r.json())
       .then((d) => {
         const c = d.content
@@ -34,7 +38,7 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setFeedback(null);
     try {
-      const res = await fetch("/api/contact", {
+      const res = await csrfFetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -44,10 +48,10 @@ export default function ContactPage() {
         setSubmitted(true);
         setFeedback(typeof data.message === "string" ? data.message : null);
       } else {
-        alert(data.error || "Failed to send message");
+        toast(data.error || "Failed to send message", "error");
       }
     } catch {
-      alert("Something went wrong. Please try again.");
+      toast("Something went wrong. Please try again.", "error");
     } finally {
       setIsSubmitting(false);
     }

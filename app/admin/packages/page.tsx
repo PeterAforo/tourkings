@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import {
   Package,
@@ -72,14 +74,14 @@ export default function AdminPackagesPage() {
   }, []);
 
   const fetchPackages = () => {
-    fetch("/api/admin/packages")
+    csrfFetch("/api/admin/packages")
       .then((r) => r.json())
       .then((d) => setPackages(d.packages || []))
       .catch(() => {});
   };
 
   const fetchDestinations = () => {
-    fetch("/api/admin/destinations")
+    csrfFetch("/api/admin/destinations")
       .then((r) => r.json())
       .then((d) => setDestinations(d.destinations || []))
       .catch(() => {});
@@ -141,7 +143,7 @@ export default function AdminPackagesPage() {
       const url = editingPkg
         ? `/api/admin/packages/${editingPkg.id}`
         : "/api/admin/packages";
-      await fetch(url, {
+      await csrfFetch(url, {
         method: editingPkg ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -157,7 +159,7 @@ export default function AdminPackagesPage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this package?")) return;
-    await fetch(`/api/admin/packages/${id}`, { method: "DELETE" });
+    await csrfFetch(`/api/admin/packages/${id}`, { method: "DELETE" });
     fetchPackages();
   };
 
@@ -166,7 +168,7 @@ export default function AdminPackagesPage() {
     field: "active" | "featured",
     current: boolean
   ) => {
-    await fetch(`/api/admin/packages/${id}`, {
+    await csrfFetch(`/api/admin/packages/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ [field]: !current }),

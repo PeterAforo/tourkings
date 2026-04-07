@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { sendEmail, paymentConfirmationHtml, walletThresholdHtml } from "@/lib/email";
+import { logger } from "@/lib/logger";
 
 /**
  * Marks a payment successful and runs wallet credit or booking confirmation.
@@ -79,7 +80,7 @@ export async function finalizePaymentSuccess(paymentId: string, providerRef: str
             newBalance,
             wallet.currency
           ),
-        }).catch(console.error);
+        }).catch((e) => logger.error("Wallet threshold email failed", "finalize-payment", e));
       }
     }
   } else if (payment.type === "BOOKING" && payment.bookingId) {
@@ -96,7 +97,7 @@ export async function finalizePaymentSuccess(paymentId: string, providerRef: str
     to: payment.user.email,
     subject: "Payment Confirmed - TourKings",
     html: paymentConfirmationHtml(payment.amount, payment.currency, payment.type),
-  }).catch(console.error);
+  }).catch((e) => logger.error("Payment confirmation email failed", "finalize-payment", e));
 
   return { ok: true, alreadyDone: false };
 }

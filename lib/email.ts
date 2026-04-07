@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { logger } from "@/lib/logger";
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -18,7 +19,7 @@ interface EmailOptions {
 
 export async function sendEmail({ to, subject, html }: EmailOptions) {
   if (!process.env.SMTP_USER) {
-    console.log(`[Email] Would send to ${to}: ${subject}`);
+    logger.info(`Would send to ${to}: ${subject}`, "email");
     return;
   }
 
@@ -80,6 +81,44 @@ export function walletThresholdHtml(firstName: string, packageTitle: string, pac
           <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard/wallet" style="background: #D4A017; color: #0F0F1A; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">Book Now</a>
         </div>
         <p style="font-size: 14px; color: #888;">Not ready yet? No worries — your savings will keep growing for even bigger adventures!</p>
+      </div>
+    </div>
+  `;
+}
+
+export function emailVerificationHtml(firstName: string, verifyLink: string): string {
+  return `
+    <div style="font-family: 'Georgia', serif; max-width: 600px; margin: 0 auto; background: #0F0F1A; color: #fff; border-radius: 12px; overflow: hidden;">
+      <div style="background: linear-gradient(135deg, #D4A017, #B8860B); padding: 40px 30px; text-align: center;">
+        <h1 style="margin: 0; font-size: 28px; color: #0F0F1A;">Verify Your Email</h1>
+      </div>
+      <div style="padding: 30px;">
+        <p style="font-size: 16px; line-height: 1.6;">Hi ${firstName},</p>
+        <p style="font-size: 16px; line-height: 1.6;">Thank you for signing up with TourKings! Please verify your email address by clicking the button below. This link expires in 24 hours.</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${verifyLink}" style="background: #D4A017; color: #0F0F1A; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">Verify Email</a>
+        </div>
+        <p style="font-size: 14px; color: #888;">If you didn't create an account, you can safely ignore this email.</p>
+        <p style="font-size: 14px; color: #888;">The TourKings Team</p>
+      </div>
+    </div>
+  `;
+}
+
+export function passwordResetHtml(firstName: string, resetLink: string): string {
+  return `
+    <div style="font-family: 'Georgia', serif; max-width: 600px; margin: 0 auto; background: #0F0F1A; color: #fff; border-radius: 12px; overflow: hidden;">
+      <div style="background: linear-gradient(135deg, #D4A017, #B8860B); padding: 40px 30px; text-align: center;">
+        <h1 style="margin: 0; font-size: 28px; color: #0F0F1A;">Reset Your Password</h1>
+      </div>
+      <div style="padding: 30px;">
+        <p style="font-size: 16px; line-height: 1.6;">Hi ${firstName},</p>
+        <p style="font-size: 16px; line-height: 1.6;">We received a request to reset your TourKings password. Click the button below to set a new password. This link will expire in 1 hour.</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${resetLink}" style="background: #D4A017; color: #0F0F1A; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">Reset Password</a>
+        </div>
+        <p style="font-size: 14px; color: #888;">If you didn't request this, you can safely ignore this email — your password will remain unchanged.</p>
+        <p style="font-size: 14px; color: #888;">The TourKings Team</p>
       </div>
     </div>
   `;

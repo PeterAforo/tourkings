@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
+import { validateCsrf, setCsrfCookie } from "@/lib/csrf";
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "fallback-secret"
-);
+if (!process.env.JWT_SECRET) {
+  throw new Error("JWT_SECRET environment variable is required");
+}
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 
 const protectedPaths = ["/dashboard", "/admin"];
 const authPaths = ["/login", "/register"];
@@ -11,6 +13,14 @@ const authPaths = ["/login", "/register"];
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const token = req.cookies.get("token")?.value;
+
+  // CSRF validation for state-changing API requests
+  if (pathname.startsWith("/api/")) {
+    if (!validateCsrf(req)) {
+      return NextResponse.json({ error: "Invalid CSRF token" }, { status: 403 });
+    }
+    return NextResponse.next();
+  }
 
   const isProtected = protectedPaths.some((p) => pathname.startsWith(p));
   const isAuthPage = authPaths.some((p) => pathname.startsWith(p));
@@ -42,9 +52,20 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  // Set CSRF cookie on page responses if not already set
+  const response = NextResponse.next();
+  if (!req.cookies.get("csrf_token")?.value) {
+    setCsrfCookie(response);
+  }
+  return response;
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/admin/:path*", "/login", "/register"],
+  matcher: [
+    "/dashboard/:path*",
+    "/admin/:path*",
+    "/login",
+    "/register",
+    "/api/:path*",
+  ],
 };

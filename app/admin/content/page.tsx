@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useEffect, useState, useCallback } from "react";
 import { Save, FileText, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
 import Card from "@/components/ui/Card";
@@ -30,7 +32,7 @@ export default function AdminContentPage() {
   const fetchContent = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/content");
+      const res = await csrfFetch("/api/admin/content");
       if (!res.ok) throw new Error("Failed to load content");
       const { content: data } = await res.json();
 
@@ -94,7 +96,7 @@ export default function AdminContentPage() {
 
       const results = await Promise.all(
         changes.map((body) =>
-          fetch("/api/admin/content", {
+          csrfFetch("/api/admin/content", {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
@@ -128,8 +130,16 @@ export default function AdminContentPage() {
 
   return (
     <div className="max-w-3xl space-y-8">
+      <div className="rounded-xl border border-outline-variant/15 bg-gradient-to-r from-primary/10 via-surface to-secondary-fixed/10 p-6 sm:p-8 adventure-tile relative overflow-hidden">
+        <p className="text-[10px] uppercase tracking-widest text-secondary font-bold mb-2">Site management</p>
+        <h2 className="text-xl font-headline font-bold text-on-surface">Public content &amp; messaging</h2>
+        <p className="text-on-surface-variant text-sm mt-2 max-w-xl">
+          Update hero copy, about text, and contact details shown on the marketing site. Changes save to the database per field.
+        </p>
+      </div>
+
       {/* Hero Section */}
-      <Card className="p-6">
+      <Card className="p-6 border border-outline-variant/15">
         <h2 className="text-lg font-headline font-bold text-on-surface mb-6 flex items-center gap-2">
           <FileText size={20} className="text-primary" /> Hero Section
         </h2>

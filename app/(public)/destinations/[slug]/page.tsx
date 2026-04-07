@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
@@ -42,7 +44,7 @@ export default function DestinationDetailPage() {
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    fetch(`/api/destinations/${slug}`)
+    csrfFetch(`/api/destinations/${slug}`)
       .then((r) => {
         if (!r.ok) throw new Error("Not found");
         return r.json();

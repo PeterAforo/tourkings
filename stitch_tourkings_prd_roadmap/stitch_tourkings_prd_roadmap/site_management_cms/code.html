@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TourKings Admin - The Royal Navigator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "outline-variant": "#c3c6d2",
+                        "on-surface-variant": "#424751",
+                        "on-secondary-fixed-variant": "#663e00",
+                        "on-primary-fixed-variant": "#05458c",
+                        "secondary-container": "#ffa522",
+                        "primary": "#003b7a",
+                        "surface": "#fff8f5",
+                        "primary-fixed": "#d6e3ff",
+                        "tertiary-fixed-dim": "#ffb59f",
+                        "surface-bright": "#fff8f5",
+                        "on-tertiary-fixed-variant": "#862200",
+                        "on-tertiary-container": "#ffb59f",
+                        "on-primary-fixed": "#001b3e",
+                        "on-surface": "#1f1b18",
+                        "surface-container": "#f6ece7",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#aac7ff",
+                        "tertiary-container": "#9b2900",
+                        "primary-fixed-dim": "#aac7ff",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#1d5299",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#2b1700",
+                        "inverse-surface": "#342f2c",
+                        "tertiary-fixed": "#ffdbd1",
+                        "surface-container-highest": "#eae1db",
+                        "secondary": "#865300",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#ffddb9",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#fbf2ec",
+                        "on-tertiary-fixed": "#3a0a00",
+                        "on-background": "#1f1b18",
+                        "surface-dim": "#e1d8d3",
+                        "error": "#ba1a1a",
+                        "tertiary": "#731c00",
+                        "on-secondary-container": "#694000",
+                        "surface-container-high": "#f0e6e1",
+                        "secondary-fixed-dim": "#ffb963",
+                        "on-primary-container": "#abc7ff",
+                        "inverse-on-surface": "#f8efea",
+                        "outline": "#737782",
+                        "background": "#fff8f5",
+                        "surface-variant": "#eae1db",
+                        "surface-tint": "#2d5ea5"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-layering { background-color: #fbf2ec; }
+        .adventure-tile { position: relative; overflow: hidden; }
+        .adventure-tile::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l10 20h20L40 30l10 20-20-10-20 10 10-20L0 20h20z' fill='%23865300' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- SideNavBar Anchor -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-stone-200/10 bg-stone-50 dark:bg-stone-900 flex flex-col p-6 space-y-4 z-50">
+<div class="mb-8">
+<h1 class="text-lg font-black text-blue-900 dark:text-stone-100 font-headline">TourKings</h1>
+<p class="text-[10px] uppercase tracking-widest text-secondary font-bold">Royal Navigator</p>
+</div>
+<div class="flex items-center space-x-3 mb-8 p-3 rounded-xl bg-surface-container-highest">
+<img alt="Admin Portrait" class="w-10 h-10 rounded-lg object-cover" data-alt="Professional portrait of a sophisticated male executive in a royal blue suit against a soft neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUyGid6orPL55V3n2OC4eOsPmqYU7PjPsZ74VJ3Q4KGtZeC0yhd3cI34mJu3WQUtEvuzESmT7GUwWBKqO6xmCQQX6Gs8dx5XX77TPqW4QdswykjGwKSVKABa-IooPRG0PoCGTNiZ5JkalQd2dKO9Ae7fwJl4QFveHhCKVt5GZUVKPyRbRZzkNMka3NbyogCQZIARTMI7wBs8gydHE0TUjxqUJSTfyKpMIIdGGlP2g8shIxuMkvnrnCgxlPiZuap-YtJAiH57ouFg"/>
+<div>
+<p class="font-bold text-xs font-headline">Voyager Admin</p>
+<p class="text-[10px] text-on-surface-variant">Royal Concierge Level</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active: Dashboard -->
+<a class="flex items-center space-x-3 p-3 bg-white dark:bg-stone-800 text-blue-900 dark:text-blue-300 rounded-lg shadow-sm font-bold transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm font-manrope">Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 p-3 text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800/50 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="text-sm font-manrope">Manage Tours</span>
+</a>
+<a class="flex items-center space-x-3 p-3 text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800/50 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="text-sm font-manrope">Destinations</span>
+</a>
+<a class="flex items-center space-x-3 p-3 text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800/50 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="text-sm font-manrope">Contributions</span>
+</a>
+<a class="flex items-center space-x-3 p-3 text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800/50 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="text-sm font-manrope">Analytics</span>
+</a>
+</nav>
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary py-3 px-4 rounded-lg font-bold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+<span>Create New Tour</span>
+</button>
+<div class="pt-6 border-t border-stone-200/10 space-y-1">
+<a class="flex items-center space-x-3 p-3 text-stone-500 dark:text-stone-400 hover:bg-stone-100 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm font-manrope">Settings</span>
+</a>
+<a class="flex items-center space-x-3 p-3 text-stone-500 dark:text-stone-400 hover:bg-stone-100 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="text-sm font-manrope">Support</span>
+</a>
+</div>
+</aside>
+<main class="ml-64 min-h-screen p-10 bg-surface">
+<!-- Header -->
+<header class="flex justify-between items-end mb-12">
+<div>
+<p class="text-secondary font-bold text-xs tracking-widest uppercase mb-2">Morning, Commander</p>
+<h2 class="text-4xl font-headline font-extrabold text-primary tracking-tight">Executive Overview</h2>
+</div>
+<div class="flex space-x-4">
+<div class="bg-surface-container-low px-4 py-2 rounded-lg flex items-center space-x-3">
+<span class="material-symbols-outlined text-secondary" data-icon="calendar_today">calendar_today</span>
+<span class="text-sm font-bold">Oct 24 - Nov 24</span>
+</div>
+<button class="p-2 rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<!-- Bento Grid Analytics -->
+<section class="grid grid-cols-12 gap-6 mb-12">
+<div class="col-span-12 lg:col-span-8 grid grid-cols-3 gap-6">
+<!-- Revenue Card -->
+<div class="adventure-tile bg-surface-container-lowest p-8 rounded-xl shadow-sm col-span-3 md:col-span-1">
+<div class="flex justify-between items-start mb-6">
+<div class="p-2 bg-primary-fixed rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+</div>
+<span class="text-emerald-600 text-xs font-bold flex items-center">
+<span class="material-symbols-outlined text-xs mr-1" data-icon="trending_up">trending_up</span> 12%
+                        </span>
+</div>
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Total Revenue</p>
+<h3 class="text-2xl font-headline font-extrabold text-on-surface">$142,850</h3>
+</div>
+<!-- Active Tours -->
+<div class="adventure-tile bg-surface-container-lowest p-8 rounded-xl shadow-sm col-span-3 md:col-span-1">
+<div class="flex justify-between items-start mb-6">
+<div class="p-2 bg-secondary-fixed rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="travel_explore">travel_explore</span>
+</div>
+<span class="text-secondary text-xs font-bold">Active Now</span>
+</div>
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Active Tours</p>
+<h3 class="text-2xl font-headline font-extrabold text-on-surface">34</h3>
+</div>
+<!-- Contributions -->
+<div class="adventure-tile bg-surface-container-lowest p-8 rounded-xl shadow-sm col-span-3 md:col-span-1">
+<div class="flex justify-between items-start mb-6">
+<div class="p-2 bg-tertiary-fixed rounded-lg">
+<span class="material-symbols-outlined text-tertiary" data-icon="diversity_3">diversity_3</span>
+</div>
+<span class="text-on-surface-variant text-xs font-bold">New Today</span>
+</div>
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Contributions</p>
+<h3 class="text-2xl font-headline font-extrabold text-on-surface">1.2k</h3>
+</div>
+<!-- Main Chart Area -->
+<div class="col-span-3 bg-surface-container-low rounded-2xl p-8 relative overflow-hidden h-64">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-headline font-bold text-lg">Booking Velocity</h4>
+<div class="flex space-x-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+</div>
+</div>
+<!-- Placeholder for visual depth -->
+<div class="absolute bottom-0 left-0 w-full h-32 opacity-20">
+<svg class="w-full h-full preserve-3d" viewbox="0 0 800 200">
+<path d="M0 150 Q 200 50, 400 120 T 800 80" fill="none" stroke="var(--primary)" stroke-width="4"></path>
+<path d="M0 180 Q 200 100, 400 150 T 800 120" fill="none" stroke="var(--secondary)" stroke-width="4"></path>
+</svg>
+</div>
+<div class="relative z-10 flex items-end justify-between h-32 px-4">
+<div class="w-8 bg-primary rounded-t-sm h-12"></div>
+<div class="w-8 bg-primary/80 rounded-t-sm h-24"></div>
+<div class="w-8 bg-primary rounded-t-sm h-16"></div>
+<div class="w-8 bg-primary/90 rounded-t-sm h-32"></div>
+<div class="w-8 bg-primary rounded-t-sm h-20"></div>
+<div class="w-8 bg-primary/70 rounded-t-sm h-28"></div>
+<div class="w-8 bg-secondary rounded-t-sm h-40"></div>
+</div>
+</div>
+</div>
+<!-- Featured Tour Management -->
+<div class="col-span-12 lg:col-span-4 bg-primary text-on-primary p-8 rounded-2xl flex flex-col justify-between overflow-hidden relative">
+<div class="relative z-10">
+<h4 class="font-headline font-extrabold text-xl mb-4 tracking-tight">Expedition Spotlight</h4>
+<div class="bg-white/10 backdrop-blur-md p-4 rounded-xl mb-6">
+<img class="w-full h-32 object-cover rounded-lg mb-4 shadow-xl" data-alt="Stunning aerial view of Cape Coast Castle at sunset with deep orange sky and crashing Atlantic waves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaq9oa5Clg-R6YnmX_zxE1S2yv3TtGACntmNUbJ47IyQ-Yc_FG34Lb7pGgxoWe4jYQmyzdb44Rn6L5VtjY3pD-0G0xHpDgZHbbITi3UAoNWFK7tLSnPdmucHyxXVUX9ocqbp3TsSFhDV7KLkz83PbrBN0Dpr-t1IBJjBKUqjYRDAs9S7WPNLA8QwT2a650tEHiaz_jQskbgbNyahWH0a1Y_CJ96CPWfbN_QFCQ7q21Xu2bOSaLpUsPzf1M0A_pxKbwWh6qw64nnQ"/>
+<p class="font-bold text-sm">Castle of Heritage Tour</p>
+<p class="text-xs text-on-primary/70">8 Destinations • Luxury Transport</p>
+</div>
+</div>
+<div class="relative z-10">
+<button class="w-full py-3 bg-secondary text-on-secondary font-bold rounded-lg hover:scale-[1.02] transition-transform">
+                        Manage Package
+                    </button>
+<p class="text-center text-[10px] uppercase mt-4 tracking-widest text-on-primary/50">Last updated 2h ago</p>
+</div>
+<!-- Abstract Design Element -->
+<div class="absolute -bottom-10 -right-10 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
+</div>
+</section>
+<!-- Management Section Tabs -->
+<div class="mb-8 border-b border-outline-variant/15 flex space-x-12">
+<button class="pb-4 text-sm font-bold text-primary border-b-2 border-secondary relative">
+                Tour Packages
+            </button>
+<button class="pb-4 text-sm font-bold text-on-surface-variant hover:text-primary transition-colors">
+                User Vaults
+            </button>
+<button class="pb-4 text-sm font-bold text-on-surface-variant hover:text-primary transition-colors">
+                Contributions
+            </button>
+</div>
+<!-- Tour Management Table -->
+<section class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm">
+<div class="p-6 flex justify-between items-center border-b border-surface-container-high">
+<h3 class="font-headline font-bold text-lg">Active Destinations</h3>
+<div class="flex space-x-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg text-sm focus:ring-1 focus:ring-primary w-64" placeholder="Filter tours..." type="text"/>
+</div>
+<button class="px-4 py-2 bg-surface-container-highest text-primary text-xs font-bold rounded-lg flex items-center space-x-2">
+<span class="material-symbols-outlined text-sm" data-icon="tune">tune</span>
+<span>Filter</span>
+</button>
+</div>
+</div>
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low/50 text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">
+<th class="px-8 py-4">Destination</th>
+<th class="px-6 py-4">Category</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4">Bookings</th>
+<th class="px-6 py-4">Revenue</th>
+<th class="px-8 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-4">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Vibrant close-up of traditional Ghanaian kente cloth with intricate geometric patterns in gold, red and green" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANwg0o3fs5eBYPaGgUc8KFsEIl5pMC08kq7HOTrckjw_nJWQwKBbn1AroPxhjpOVK5rJyiigjvB6DjVd_HW3_sAzGeVSZzipNUhGjwogbCyvmzpjsXdpYDpmGlBcojVb-txsMciKa5C86XGm9yEzWYow1EwFS42QCeAdKXOs9zcPBR-00bkL3StuwL-2lLwiWi_3za2Yi2MbLq-G4wlfhV_EIU8bZXFD7Hf9Jp3fj32u8E-87i-ywjIuthsfGYyHQp76ikb7_L9Q"/>
+</div>
+<div>
+<p class="font-bold text-sm">Kumasi Cultural Trail</p>
+<p class="text-xs text-on-surface-variant">Ashanti Region</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-xs font-bold px-2 py-1 bg-tertiary-fixed text-tertiary rounded">Heritage</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-medium">Live</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-xs font-bold">1,248</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-xs font-bold">$24,900</p>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="p-2 hover:bg-white rounded-full transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-white rounded-full transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-sm text-error" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-4">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Luxury safari vehicle parked in a grassy savannah under a sprawling acacia tree at midday" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFy8DCbi8wVyoKIsYBoH5Lpgq4ucSpOeVCQbS9z3l8wxd71N2E7vNadNTKTmiKi9i_d1LQQ0oH98qRo0Eg8GfCii9dk2MoRsLIKxwP1nZcg0907EjRLmNKifjVlBCUVhtOaYYMZzETnyeU6ZBE_N-IAYt62zGh1kzM2Mt-CYRuZJHyqi83_AN7redqae1SQKIiDK8r8FDVxeoTuIohXM0x7SDaYzSBDPxQsoWOrdrguC7Kr2yWhXk-L6t6RqPYkLekJyb_0Q0kTw"/>
+</div>
+<div>
+<p class="font-bold text-sm">Mole Safari Expedition</p>
+<p class="text-xs text-on-surface-variant">Northern Region</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-xs font-bold px-2 py-1 bg-secondary-fixed text-secondary rounded">Adventure</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-medium">Live</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-xs font-bold">892</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-xs font-bold">$42,100</p>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="p-2 hover:bg-white rounded-full transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-white rounded-full transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-sm text-error" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-4">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Stunning white sand beach at Ada Foah with leaning palm trees and calm turquoise water" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzV5M5n6qvtTa5RMwjdw7x-ZW1CXwRNJ-TGBYfM3ZF69VmOY3ssQCndtMS1vwtjSXZFmc-nYx25T_edGCwKwlL2OTJXnh_XN3o1dgJKYiMO_6AFMqURNC8p9IpyfkJyB76cQpklZ0FxE4HBu6HgPFVwyZM0nsUXnYYQaYoiZHTGEIG1C9w6uQFtVc4CWrxi7-nxHj4OH4IJG6eGJyJFyDP-1sMCaPMWllWwOav8FrdWPJz7SORGCY4-OFLrm61xXhMvF3dOm8-hw"/>
+</div>
+<div>
+<p class="font-bold text-sm">Ada Foah Coastal Escape</p>
+<p class="text-xs text-on-surface-variant">Greater Accra</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-xs font-bold px-2 py-1 bg-primary-fixed text-primary rounded">Luxury</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span class="text-xs font-medium">Draft</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-xs font-bold">--</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-xs font-bold">--</p>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="p-2 hover:bg-white rounded-full transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-white rounded-full transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-sm text-error" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-6 flex justify-between items-center bg-surface-container-low/30">
+<p class="text-xs text-on-surface-variant">Showing 3 of 42 tour packages</p>
+<div class="flex space-x-2">
+<button class="p-2 rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span></button>
+<button class="px-3 py-1 bg-primary text-on-primary rounded text-xs font-bold">1</button>
+<button class="px-3 py-1 hover:bg-surface-container-high rounded text-xs font-bold">2</button>
+<button class="px-3 py-1 hover:bg-surface-container-high rounded text-xs font-bold">3</button>
+<button class="p-2 rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Anchor -->
+<footer class="ml-64 w-[calc(100%-16rem)] py-12 border-t border-stone-200/10 bg-stone-50 dark:bg-stone-950 flex flex-col md:flex-row justify-between items-center px-12 space-y-6 md:space-y-0">
+<div>
+<p class="font-plus-jakarta font-bold text-stone-900 dark:text-white mb-2">TourKings</p>
+<p class="font-manrope text-xs tracking-wide uppercase text-stone-500 dark:text-stone-400">© 2024 TourKings. The Royal Navigator of Ghana.</p>
+</div>
+<div class="flex space-x-8">
+<a class="font-manrope text-xs tracking-wide uppercase text-stone-500 dark:text-stone-400 hover:text-amber-500 transition-colors duration-300" href="#">Privacy Policy</a>
+<a class="font-manrope text-xs tracking-wide uppercase text-stone-500 dark:text-stone-400 hover:text-amber-500 transition-colors duration-300" href="#">Heritage Terms</a>
+<a class="font-manrope text-xs tracking-wide uppercase text-stone-500 dark:text-stone-400 hover:text-amber-500 transition-colors duration-300" href="#">Luxury Concierge</a>
+<a class="font-manrope text-xs tracking-wide uppercase text-stone-500 dark:text-stone-400 hover:text-amber-500 transition-colors duration-300" href="#">Contact</a>
+</div>
+</footer>
+</body></html>

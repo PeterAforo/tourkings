@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +28,7 @@ export default function FeaturedPackages() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/packages?featured=true&limit=3")
+    csrfFetch("/api/packages?featured=true&limit=3")
       .then((r) => r.json())
       .then((d) => setPackages(d.packages || []))
       .catch(() => {})
@@ -70,7 +72,7 @@ export default function FeaturedPackages() {
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {packages.map((pkg, idx) => (
             <StaggerItem key={pkg.id}>
-              <Link href={`/packages/${pkg.slug}`}>
+              <Link href={`/packages/${pkg.slug}${idx % 2 === 1 ? "?v=2" : ""}`}>
                 <div className="group bg-surface-container-low rounded-xl overflow-hidden hover:translate-y-[-8px] transition-all duration-500">
                   <div className="h-72 relative overflow-hidden">
                     <Image

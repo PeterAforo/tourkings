@@ -1,6 +1,8 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { csrfFetch } from "@/lib/fetch-csrf";
+
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,11 +11,13 @@ import {
   Clock, Users, MapPin, X, ArrowLeft, Wallet, Star,
   Bus, Hotel, Sparkles, ChevronDown, UtensilsCrossed,
   Wifi, Waves, Dumbbell, Shield, Camera, Gift, Map,
-  CheckCircle, Phone,
+  CheckCircle,   Phone,
+  Info,
 } from "lucide-react";
 import FadeIn from "@/components/animations/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer";
 import Button from "@/components/ui/Button";
+import { useToast } from "@/components/ui/Toast";
 import { formatCurrency, cn } from "@/lib/utils";
 
 interface ItineraryDay {
@@ -93,7 +97,11 @@ function getCategoryIcon(category: string) {
 export default function PackageDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { toast } = useToast();
   const slug = params.slug as string;
+  const isVariant2 =
+    searchParams.get("v") === "2" || searchParams.get("variant") === "2";
   const [pkg, setPkg] = useState<PackageData | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAllDays, setShowAllDays] = useState(false);
@@ -103,7 +111,7 @@ export default function PackageDetailPage() {
   const [bookingLoading, setBookingLoading] = useState(false);
 
   useEffect(() => {
-    fetch(`/api/packages/${slug}`)
+    csrfFetch(`/api/packages/${slug}`)
       .then((r) => r.json())
       .then((d) => {
         if (d.package) setPkg(d.package);
@@ -139,14 +147,14 @@ export default function PackageDetailPage() {
   const handleBookNow = async () => {
     setBookingLoading(true);
     try {
-      const authRes = await fetch("/api/auth/me");
+      const authRes = await csrfFetch("/api/auth/me");
       const authData = await authRes.json();
       if (!authData?.user) {
         router.push("/login");
         return;
       }
 
-      const bookingRes = await fetch("/api/bookings", {
+      const bookingRes = await csrfFetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ packageId: pkg.id, travelDate: travelDate || undefined, travelers }),
@@ -154,14 +162,14 @@ export default function PackageDetailPage() {
       const bookingData = await bookingRes.json();
       if (!bookingData.booking) throw new Error("Booking failed");
 
-      const payRes = await fetch("/api/payments/initialize", {
+      const payRes = await csrfFetch("/api/payments/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: pkg.price * travelers, type: "BOOKING", bookingId: bookingData.booking.id }),
       });
       const payData = await payRes.json();
       if (!payRes.ok) {
-        alert(payData.error || "Payment initialization failed.");
+        toast(payData.error || "Payment initialization failed.", "error");
         return;
       }
       const verifyUrl = `/dashboard/payments/verify?paymentId=${payData.paymentId}`;
@@ -174,20 +182,20 @@ export default function PackageDetailPage() {
         return;
       }
       if (payData.paymentInstruction) {
-        alert(payData.paymentInstruction);
+        toast(payData.paymentInstruction, "info", 8000);
         window.location.href = verifyUrl;
         return;
       }
       window.location.href = verifyUrl;
     } catch {
-      alert("Something went wrong. Please try again.");
+      toast("Something went wrong. Please try again.", "error");
     } finally {
       setBookingLoading(false);
     }
   };
 
   const handleVaultSave = async () => {
-    const authRes = await fetch("/api/auth/me");
+    const authRes = await csrfFetch("/api/auth/me");
     const authData = await authRes.json();
     if (authData?.user) {
       router.push("/dashboard/wallet");
@@ -198,7 +206,25 @@ export default function PackageDetailPage() {
 
   return (
     <div className="min-h-screen bg-surface font-body text-on-surface">
-      {/* Hero Section: Editorial Asymmetry */}
+      {isVariant2 && (
+        <div className="bg-primary-container/10 border-b border-primary/10 py-3 px-6 md:px-8">
+          <div className="max-w-7xl mx-auto flex items-center gap-3">
+            <Info className="text-primary shrink-0" size={18} />
+            <p className="text-sm font-semibold text-primary-fixed-dim">
+              Next steps: build out your{" "}
+              <Link href="/dashboard/profile" className="underline underline-offset-2 hover:text-primary">
+                traveller profile
+              </Link>{" "}
+              and speak to us about{" "}
+              <Link href="/contact" className="underline underline-offset-2 hover:text-primary">
+                custom itineraries
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      )}
+      {/* Hero Section: Editorial Asymmetry — variant 1 default; ?v=2 adds roadmap banner above */}
       <section className="relative h-[500px] md:h-[700px] lg:h-[870px] w-full overflow-hidden">
         <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-12 h-full">
           {/* Large Image — 8 cols */}

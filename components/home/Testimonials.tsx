@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
@@ -13,7 +15,7 @@ export default function Testimonials() {
   const [items, setItems] = useState<PublicSiteContent["testimonials"]["items"]>([]);
 
   useEffect(() => {
-    fetch("/api/public/site-content")
+    csrfFetch("/api/public/site-content")
       .then((r) => r.json())
       .then((d) => {
         const c = d.content

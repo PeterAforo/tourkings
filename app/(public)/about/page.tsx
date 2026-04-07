@@ -1,5 +1,7 @@
 "use client";
 
+import { csrfFetch } from "@/lib/fetch-csrf";
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -33,7 +35,7 @@ export default function AboutPage() {
   const [about, setAbout] = useState<PublicSiteContent["about"] | null>(null);
 
   useEffect(() => {
-    fetch("/api/public/site-content")
+    csrfFetch("/api/public/site-content")
       .then((r) => r.json())
       .then((d) => {
         const c = d.content

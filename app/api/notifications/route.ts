@@ -39,6 +39,13 @@ export async function PATCH(req: NextRequest) {
     }
 
     if (body.notificationId) {
+      const notification = await db.notification.findUnique({
+        where: { id: body.notificationId },
+        select: { userId: true },
+      });
+      if (!notification || notification.userId !== session.userId) {
+        return NextResponse.json({ error: "Notification not found" }, { status: 404 });
+      }
       await db.notification.update({
         where: { id: body.notificationId },
         data: { read: true },
